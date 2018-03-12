@@ -2,9 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 
-after_install:
+before_install:
   - gradle wrapper --gradle-version=4.6
-
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
