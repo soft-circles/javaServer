@@ -35,7 +35,7 @@ class HttpRequestTest {
 
     @Test
     void path() {
-        assertEquals("t", httpRequest.path());
+        assertEquals("/", httpRequest.path());
     }
 
     @Test
