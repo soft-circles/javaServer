@@ -15,7 +15,9 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform() {
-        includeEngines 'junit-jupiter', 'junit-vintage'
+    useJUnitPlatform()
+    testLogging {
+        // to see the exceptions of failed tests in Travis-CI console.
+        exceptionFormat = 'full'
     }
 }
