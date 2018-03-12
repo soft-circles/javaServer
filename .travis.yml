@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 
-before_install:
+after_install:
   - gradle wrapper --gradle-version=4.6
 
 
