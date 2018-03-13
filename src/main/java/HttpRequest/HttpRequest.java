@@ -9,15 +9,7 @@ public class HttpRequest implements IHttpRequest {
     private HashMap<String, String> headers, params;
 
     public HttpRequest(BufferedReader reader) throws IOException {
-        parseRequestLine(reader.readLine());
-    }
-
-    private void parseRequestLine(String requestLine) {
-        this.requestLine = requestLine;
-        this.method = requestLine.split(" ")[0];
-        String pathAndParameters[] = requestLine.split(" ")[1].split("\\?", 2);
-        this.path = pathAndParameters[0];
-        this.version = requestLine.split(" ")[2];
+//        parseRequestLine(reader.readLine());
     }
 
     @Override
