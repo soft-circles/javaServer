@@ -17,3 +17,10 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jar {
+    manifest {
+        attributes "Main-Class": "Main"
+        attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
+    }
+}
