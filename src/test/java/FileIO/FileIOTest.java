@@ -15,21 +15,21 @@ class FileIOTest {
         fileIO = new FileIO(FileSystems.getDefault().getPath("./src/test/java/FileIO/").toAbsolutePath().toString());
     }
 
-    @Test
-    void exists() {
-        assertFalse(fileIO.exists("/foo"));
-        assertTrue(fileIO.exists("/TestDirectory.txt"));
-    }
+//    @Test
+//    void exists() {
+//        assertFalse(fileIO.exists("/foo"));
+//        assertTrue(fileIO.exists("/TestDirectory.txt"));
+//    }
 
-    @Test
-    void isFile() {
-        assertFalse(fileIO.isFile("/foo"));
-        assertTrue(fileIO.isFile("/TestDirectory.txt"));
-    }
+//    @Test
+//    void isFile() {
+//        assertFalse(fileIO.isFile("/foo"));
+//        assertTrue(fileIO.isFile("/TestDirectory.txt"));
+//    }
 
-    @Test
-    void isDirectory() {
-        assertTrue(fileIO.isDirectory("/TestDirectory"));
-        assertFalse(fileIO.isDirectory("/foo"));
-    }
+//    @Test
+//    void isDirectory() {
+//        assertTrue(fileIO.isDirectory("/TestDirectory"));
+//        assertFalse(fileIO.isDirectory("/foo"));
+//    }
 }
