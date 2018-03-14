@@ -1,23 +1,19 @@
 package HttpRequest;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class HttpRequest implements IHttpRequest {
     private String method, version, path, requestLine;
     private HashMap<String, String> headers, params;
+    private HttpRequestParser httpRequestParser;
 
-    public HttpRequest(BufferedReader reader) throws IOException {
-        parseRequestLine(reader.readLine());
-    }
-
-    private void parseRequestLine(String requestLine) {
-        this.requestLine = requestLine;
-        this.method = requestLine.split(" ")[0];
-        String pathAndParameters[] = requestLine.split(" ")[1].split("\\?", 2);
-        this.path = pathAndParameters[0];
-        this.version = requestLine.split(" ")[2];
+    public HttpRequest(String request) {
+        httpRequestParser = new HttpRequestParser(request);
+        this.method = httpRequestParser.method;
+        this.version = httpRequestParser.version;
+        this.path = httpRequestParser.path;
+        this.requestLine = httpRequestParser.requestLine;
+        this.headers = httpRequestParser.headers;
     }
 
     @Override
@@ -38,5 +34,9 @@ public class HttpRequest implements IHttpRequest {
     @Override
     public String version() {
         return version;
+    }
+
+    public HashMap<String, String> headers() {
+        return headers;
     }
 }
