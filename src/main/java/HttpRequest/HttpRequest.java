@@ -35,4 +35,8 @@ public class HttpRequest implements IHttpRequest {
     public String version() {
         return version;
     }
+
+    public HashMap<String, String> headers() {
+        return headers;
+    }
 }

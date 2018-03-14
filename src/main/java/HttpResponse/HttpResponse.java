@@ -1,19 +1,20 @@
 package HttpResponse;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HttpResponse {
-    public HashMap<String, String> header;
+    public HashMap<String, String> headers;
     public String http_version;
     public String reason_phrase;
     public String request_http_version;
     public String request_method;
     public String request_uri;
     public String sent_size;
+    public String body;
     public String status = "200";
 
     public HttpResponse(HashMap<String, String> httpConfig) {
-//        http_version = responseData.options.get("http_version");
         http_version = httpConfig.get("http_version");
         reason_phrase = httpConfig.get("reason_phrase");
         request_http_version = httpConfig.get("request_http_version");
