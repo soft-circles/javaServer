@@ -14,18 +14,21 @@ class HttpRequestTest {
 
 
     @BeforeEach
-    void setUp() throws IOException {
-        BufferedReader requestLine = new BufferedReader(new StringReader(getRequest()));
-        httpRequest = new HttpRequest(requestLine);
+    void setUp(){
+        httpRequest = new HttpRequest(getRequest());
     }
 
     private String getRequest() {
-        return "GET / HTTP/2.0";
+        return firstLine() + "User-Agent: HTTPTool/1.0\r\n";
+    }
+
+    private String firstLine() {
+        return "GET /path/file.html HTTP/1.0\r\n";
     }
 
     @Test
     void requestLine() {
-        assertEquals(getRequest(), httpRequest.requestLine());
+        assertEquals("GET /path/file.html HTTP/1.0\r", httpRequest.requestLine());
     }
 
     @Test
@@ -35,11 +38,11 @@ class HttpRequestTest {
 
     @Test
     void path() {
-        assertEquals("/", httpRequest.path());
+        assertEquals("/path/file.html", httpRequest.path());
     }
 
     @Test
     void version() {
-        assertEquals("HTTP/2.0", httpRequest.version());
+        assertEquals("HTTP/1.0\r", httpRequest.version());
     }
 }
