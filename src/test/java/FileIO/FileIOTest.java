@@ -12,7 +12,7 @@ class FileIOTest {
     private FileIO fileIO;
     @BeforeEach
     void setUp() {
-        fileIO = new FileIO(FileSystems.getDefault().getPath("src/test/java/FileIO/").toAbsolutePath().toString());
+        fileIO = new FileIO(FileSystems.getDefault().getPath("./src/test/java/FileIO/").toAbsolutePath().toString());
     }
 
     @Test
