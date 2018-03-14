@@ -30,4 +30,35 @@ public class HttpResponse {
     public String status_line() {
         return http_version + " " + status + " " + reason_phrase;
     }
+
+    public String full_response() {
+        return status_line() + "\r\n" + body() + "\r\n";
+    }
+
+    private String body() {
+        if (body != null) {
+            return body;
+        } else {
+            return "";
+        }
+    }
+    public void addToBody(String string) {
+        StringBuilder bodyBuilder = new StringBuilder();
+        if (body != null) {
+            bodyBuilder.append(body);
+        }
+        bodyBuilder.append("\n");
+        bodyBuilder.append(string);
+        this.body = bodyBuilder.toString();
+    }
+
+    private String headers() {
+        StringBuilder headerBuilder = new StringBuilder();
+        if (headers != null) {
+            for(Map.Entry<String, String> e: headers.entrySet()){
+                headerBuilder.append(e.getKey() + ": " + e.getValue() + "\n");
+            }
+        }
+        return headerBuilder.toString();
+    }
 }
