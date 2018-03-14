@@ -40,6 +40,40 @@ class HttpResponseTest {
         assertEquals(dummy_status_line(), httpResponse.status_line());
     }
 
+    @Test
+    void addToBody() {
+        httpResponse.body = "TEXT";
+        httpResponse.addToBody("More text");
+        assertEquals("TEXT\nMore text", httpResponse.body);
+    }
+
+    @Test
+    void full_response() {
+        setUpForFullResponse();
+        assertEquals(fullResponse(), httpResponse.full_response());
+    }
+
+    private void setUpForFullResponse() {
+        httpResponse.http_version = "HTTP/1.1";
+//        httpResponse.headers = giveHeaders();
+        httpResponse.status = "200";
+        httpResponse.reason_phrase = "OK";
+        httpResponse.body = "<html><body><h1>It works!</h1></body></html>";
+    }
+
+    private String fullResponse() {
+        return "HTTP/1.1 200 OK" +
+                "\r\n" +
+//                "Content-Type: text/html\n" +
+                "<html><body><h1>It works!</h1></body></html>\r\n";
+    }
+
+    private HashMap<String, String> giveHeaders() {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "text/html");
+        return headers;
+    }
+
     private HashMap setupHttpConfig() {
         httpConfig = new HashMap<>();
         httpConfig.put("http_version", dummy_version());
@@ -82,4 +116,5 @@ class HttpResponseTest {
     private String dummy_sent_size() {
         return "0";
     }
+
 }
