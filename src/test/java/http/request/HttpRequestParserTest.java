@@ -1,5 +1,6 @@
 package http.request;
 
+import http.method.httpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class HttpRequestParserTest {
     @Test
     void firstLineAttributes() {
         assertEquals("GET / HTTP/2.0\r", httpRequestParser.requestLine);
-        assertEquals("GET", httpRequestParser.method);
+        assertEquals(httpMethod.GET, httpRequestParser.method);
         assertEquals("HTTP/2.0\r", httpRequestParser.version);
         assertEquals("/", httpRequestParser.path);
     }

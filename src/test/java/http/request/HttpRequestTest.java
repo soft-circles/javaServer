@@ -1,5 +1,6 @@
 package http.request;
 
+import http.method.httpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class HttpRequestTest {
 
     @Test
     void method() {
-        assertEquals("GET", httpRequest.method());
+        assertEquals(httpMethod.GET, httpRequest.method());
     }
 
     @Test

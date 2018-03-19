@@ -3,8 +3,6 @@ package http.response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpResponseTest {
@@ -12,8 +10,8 @@ class HttpResponseTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() {
-        httpResponse = new HttpResponse(setupHttpConfig());
-        httpResponse.setStatus(dummy_status());
+        httpResponse = new HttpResponse();
+        assignAttributes();
     }
 
     @Test
@@ -27,7 +25,7 @@ class HttpResponseTest {
         assertEquals(dummy_reason(), httpResponse.getReasonPhrase());
         assertEquals(dummy_request_version(), httpResponse.getRequestHttpVersion());
         assertEquals(dummmy_request_method(), httpResponse.getRequestMethod());
-        assertEquals(dummy_requeset_uri(), httpResponse.getRequestUri());
+        assertEquals(dummy_request_uri(), httpResponse.getRequestUri());
         assertEquals(dummy_sent_size(), httpResponse.getSentSize());
         assertEquals(dummy_status(), httpResponse.getStatus());
     }
@@ -51,34 +49,29 @@ class HttpResponseTest {
     }
 
     private void setUpForFullResponse() {
-//        httpResponse.headers = giveHeaders();
+        httpResponse.addHeader("Content-Type", "text/html");
         httpResponse.setStatus("200");
         httpResponse.setReasonPhrase("OK");
         httpResponse.setBody("<html><body><h1>It works!</h1></body></html>");
     }
 
+    private void assignAttributes() {
+        httpResponse.setStatus(dummy_status());
+        httpResponse.setReasonPhrase(dummy_reason());
+        httpResponse.setRequestHttpVersion(dummy_request_version());
+        httpResponse.setRequestMethod(dummmy_request_method());
+        httpResponse.setRequestUri(dummy_request_uri());
+        httpResponse.setSentSize(dummy_sent_size());
+        httpResponse.setStatus(dummy_status());
+    }
+
     private String fullResponse() {
         return "HTTP/2.0 200 OK" +
                 "\r\n" +
-//                "Content-Type: text/html\n" +
-                "<html><body><h1>It works!</h1></body></html>\r\n";
-    }
-
-    private HashMap<String, String> giveHeaders() {
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "text/html");
-        return headers;
-    }
-
-    private HashMap setupHttpConfig() {
-        HashMap<String, String> httpConfig = new HashMap<>();
-        httpConfig.put("httpVersion", dummy_version());
-        httpConfig.put("reasonPhrase", dummy_reason());
-        httpConfig.put("requestHttpVersion", dummy_request_version());
-        httpConfig.put("requestMethod", dummmy_request_method());
-        httpConfig.put("requestUri", dummy_requeset_uri());
-        httpConfig.put("sentSize", dummy_sent_size());
-        return httpConfig;
+                "Content-Type: text/html" +
+                "\r\n\r\n" +
+                "<html><body><h1>It works!</h1></body></html>" +
+                "\r\n";
     }
 
     private String dummy_status_line() {
@@ -105,7 +98,7 @@ class HttpResponseTest {
         return "GET";
     }
 
-    private String dummy_requeset_uri() {
+    private String dummy_request_uri() {
         return "/";
     }
 
