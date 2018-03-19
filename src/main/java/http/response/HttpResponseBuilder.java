@@ -46,6 +46,6 @@ public class HttpResponseBuilder {
         httpResponse.setRequestHttpVersion("HTTP/2.0");
         httpResponse.setRequestUri(httpRequest.path());
         httpResponse.setRequestHttpVersion(httpRequest.version());
-        httpResponse.setRequestMethod(httpRequest.method());
+        httpResponse.setRequestMethod(httpRequest.method().toString());
     }
 }
