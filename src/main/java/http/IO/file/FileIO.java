@@ -11,7 +11,6 @@ public class FileIO {
 
     public boolean exists(String path) {
         File fileToCheck = new File(getPath(path));
-        System.out.println(fileToCheck.getAbsolutePath());
         return fileToCheck.exists();
     }
 
