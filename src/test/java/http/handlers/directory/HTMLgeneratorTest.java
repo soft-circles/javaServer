@@ -31,9 +31,9 @@ class HTMLgeneratorTest {
                 "</head>" +
                 "<body>" +
                 "<ul>"+
-                "<li>text.txt</li>" +
-                "<li>example.html</li>" +
-                "<li>application.js</li>" +
+                "<li><a href=/text.txt>text.txt</a></li>" +
+                "<li><a href=/example.html>example.html</a></li>" +
+                "<li><a href=/application.js>application.js</a></li>" +
                 "</ul>" +
                 "</body>" +
                 "</html>";
