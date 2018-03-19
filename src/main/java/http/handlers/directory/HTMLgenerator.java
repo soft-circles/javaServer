@@ -23,7 +23,7 @@ public class HTMLgenerator {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<ul>");
         for (String file : files) {
-            stringBuilder.append("<li>" + file + "</li>");
+            stringBuilder.append("<li><a href=/" + file + ">" + file + "</a></li>");
         }
         stringBuilder.append("</ul>");
         return stringBuilder.toString();
