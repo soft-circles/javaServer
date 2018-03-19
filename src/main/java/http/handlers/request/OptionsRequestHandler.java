@@ -1,4 +1,14 @@
 package http.handlers.request;
 
-public class OptionsRequestHandler {
+import http.request.HttpRequest;
+import http.response.HttpResponse;
+
+public class OptionsRequestHandler implements IRequestHandler {
+    public OptionsRequestHandler(HttpRequest httpRequest) {
+    }
+
+    @Override
+    public HttpResponse returnResponse() {
+        return null;
+    }
 }

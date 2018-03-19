@@ -1,4 +1,14 @@
 package http.handlers.request;
 
-public class putRequestHandler {
+import http.request.HttpRequest;
+import http.response.HttpResponse;
+
+public class PutRequestHandler implements IRequestHandler {
+    public PutRequestHandler(HttpRequest httpRequest) {
+    }
+
+    @Override
+    public HttpResponse returnResponse() {
+        return null;
+    }
 }
