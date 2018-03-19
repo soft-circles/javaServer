@@ -4,6 +4,9 @@ public enum httpMethod {
     GET,
     POST,
     PUT,
+    PATCH,
     DELETE,
-    OPTIONS
+    OPTIONS,
+    HEAD,
+    INVALID
 }
