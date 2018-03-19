@@ -1,4 +1,14 @@
 package http.handlers.request;
 
-public class DeleteRequestHandler {
+import http.request.HttpRequest;
+import http.response.HttpResponse;
+
+public class DeleteRequestHandler implements IRequestHandler {
+    public DeleteRequestHandler(HttpRequest httpRequest) {
+    }
+
+    @Override
+    public HttpResponse returnResponse() {
+        return null;
+    }
 }
