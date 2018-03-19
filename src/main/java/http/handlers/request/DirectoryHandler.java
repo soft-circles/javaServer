@@ -8,7 +8,7 @@ import http.response.HttpResponse;
 import http.status.StatusMessages;
 
 import static http.router.Routes.VALID_PATHS;
-
+//TODO migrate Router case statement to DirectoryHandler
 public class DirectoryHandler implements IRequestHandler {
     private HttpRequest httpRequest;
     public DirectoryHandler(HttpRequest httpRequest) {
