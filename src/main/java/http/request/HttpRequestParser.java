@@ -1,9 +1,12 @@
 package http.request;
 
+import http.method.httpMethod;
+
 import java.util.HashMap;
 
 public class HttpRequestParser {
-    public String requestLine, method, path, version;
+    public httpMethod method;
+    public String requestLine, path, version;
     public HashMap<String, String> headers;
 
     public HttpRequestParser(String request) {
@@ -30,7 +33,11 @@ public class HttpRequestParser {
 
     private void parseRequestLine(String requestLine) {
         this.requestLine = requestLine;
-        this.method = requestLine.split(" ")[0];
+        try {
+            this.method = httpMethod.valueOf(requestLine.split(" ")[0]);
+        } catch(IllegalArgumentException e) {
+            this.method = httpMethod.INVALID;
+        }
         String pathAndParameters[] = requestLine.split(" ")[1].split("\\?", 2);
         this.path = pathAndParameters[0];
         this.version = requestLine.split(" ")[2];

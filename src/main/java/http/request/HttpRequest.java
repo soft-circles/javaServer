@@ -24,7 +24,7 @@ public class HttpRequest implements IHttpRequest {
     }
 
     @Override
-    public String method() {
+    public httpMethod method() {
         return method;
     }
 
