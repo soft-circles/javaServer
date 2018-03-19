@@ -1,9 +1,12 @@
 package http.request;
 
+import http.method.httpMethod;
+
 import java.util.HashMap;
 
 public class HttpRequest implements IHttpRequest {
-    private String method, version, path, requestLine;
+    private httpMethod method;
+    private String version, path, requestLine;
     private HashMap<String, String> headers, params;
 
     public HttpRequest(String request) {
