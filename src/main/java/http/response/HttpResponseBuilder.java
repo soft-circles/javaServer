@@ -7,18 +7,24 @@ import http.request.HttpRequest;
 import http.status.StatusMessages;
 
 import java.nio.file.FileSystems;
-import java.util.HashMap;
+import java.util.Map;
 
 public class HttpResponseBuilder {
     private HttpResponseBuilder(){
     }
 
     public static HttpResponse build(HttpRequest httpRequest) {
-        HttpResponse httpResponse = new HttpResponse(new HashMap<>());
+        HttpResponse httpResponse = new HttpResponse();
         assignAttributes(httpResponse, httpRequest);
+        setHeaders(httpResponse);
         setStatus(httpResponse, httpRequest);
         setReasonPhrase(httpResponse);
         return httpResponse;
+    }
+
+    private static void setHeaders(HttpResponse httpResponse) {
+        httpResponse.addHeader("Content-Type", "text/html");
+
     }
 
     private static void setReasonPhrase(HttpResponse httpResponse) {
