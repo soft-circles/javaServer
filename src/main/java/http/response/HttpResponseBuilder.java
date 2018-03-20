@@ -1,13 +1,12 @@
 package http.response;
 
-import http.handlers.directory.FileFetcher;
-import http.handlers.directory.HTMLgenerator;
+import http.utils.FileFetcher;
+import http.utils.HTMLgenerator;
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.status.StatusMessages;
 
 import java.nio.file.FileSystems;
-import java.util.Map;
 
 public class HttpResponseBuilder {
     private HttpResponseBuilder(){

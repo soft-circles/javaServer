@@ -26,6 +26,10 @@ public class HttpResponse {
         headers = new HashMap<>();
     }
 
+    public HashMap<String, String> getHeaders() {
+        return headers;
+    }
+
     public String getBody() {
         return body;
     }
