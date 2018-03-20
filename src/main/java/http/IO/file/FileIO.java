@@ -3,11 +3,9 @@ package http.IO.file;
 import java.io.File;
 
 public class FileIO {
-    public String workingDirectory;
+    public static final String workingDirectory = "../cob_spec/public";
 
-    public FileIO(String directory) {
-        workingDirectory = directory;
-    }
+    public FileIO() {};
 
     public boolean exists(String path) {
         File fileToCheck = new File(getPath(path));
