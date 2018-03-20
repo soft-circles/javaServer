@@ -2,6 +2,7 @@ package http.handlers.request;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.status.StatusMessages;
 
 public class OptionsRequestHandler implements IRequestHandler {
     public OptionsRequestHandler(HttpRequest httpRequest) {
@@ -9,6 +10,9 @@ public class OptionsRequestHandler implements IRequestHandler {
 
     @Override
     public HttpResponse returnResponse() {
-        return null;
+        HttpResponse httpResponse = new HttpResponse();
+        httpResponse.setStatus("200");
+        httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+        return httpResponse;
     }
 }
