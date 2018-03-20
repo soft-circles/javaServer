@@ -22,6 +22,9 @@ public class Server {
         System.out.println("Client connected");
         String rawRequest = clientInput.getRawRequestString();
         HttpRequest httpRequest = new HttpRequest(rawRequest);
+        if (httpRequest.getContentLength() > 0) {
+            httpRequest.setBody(clientInput.getBytes(httpRequest.getContentLength()));
+        }
         System.out.println(rawRequest);
         IRequestHandler handler = Router.getHandler(httpRequest);
         HttpResponse httpResponse = handler.returnResponse();
