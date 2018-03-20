@@ -23,4 +23,13 @@ public class ClientInput {
         }
         return request.toString();
     }
+
+    public byte[] getBytes(int length){
+        scanner.useDelimiter("");
+        String data = "";
+        for (int i = 0; i < length; i++) {
+            data += scanner.next();
+        }
+        return data.getBytes();
+    }
 }
