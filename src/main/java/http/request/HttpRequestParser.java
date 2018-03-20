@@ -5,6 +5,7 @@ import http.method.httpMethod;
 import java.util.HashMap;
 
 public class HttpRequestParser {
+    public int contentLength;
     public httpMethod method;
     public String requestLine, path, version;
     public HashMap<String, String> headers;
@@ -12,6 +13,9 @@ public class HttpRequestParser {
     public HttpRequestParser(String request) {
         parseRequestLine(getFirstLine(request));
         this.headers = parseHeaders(request);
+        if (headers.containsKey("Content-Length")) {
+            this.contentLength = Integer.parseInt(headers.get("Content-Length"));
+        }
     }
 
     private String getFirstLine(String raw_request) {

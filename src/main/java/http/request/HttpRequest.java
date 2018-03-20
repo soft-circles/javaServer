@@ -6,8 +6,10 @@ import java.util.HashMap;
 
 public class HttpRequest implements IHttpRequest {
     private httpMethod method;
+    private int contentLength;
     private String version, path, requestLine;
     private HashMap<String, String> headers, params;
+    private byte[] body;
 
     public HttpRequest(String request) {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
@@ -16,6 +18,8 @@ public class HttpRequest implements IHttpRequest {
         this.path = httpRequestParser.path;
         this.requestLine = httpRequestParser.requestLine;
         this.headers = httpRequestParser.headers;
+        this.contentLength = httpRequestParser.contentLength;
+
     }
 
     @Override
@@ -29,8 +33,13 @@ public class HttpRequest implements IHttpRequest {
     }
 
     @Override
-    public String path() {
+    public String path()
+    {
         return path;
+    }
+
+    public int getContentLength() {
+        return contentLength;
     }
 
     @Override
@@ -40,5 +49,13 @@ public class HttpRequest implements IHttpRequest {
 
     public HashMap<String, String> headers() {
         return headers;
+    }
+
+    public void setBody(byte[] body) {
+        this.body = body;
+    }
+
+    public byte[] getBody() {
+        return body;
     }
 }
