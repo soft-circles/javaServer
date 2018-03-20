@@ -1,5 +1,6 @@
 package http.handlers.directory;
 
+import http.utils.HTMLgenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ class HTMLgeneratorTest {
 
     @Test
     void generate() {
-        assertEquals(expectedOutput(),HTMLgenerator.generate(files()));
+        assertEquals(expectedOutput(), HTMLgenerator.generate(files()));
     }
 
     private List<String> files() {
