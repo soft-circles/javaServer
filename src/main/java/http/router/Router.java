@@ -14,7 +14,9 @@ public class Router {
     private static IRequestHandler selectHandler(HttpRequest httpRequest) {
         IRequestHandler handler;
         switch (httpRequest.method()) {
-            case GET: handler = new DirectoryHandler(httpRequest);
+            case GET: handler = new GetRequestHandler(httpRequest);
+                        break;
+            case HEAD: handler = new HeadRequestHandler(httpRequest);
                         break;
             case PUT: handler = new PutRequestHandler(httpRequest);
                         break;
