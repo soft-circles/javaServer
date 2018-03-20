@@ -31,7 +31,7 @@ public class HttpResponseBuilder {
     }
 
     private static void setStatus(HttpResponse httpResponse, HttpRequest httpRequest) {
-        FileIO fileIO = new FileIO(FileSystems.getDefault().getPath(httpRequest.path()).toString());
+        FileIO fileIO = new FileIO();
         if (fileIO.isDirectory(httpRequest.path()) || fileIO.exists(httpRequest.path())) {
             httpResponse.setStatus("200");
             String html = HTMLgenerator.generate(FileFetcher.fetch(httpRequest.path()));
