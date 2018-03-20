@@ -1,0 +1,6 @@
+
+?squid:S1068"*Remove this unused "params" private field.(ƒÏê›
+‚squid:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ìÅ¤‘
+<squid:S1659""Declare "path" on a separate line.(”°‡íùÿÿÿÿ
+Csquid:S1659")Declare "requestLine" on a separate line.(”°‡íùÿÿÿÿ
+9squid:S1659"$Declare "params" on a separate line.(ƒÏê›
