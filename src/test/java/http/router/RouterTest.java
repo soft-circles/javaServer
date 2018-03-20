@@ -30,7 +30,7 @@ class RouterTest {
 
     @Test
     void getResponse() {
-        assertEquals(DirectoryHandler.class, Router.getHandler(httpRequestGet).getClass());
+        assertEquals(GetRequestHandler.class, Router.getHandler(httpRequestGet).getClass());
         assertEquals(PutRequestHandler.class, Router.getHandler(httpRequestPut).getClass());
         assertEquals(PostRequestHandler.class, Router.getHandler(httpRequestPost).getClass());
         assertEquals(DeleteRequestHandler.class, Router.getHandler(httpRequestDelete).getClass());
