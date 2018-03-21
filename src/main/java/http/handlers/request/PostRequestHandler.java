@@ -18,7 +18,7 @@ public class PostRequestHandler implements IRequestHandler {
     public PostRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
         this.httpRequest = httpRequest;
         this.fileHandler = new FileHandler(fileIO);
-        this.invalidResourceHandler = new InvalidResourceHandler(httpRequest);
+        this.invalidResourceHandler = new InvalidResourceHandler();
     }
 
     @Override

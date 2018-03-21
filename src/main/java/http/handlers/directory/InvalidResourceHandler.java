@@ -1,16 +1,13 @@
 package http.handlers.directory;
 
-import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
 
 public class InvalidResourceHandler implements IResourceHandler {
 
-    private final HttpRequest httpRequest;
     private final HttpResponse httpResponse;
 
-    public InvalidResourceHandler(HttpRequest httpRequest) {
-        this.httpRequest = httpRequest;
+    public InvalidResourceHandler() {
         this.httpResponse = new HttpResponse();
     }
 

@@ -3,22 +3,25 @@ package http.request;
 import http.method.httpMethod;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
     private httpMethod method;
     private int contentLength;
-    private String version, path, requestLine;
-    private HashMap<String, String> headers, params;
+    private String version;
+    private String path;
+    private String requestLine;
+    private Map<String, String> headers;
     private byte[] body;
 
     public HttpRequest(String request) {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
-        this.method = httpRequestParser.method;
-        this.version = httpRequestParser.version;
-        this.path = httpRequestParser.path;
-        this.requestLine = httpRequestParser.requestLine;
-        this.headers = httpRequestParser.headers;
-        this.contentLength = httpRequestParser.contentLength;
+        this.method = httpRequestParser.getMethod();
+        this.version = httpRequestParser.getVersion();
+        this.path = httpRequestParser.getPath();
+        this.requestLine = httpRequestParser.getRequestLine();
+        this.headers = httpRequestParser.getHeaders();
+        this.contentLength = httpRequestParser.getContentLength();
 
     }
 
@@ -47,7 +50,7 @@ public class HttpRequest implements IHttpRequest {
         return version;
     }
 
-    public HashMap<String, String> headers() {
+    public Map<String, String> headers() {
         return headers;
     }
 

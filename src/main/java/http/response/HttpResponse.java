@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpResponse {
-    private HashMap<String, String> headers;
+    private Map<String, String> headers;
     private static final String HTTP_VERSION = "HTTP/2.0";
     private String reasonPhrase;
     private String requestHttpVersion;
@@ -26,7 +26,7 @@ public class HttpResponse {
         headers = new HashMap<>();
     }
 
-    public HashMap<String, String> getHeaders() {
+    public Map<String, String> getHeaders() {
         return headers;
     }
 

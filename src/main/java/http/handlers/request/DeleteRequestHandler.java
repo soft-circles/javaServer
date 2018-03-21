@@ -8,6 +8,8 @@ import http.response.HttpResponse;
 import http.status.StatusMessages;
 import http.utils.PathChecker;
 
+import java.io.IOException;
+
 public class DeleteRequestHandler implements IRequestHandler {
     private final HttpRequest httpRequest;
     private final InvalidResourceHandler invalidResourceHandler;
@@ -15,12 +17,12 @@ public class DeleteRequestHandler implements IRequestHandler {
 
     public DeleteRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
         this.httpRequest = httpRequest;
-        this.invalidResourceHandler = new InvalidResourceHandler(httpRequest);
+        this.invalidResourceHandler = new InvalidResourceHandler();
         this.fileHandler = new FileHandler(fileIO);
     }
 
     @Override
-    public HttpResponse returnResponse() {
+    public HttpResponse returnResponse() throws IOException {
         if (PathChecker.validRoute(httpRequest.path()) && PathChecker.deletePermitted(httpRequest.path()) && deleted(httpRequest.path())) {
             return createResponse();
         } else  {
@@ -28,7 +30,7 @@ public class DeleteRequestHandler implements IRequestHandler {
         }
     }
 
-    public boolean deleted(String path) {
+    public boolean deleted(String path) throws IOException {
         return fileHandler.deleteFile(path);
     }
 

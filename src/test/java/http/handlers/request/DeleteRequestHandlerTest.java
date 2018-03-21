@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteRequestHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         FileIO fileIO = new FileIO("./public");
         httpResponse = new DeleteRequestHandler(deleteRequest(), fileIO).returnResponse();
     }

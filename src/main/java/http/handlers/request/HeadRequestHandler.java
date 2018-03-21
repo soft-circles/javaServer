@@ -17,7 +17,7 @@ public class HeadRequestHandler implements IRequestHandler {
 
     public HeadRequestHandler(HttpRequest httpRequest) {
         this.httpRequest = httpRequest;
-        this.invalidResourceHandler = new InvalidResourceHandler(httpRequest);
+        this.invalidResourceHandler = new InvalidResourceHandler();
     }
 
     @Override

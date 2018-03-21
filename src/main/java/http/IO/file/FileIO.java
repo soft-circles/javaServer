@@ -31,10 +31,4 @@ public class FileIO {
     public String getWorkingDirectory() {
         return workingDirectory;
     }
-
-    public void setWorkingDirectory(String path) {
-        this.workingDirectory = path;
-    }
-
-
 }

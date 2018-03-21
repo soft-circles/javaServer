@@ -27,7 +27,7 @@ public class Router {
                         break;
             case DELETE: handler = new DeleteRequestHandler(httpRequest, fileIO);
                         break;
-            default: handler = new InvalidRequestHandler(httpRequest);
+            default: handler = new InvalidRequestHandler();
                          break;
         }
         return handler;

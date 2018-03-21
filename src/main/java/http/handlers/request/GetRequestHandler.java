@@ -11,12 +11,10 @@ import java.io.IOException;
 
 
 public class GetRequestHandler extends HeadRequestHandler implements IRequestHandler {
-    private final FileIO fileIO;
     private final DirectoryHandler directoryHandler;
 
     public GetRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
         super(httpRequest);
-        this.fileIO = fileIO;
         this.directoryHandler = new DirectoryHandler(httpRequest, fileIO);
     }
 

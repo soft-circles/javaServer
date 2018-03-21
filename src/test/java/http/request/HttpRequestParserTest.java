@@ -15,18 +15,18 @@ class HttpRequestParserTest {
 
     @Test
     void firstLineAttributes() {
-        assertEquals("GET / HTTP/2.0\r", httpRequestParser.requestLine);
-        assertEquals(httpMethod.GET, httpRequestParser.method);
-        assertEquals("HTTP/2.0\r", httpRequestParser.version);
-        assertEquals("/", httpRequestParser.path);
+        assertEquals("GET / HTTP/2.0\r", httpRequestParser.getRequestLine());
+        assertEquals(httpMethod.GET, httpRequestParser.getMethod());
+        assertEquals("HTTP/2.0\r", httpRequestParser.getVersion());
+        assertEquals("/", httpRequestParser.getPath());
     }
 
     @Test
     void headers() {
-        assertTrue(httpRequestParser.headers.containsKey("Accept"));
-        assertTrue(httpRequestParser.headers.containsValue("text/html\r"));
-        assertTrue(httpRequestParser.headers.containsKey("Connection"));
-        assertTrue(httpRequestParser.headers.containsValue("keep-alive\r"));
+        assertTrue(httpRequestParser.getHeaders().containsKey("Accept"));
+        assertTrue(httpRequestParser.getHeaders().containsValue("text/html\r"));
+        assertTrue(httpRequestParser.getHeaders().containsKey("Connection"));
+        assertTrue(httpRequestParser.getHeaders().containsValue("keep-alive\r"));
     }
 
     private String raw_response() {

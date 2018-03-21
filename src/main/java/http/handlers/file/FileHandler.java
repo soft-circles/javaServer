@@ -2,7 +2,6 @@ package http.handlers.file;
 
 import http.IO.file.FileIO;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,13 +26,13 @@ public class FileHandler {
         }
     }
 
-    public boolean deleteFile(String filePath) {
+    public boolean deleteFile(String filePath) throws IOException {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {
             Path pathToFile = Paths.get(fileIO.getWorkingDirectory() + "/" + matcher.group(0));
-            File file = new File(pathToFile.toString());
-            return file.delete();
+            Files.delete(pathToFile);
+            return true;
         }
         return false;
     }

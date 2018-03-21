@@ -5,8 +5,7 @@ import http.response.HttpResponse;
 import http.status.StatusMessages;
 
 public class InvalidRequestHandler implements IRequestHandler {
-    public InvalidRequestHandler(HttpRequest httpRequest) {
-    }
+    public InvalidRequestHandler() { }
 
     @Override
     public HttpResponse returnResponse() {
