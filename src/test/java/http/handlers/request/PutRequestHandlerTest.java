@@ -29,7 +29,7 @@ class PutRequestHandlerTest {
     @AfterEach
     void tearDown() throws IOException {
         byte[] bytes = "".getBytes();
-        Path file = Paths.get("../cob_spec/public/form");
+        Path file = Paths.get("./public/form");
         Files.write(file, bytes);
     }
 

@@ -30,7 +30,7 @@ class DeleteRequestHandlerTest {
 
     @AfterEach
     void tearDown() throws IOException {
-        Path path = Paths.get("../cob_spec/public/form");
+        Path path = Paths.get("./public/form");
         Files.write(path, "".getBytes());
     }
 
