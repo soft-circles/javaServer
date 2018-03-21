@@ -2,10 +2,14 @@ package http.handlers.request;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +20,12 @@ class PostRequestHandlerTest {
         HttpRequest httpRequest = postRequest();
         httpRequest.setBody(data());
         httpResponse = new PostRequestHandler(httpRequest).returnResponse();
+    }
+
+    @AfterEach
+    void tearDown() throws IOException {
+        Path path = Paths.get("../cob_spec/public/form");
+        Files.write(path, "".getBytes());
     }
 
     @Test

@@ -12,6 +12,7 @@ class FileIOTest {
     @BeforeEach
     void setUp() {
         fileIO = new FileIO();
+        fileIO.setWorkingDirectory("./public");
     }
 
     @Test

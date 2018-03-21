@@ -2,8 +2,14 @@ package http.handlers.request;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,8 +26,14 @@ class DeleteRequestHandlerTest {
         assertEquals("OK", httpResponse.getReasonPhrase());
     }
 
+    @AfterEach
+    void tearDown() throws IOException {
+        Path path = Paths.get("../cob_spec/public/form");
+        Files.write(path, "".getBytes());
+    }
+
     private HttpRequest deleteRequest() {
-        String rawRequest = "DELETE / HTTP/1.1\\r\\n\" +\n" +
+        String rawRequest = "DELETE /form HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
                 "Accept-Language: en-us\\r\\n\" +\n" +
