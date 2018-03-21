@@ -13,7 +13,7 @@ import java.net.Socket;
 
 public class Server {
 
-    public Server(int portNum) throws IOException {
+    public Server(int portNum, String directory) throws IOException {
         ServerSocket socket = new ServerSocket(portNum);
         while (true) {
         System.out.println("Waiting for client...");
