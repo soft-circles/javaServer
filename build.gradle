@@ -1,9 +1,17 @@
 group 'andySchwartz'
 version '1.0'
 
+apply plugin: 'application'
 apply plugin: 'java'
 
+mainClassName = "http.server.Main"
 sourceCompatibility = 1.8
+
+run {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
 
 repositories {
     mavenCentral()
@@ -20,7 +28,7 @@ test {
 
 jar {
     manifest {
-        attributes "Main-Class": "Main"
+        attributes "Main-Class": "http.server.Main"
         attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
     }
 }
