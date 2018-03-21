@@ -1,5 +1,6 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +18,8 @@ class DeleteRequestHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() {
-        httpResponse = new DeleteRequestHandler(deleteRequest()).returnResponse();
+        FileIO fileIO = new FileIO("./public");
+        httpResponse = new DeleteRequestHandler(deleteRequest(), fileIO).returnResponse();
     }
 
     @Test

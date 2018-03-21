@@ -13,10 +13,10 @@ public class DirectoryHandler implements IResourceHandler {
     private HttpResponse httpResponse;
     private FileIO fileIO;
 
-    public DirectoryHandler(HttpRequest httpRequest) {
+    public DirectoryHandler(HttpRequest httpRequest, FileIO fileIO) {
         this.httpRequest = httpRequest;
         httpResponse = new HttpResponse();
-        fileIO = new FileIO();
+        this.fileIO = fileIO;
     }
 
     @Override
@@ -38,11 +38,11 @@ public class DirectoryHandler implements IResourceHandler {
         if (fileIO.isDirectory(httpRequest.path())) {
             httpResponse.setBody(generateDirectoryList());
         } else {
-            httpResponse.setBody(FileFetcher.parseTextFile(httpRequest.path()));
+            httpResponse.setBody(FileFetcher.parseTextFile(httpRequest.path(), fileIO));
         }
     }
 
     private String generateDirectoryList() {
-        return HTMLgenerator.generate(FileFetcher.fetch(httpRequest.path()));
+        return HTMLgenerator.generate(FileFetcher.fetch(httpRequest.path(), fileIO));
     }
 }

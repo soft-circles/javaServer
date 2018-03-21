@@ -3,10 +3,10 @@ package http.IO.file;
 import java.io.File;
 
 public class FileIO {
-    private static String workingDirectory;
+    private String workingDirectory;
 
-    public FileIO() {
-        workingDirectory = "../cob_spec/public";
+    public FileIO(String path) {
+        workingDirectory = path;
     }
 
     public boolean exists(String path) {

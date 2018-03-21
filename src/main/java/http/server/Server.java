@@ -1,8 +1,8 @@
 package http.server;
 import http.IO.ClientInput;
 import http.IO.ClientOutput;
+import http.IO.file.FileIO;
 import http.handlers.request.IRequestHandler;
-import http.handlers.response.ResponseHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.Router;
@@ -26,7 +26,7 @@ public class Server {
             httpRequest.setBody(clientInput.getBytes(httpRequest.getContentLength()));
         }
         System.out.println(rawRequest);
-        IRequestHandler handler = Router.getHandler(httpRequest);
+        IRequestHandler handler = Router.getHandler(httpRequest, new FileIO("../cob_spec/public"));
         HttpResponse httpResponse = handler.returnResponse();
         ClientOutput clientOutput = new ClientOutput(connectedSocket);
         clientOutput.writeTo(httpResponse.fullResponse());

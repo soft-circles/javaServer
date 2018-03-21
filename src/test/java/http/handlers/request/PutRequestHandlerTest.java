@@ -1,5 +1,6 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.AfterEach;
@@ -18,9 +19,10 @@ class PutRequestHandlerTest {
     HttpResponse httpResponse;
     @BeforeEach
     void setUp() throws IOException {
+        FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = putRequest();
         httpRequest.setBody(data());
-        httpResponse = new PutRequestHandler(httpRequest).returnResponse();
+        httpResponse = new PutRequestHandler(httpRequest, fileIO).returnResponse();
     }
 
 

@@ -1,9 +1,12 @@
 package http.router;
 
+import http.IO.file.FileIO;
 import http.handlers.request.*;
 import http.request.HttpRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,9 +18,11 @@ class RouterTest {
                         httpRequestOptions,
                         httpRequestPut,
                         httpRequestInvalid;
+    private FileIO fileIO;
 
     @BeforeEach
     void setUp() {
+        fileIO = new FileIO("./public");
         httpRequestGet = new HttpRequest(rawGetRequest());
         httpRequestPut = new HttpRequest(rawPutRequest());
         httpRequestPost = new HttpRequest(rawPostRequest());
@@ -30,12 +35,12 @@ class RouterTest {
 
     @Test
     void getResponse() {
-        assertEquals(GetRequestHandler.class, Router.getHandler(httpRequestGet).getClass());
-        assertEquals(PutRequestHandler.class, Router.getHandler(httpRequestPut).getClass());
-        assertEquals(PostRequestHandler.class, Router.getHandler(httpRequestPost).getClass());
-        assertEquals(DeleteRequestHandler.class, Router.getHandler(httpRequestDelete).getClass());
-        assertEquals(OptionsRequestHandler.class, Router.getHandler(httpRequestOptions).getClass());
-        assertEquals(InvalidRequestHandler.class, Router.getHandler(httpRequestInvalid).getClass());
+        assertEquals(GetRequestHandler.class, Router.getHandler(httpRequestGet, fileIO).getClass());
+        assertEquals(PutRequestHandler.class, Router.getHandler(httpRequestPut, fileIO).getClass());
+        assertEquals(PostRequestHandler.class, Router.getHandler(httpRequestPost, fileIO).getClass());
+        assertEquals(DeleteRequestHandler.class, Router.getHandler(httpRequestDelete, fileIO).getClass());
+        assertEquals(OptionsRequestHandler.class, Router.getHandler(httpRequestOptions, fileIO).getClass());
+        assertEquals(InvalidRequestHandler.class, Router.getHandler(httpRequestInvalid, fileIO).getClass());
     }
 
 

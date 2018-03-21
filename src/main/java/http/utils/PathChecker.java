@@ -11,8 +11,8 @@ public class PathChecker {
         return VALID_PATHS.containsKey(path);
     }
 
-    private static boolean validPath(String path) {
-        return new FileIO().exists(path);
+    private static boolean validPath(String path, FileIO fileIO) {
+        return fileIO.exists(path);
     }
 
     public static boolean writePermitted(String path) {

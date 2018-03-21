@@ -14,8 +14,8 @@ public class FileHandler {
 
     private FileIO fileIO;
 
-    public FileHandler() {
-        this.fileIO = new FileIO();
+    public FileHandler(FileIO fileIO) {
+        this.fileIO = fileIO;
     }
 
     public void createFile(String filePath, byte[] data) throws IOException {

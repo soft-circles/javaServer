@@ -1,5 +1,6 @@
 package http.handlers.directory;
 
+import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +14,9 @@ class DirectoryHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() throws IOException {
+        FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = httpRequest();
-        httpResponse = new DirectoryHandler(httpRequest).generateResponse();
+        httpResponse = new DirectoryHandler(httpRequest, fileIO).generateResponse();
     }
 
     private HttpRequest httpRequest() {

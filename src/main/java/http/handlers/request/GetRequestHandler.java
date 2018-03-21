@@ -1,5 +1,7 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
+import http.handlers.directory.DirectoryHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
@@ -9,8 +11,13 @@ import java.io.IOException;
 
 
 public class GetRequestHandler extends HeadRequestHandler implements IRequestHandler {
-    public GetRequestHandler(HttpRequest httpRequest) {
+    private final FileIO fileIO;
+    private final DirectoryHandler directoryHandler;
+
+    public GetRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
         super(httpRequest);
+        this.fileIO = fileIO;
+        this.directoryHandler = new DirectoryHandler(httpRequest, fileIO);
     }
 
     @Override

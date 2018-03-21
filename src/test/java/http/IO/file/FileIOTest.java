@@ -11,8 +11,7 @@ class FileIOTest {
     private FileIO fileIO;
     @BeforeEach
     void setUp() {
-        fileIO = new FileIO();
-        fileIO.setWorkingDirectory("./public");
+        fileIO = new FileIO("./public");
     }
 
     @Test

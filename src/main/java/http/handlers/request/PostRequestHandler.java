@@ -1,5 +1,6 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
 import http.handlers.directory.InvalidResourceHandler;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
@@ -14,9 +15,9 @@ public class PostRequestHandler implements IRequestHandler {
     private final InvalidResourceHandler invalidResourceHandler;
     private final FileHandler fileHandler;
 
-    public PostRequestHandler(HttpRequest httpRequest) {
+    public PostRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
         this.httpRequest = httpRequest;
-        this.fileHandler = new FileHandler();
+        this.fileHandler = new FileHandler(fileIO);
         this.invalidResourceHandler = new InvalidResourceHandler(httpRequest);
     }
 

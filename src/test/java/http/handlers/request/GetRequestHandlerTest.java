@@ -1,5 +1,6 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +16,9 @@ class GetRequestHandlerTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        getRequestHandler = new GetRequestHandler(getRequest());
-        getRequestHandler2 = new GetRequestHandler(invalidGetRequest());
+        FileIO fileIO = new FileIO("./public");
+        getRequestHandler = new GetRequestHandler(getRequest(), fileIO);
+        getRequestHandler2 = new GetRequestHandler(invalidGetRequest(), fileIO);
         httpResponse = getRequestHandler.returnResponse();
         httpResponse2 = getRequestHandler2.returnResponse();
     }

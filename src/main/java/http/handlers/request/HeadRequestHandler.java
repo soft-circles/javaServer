@@ -10,16 +10,13 @@ import http.utils.PathChecker;
 
 import java.io.IOException;
 
-import static http.router.Routes.VALID_PATHS;
 
 public class HeadRequestHandler implements IRequestHandler {
     protected final HttpRequest httpRequest;
-    protected final DirectoryHandler directoryHandler;
     protected final InvalidResourceHandler invalidResourceHandler;
 
     public HeadRequestHandler(HttpRequest httpRequest) {
         this.httpRequest = httpRequest;
-        this.directoryHandler = new DirectoryHandler(httpRequest);
         this.invalidResourceHandler = new InvalidResourceHandler(httpRequest);
     }
 
