@@ -1,0 +1,12 @@
+
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(Ì›òæ8±±À…£,
+Y
+squid:S106"9Replace this use of System.out or System.err by a logger.(ĞÊÒ¥ÿÿÿÿÿ8±±À…£,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¿êâæ8ÔÚ›€¤,
+fsquid:S2095"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(ÑËÀ8±±À…£,
+lsquid:UselessImportCheck"CRemove this unused import 'http.handlers.response.ResponseHandler'.(Åëñå8Ù–€¤,
+Csquid:S2189""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8±±À…£,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¬³ú8ÔÚ›€¤,

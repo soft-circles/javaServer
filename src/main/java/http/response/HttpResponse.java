@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpResponse {
-    private HashMap<String, String> headers;
+    private Map<String, String> headers;
     private static final String HTTP_VERSION = "HTTP/2.0";
     private String reasonPhrase;
     private String requestHttpVersion;
@@ -20,6 +20,14 @@ public class HttpResponse {
         requestMethod = httpConfig.get("requestMethod");
         requestUri = httpConfig.get("requestUri");
         sentSize = httpConfig.get("sentSize");
+    }
+
+    public HttpResponse() {
+        headers = new HashMap<>();
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
     }
 
     public String getBody() {
@@ -55,7 +63,7 @@ public class HttpResponse {
     }
 
     public String fullResponse() {
-        return statusLine() + "\r\n" + body() + "\r\n";
+        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + body() + "\r\n";
     }
 
     private String body() {
@@ -79,11 +87,17 @@ public class HttpResponse {
         StringBuilder headerBuilder = new StringBuilder();
         if (headers != null) {
             for(Map.Entry<String, String> e: headers.entrySet()){
-                headerBuilder.append(e.getKey()).append(": ").append(e.getValue()).append("\n");
+                headerBuilder.append(e.getKey()).append(": ").append(e.getValue());
             }
         }
         return headerBuilder.toString();
     }
+
+    public HttpResponse addHeader(String key, String value) {
+        this.headers.put(key, value);
+        return this;
+    }
+
 
     public String getSentSize() {
         return sentSize;

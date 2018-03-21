@@ -1,18 +1,28 @@
 package http.request;
 
+import http.method.httpMethod;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
-    private String method, version, path, requestLine;
-    private HashMap<String, String> headers, params;
+    private httpMethod method;
+    private int contentLength;
+    private String version;
+    private String path;
+    private String requestLine;
+    private Map<String, String> headers;
+    private byte[] body;
 
     public HttpRequest(String request) {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
-        this.method = httpRequestParser.method;
-        this.version = httpRequestParser.version;
-        this.path = httpRequestParser.path;
-        this.requestLine = httpRequestParser.requestLine;
-        this.headers = httpRequestParser.headers;
+        this.method = httpRequestParser.getMethod();
+        this.version = httpRequestParser.getVersion();
+        this.path = httpRequestParser.getPath();
+        this.requestLine = httpRequestParser.getRequestLine();
+        this.headers = httpRequestParser.getHeaders();
+        this.contentLength = httpRequestParser.getContentLength();
+
     }
 
     @Override
@@ -21,13 +31,18 @@ public class HttpRequest implements IHttpRequest {
     }
 
     @Override
-    public String method() {
+    public httpMethod method() {
         return method;
     }
 
     @Override
-    public String path() {
+    public String path()
+    {
         return path;
+    }
+
+    public int getContentLength() {
+        return contentLength;
     }
 
     @Override
@@ -35,7 +50,15 @@ public class HttpRequest implements IHttpRequest {
         return version;
     }
 
-    public HashMap<String, String> headers() {
+    public Map<String, String> headers() {
         return headers;
+    }
+
+    public void setBody(byte[] body) {
+        this.body = body;
+    }
+
+    public byte[] getBody() {
+        return body;
     }
 }

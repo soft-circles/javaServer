@@ -3,15 +3,14 @@ package http.IO.file;
 import java.io.File;
 
 public class FileIO {
-    public String workingDirectory;
+    private String workingDirectory;
 
-    public FileIO(String directory) {
-        workingDirectory = directory;
+    public FileIO(String path) {
+        workingDirectory = path;
     }
 
     public boolean exists(String path) {
         File fileToCheck = new File(getPath(path));
-        System.out.println(fileToCheck.getAbsolutePath());
         return fileToCheck.exists();
     }
 
@@ -27,5 +26,9 @@ public class FileIO {
 
     private String getPath(String fileName) {
         return workingDirectory + fileName;
+    }
+
+    public String getWorkingDirectory() {
+        return workingDirectory;
     }
 }

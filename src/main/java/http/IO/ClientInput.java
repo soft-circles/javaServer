@@ -5,12 +5,10 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ClientInput {
-    private final Socket client;
     private Scanner scanner;
 
     public ClientInput(Socket clientSocket) throws IOException {
-        this.client = clientSocket;
-        this.scanner = new Scanner(client.getInputStream(), "UTF8");
+        this.scanner = new Scanner(clientSocket.getInputStream(), "UTF8");
     }
 
     public String getRawRequestString() {
@@ -22,5 +20,14 @@ public class ClientInput {
             line = scanner.nextLine();
         }
         return request.toString();
+    }
+
+    public byte[] getBytes(int length){
+        scanner.useDelimiter("");
+        StringBuilder data = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            data.append(scanner.next());
+        }
+        return data.toString().getBytes();
     }
 }
