@@ -14,14 +14,6 @@ public class HttpResponse {
     private String body;
     private String status = "200";
 
-    public HttpResponse(Map<String, String> httpConfig) {
-        reasonPhrase = httpConfig.get("reasonPhrase");
-        requestHttpVersion = httpConfig.get("requestHttpVersion");
-        requestMethod = httpConfig.get("requestMethod");
-        requestUri = httpConfig.get("requestUri");
-        sentSize = httpConfig.get("sentSize");
-    }
-
     public HttpResponse() {
         headers = new HashMap<>();
     }

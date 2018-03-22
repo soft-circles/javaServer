@@ -1,27 +1,35 @@
 package http.IO;
 
-import java.io.IOException;
-import java.net.Socket;
+import java.io.InputStream;
 import java.util.Scanner;
 
-public class ClientInput {
+public class ClientInput implements IClientInput {
     private Scanner scanner;
 
-    public ClientInput(Socket clientSocket) throws IOException {
-        this.scanner = new Scanner(clientSocket.getInputStream(), "UTF8");
+    public ClientInput(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
     }
 
+    @Override
     public String getRawRequestString() {
         StringBuilder request = new StringBuilder();
-        String line = scanner.nextLine();
+        String line = "";
+        if (scanner.hasNextLine()) {
+            line = scanner.nextLine();
+        }
         while (!line.isEmpty()) {
             request.append(line);
             request.append("\n");
-            line = scanner.nextLine();
+            if (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+            } else  {
+                break;
+            }
         }
         return request.toString();
     }
 
+    @Override
     public byte[] getBytes(int length){
         scanner.useDelimiter("");
         StringBuilder data = new StringBuilder();

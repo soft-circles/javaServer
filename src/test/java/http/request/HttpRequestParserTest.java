@@ -1,6 +1,7 @@
 package http.request;
 
 import http.method.httpMethod;
+import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class HttpRequestParserTest {
     private HttpRequestParser httpRequestParser;
     @BeforeEach
-    void setUp() {
-        httpRequestParser = new HttpRequestParser(raw_response());
+    void setUp() throws InvalidRequestException {
+        httpRequestParser = new HttpRequestParser(rawRequest());
     }
 
     @Test
@@ -22,6 +23,11 @@ class HttpRequestParserTest {
     }
 
     @Test
+    void throwsExceptionOnInvalidRequest() {
+        assertThrows(InvalidRequestException.class, () -> new HttpRequestParser(invalidRawRequest()));
+    }
+
+    @Test
     void headers() {
         assertTrue(httpRequestParser.getHeaders().containsKey("Accept"));
         assertTrue(httpRequestParser.getHeaders().containsValue("text/html\r"));
@@ -29,7 +35,9 @@ class HttpRequestParserTest {
         assertTrue(httpRequestParser.getHeaders().containsValue("keep-alive\r"));
     }
 
-    private String raw_response() {
+    private String rawRequest() {
         return "GET / HTTP/2.0\r\nAccept: text/html\r\nConnection: keep-alive\r\n\r\n";
     }
+    private String invalidRawRequest() { return "TESTHDSF:LKJA";}
+
 }

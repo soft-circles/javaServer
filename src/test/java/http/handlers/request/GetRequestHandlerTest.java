@@ -2,6 +2,7 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,14 +16,14 @@ class GetRequestHandlerTest {
     HttpResponse httpResponse, httpResponse2;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
         getRequestHandler = new GetRequestHandler(getRequest(), fileIO);
         getRequestHandler2 = new GetRequestHandler(invalidGetRequest(), fileIO);
         httpResponse = getRequestHandler.returnResponse();
         httpResponse2 = getRequestHandler2.returnResponse();
     }
-    private HttpRequest getRequest() {
+    private HttpRequest getRequest() throws InvalidRequestException {
         String rawRequest = "GET / HTTP/1.1\\r\\n\" +\n" +
                                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
@@ -32,7 +33,7 @@ class GetRequestHandlerTest {
         return new HttpRequest(rawRequest);
     }
 
-    private HttpRequest invalidGetRequest() {
+    private HttpRequest invalidGetRequest() throws InvalidRequestException {
         String rawRequest = "GET /nowhere HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +

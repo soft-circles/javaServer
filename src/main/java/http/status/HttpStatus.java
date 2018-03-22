@@ -5,12 +5,12 @@ public class HttpStatus {
     private HttpStatus() {}
 
     public static String message(String code) throws InvalidStatusCodeException {
-        String message = StatusMessages.STATUSES.get(Integer.parseInt(code)).toString();
-        if (message == null) {
-           throw new InvalidStatusCodeException("Status code does not exist");
-       } else {
-           return message;
-       }
+        try {
+            String message = StatusMessages.STATUSES.get(Integer.parseInt(code)).toString();
+            return message;
+        } catch (Exception e) {
+            throw new InvalidStatusCodeException("Status code does not exist");
+        }
     }
 
     public static boolean isErrorStatus(int code) {

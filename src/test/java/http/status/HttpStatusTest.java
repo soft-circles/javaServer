@@ -41,4 +41,9 @@ class HttpStatusTest {
         assertTrue(HttpStatus.isSuccess(200));
         assertFalse(HttpStatus.isSuccess(100));
     }
+
+    @Test
+    void throwsExceptionIfStatusDoesNotExist() {
+        assertThrows(InvalidStatusCodeException.class, () -> HttpStatus.message("9999"));
+    }
 }

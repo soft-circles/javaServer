@@ -1,6 +1,7 @@
 package http.handlers.request;
 
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,12 @@ class HeadRequestHandlerTest {
     private HttpResponse httpResponse, httpResponse2;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InvalidRequestException {
         httpResponse = new HeadRequestHandler(httpRequest()).returnResponse();
         httpResponse2 = new HeadRequestHandler(invalidHttpRequest()).returnResponse();
     }
 
-    private HttpRequest httpRequest() {
+    private HttpRequest httpRequest() throws InvalidRequestException {
         String rawRequest = "HEAD / HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
@@ -29,7 +30,7 @@ class HeadRequestHandlerTest {
         return new HttpRequest(rawRequest);
     }
 
-    private HttpRequest invalidHttpRequest() {
+    private HttpRequest invalidHttpRequest() throws InvalidRequestException {
             String rawRequest = "HEAD /nowhere HTTP/1.1\\r\\n\" +\n" +
                     "Host: www.nowhere123.com\\r\\n\" +\n" +
                     "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +

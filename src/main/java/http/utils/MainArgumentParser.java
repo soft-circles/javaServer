@@ -12,10 +12,10 @@ public class MainArgumentParser {
             try {
 
                 if (args[i].equals("-p")) {
-                    portNumber = Integer.parseInt(args[i]);
+                    portNumber = Integer.parseInt(args[++i]);
                 }
                 if (args[i].equals("-d")) {
-                    workingDirectory = args[i];
+                    workingDirectory = args[++i];
             }
             } catch(Exception e) {
                 e.printStackTrace();

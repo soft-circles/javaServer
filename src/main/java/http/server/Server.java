@@ -4,22 +4,24 @@ import http.IO.ClientOutput;
 import http.IO.file.FileIO;
 import http.handlers.request.IRequestHandler;
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.router.Router;
+import http.socket.IClient;
+import http.socket.Client;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class Server {
 
-    public Server(int portNum, String directory) throws IOException {
+    public Server(int portNum, String directory) throws IOException, InvalidRequestException {
         ServerSocket socket = new ServerSocket(portNum);
         while (true) {
         System.out.println("Waiting for client...");
-        Socket connectedSocket = socket.accept();
-        ClientInput clientInput = new ClientInput(connectedSocket);
+        IClient client = new Client(socket);
         System.out.println("Client connected");
+        ClientInput clientInput = new ClientInput(client.getInputStream());
         String rawRequest = clientInput.getRawRequestString();
         HttpRequest httpRequest = new HttpRequest(rawRequest);
         if (httpRequest.getContentLength() > 0) {
@@ -28,7 +30,7 @@ public class Server {
         System.out.println(rawRequest);
         IRequestHandler handler = Router.getHandler(httpRequest, new FileIO("../cob_spec/public"));
         HttpResponse httpResponse = handler.returnResponse();
-        ClientOutput clientOutput = new ClientOutput(connectedSocket);
+        ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
         clientOutput.writeTo(httpResponse.fullResponse());
         System.out.println(httpResponse.fullResponse());
         }

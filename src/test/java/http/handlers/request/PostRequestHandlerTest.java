@@ -2,6 +2,7 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +16,9 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PostRequestHandlerTest {
-    HttpResponse httpResponse;
+    private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = postRequest();
         httpRequest.setBody(data());
@@ -36,7 +37,7 @@ class PostRequestHandlerTest {
         assertEquals("OK", httpResponse.getReasonPhrase());
     }
 
-    private HttpRequest postRequest() {
+    private HttpRequest postRequest() throws InvalidRequestException {
         String rawRequest = "POST /form HTTP/1.1\r\n" +
                 "Host: www.nowhere123.com\r\n" +
                 "Accept: image/gif, image/jpeg, */*\r\n" +

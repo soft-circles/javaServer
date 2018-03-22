@@ -18,4 +18,8 @@ class FileFetcherTest {
         samples.add("FileFetcherTest.java");
         return samples;
     }
+
+    @Test
+    void parseTextFile() {
+    }
 }
