@@ -1,6 +1,7 @@
 package http.request;
 
 import http.method.httpMethod;
+import http.request.error.InvalidRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class HttpRequest implements IHttpRequest {
     private Map<String, String> headers;
     private byte[] body;
 
-    public HttpRequest(String request) {
+    public HttpRequest(String request) throws InvalidRequestException {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
         this.method = httpRequestParser.getMethod();
         this.version = httpRequestParser.getVersion();

@@ -2,6 +2,7 @@ package http.handlers.directory;
 
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class DirectoryHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = httpRequest();
         httpResponse = new DirectoryHandler(httpRequest, fileIO).generateResponse();
     }
 
-    private HttpRequest httpRequest() {
+    private HttpRequest httpRequest() throws InvalidRequestException {
         String rawRequest = "GET / HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +

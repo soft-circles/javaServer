@@ -2,6 +2,7 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
+import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class PutRequestHandlerTest {
-    HttpResponse httpResponse;
+    private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = putRequest();
         httpRequest.setBody(data());
@@ -39,7 +40,7 @@ class PutRequestHandlerTest {
         assertEquals("OK", httpResponse.getReasonPhrase());
     }
 
-    private HttpRequest putRequest() {
+    private HttpRequest putRequest() throws InvalidRequestException {
         String rawRequest = "PUT /form HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\r\\n\\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +

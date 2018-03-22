@@ -1,6 +1,7 @@
 package http.request;
 
 import http.method.httpMethod;
+import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +12,12 @@ class HttpRequestTest {
 
 
     @BeforeEach
-    void setUp(){
+    void setUp() throws InvalidRequestException {
         httpRequest = new HttpRequest(getRequest());
     }
 
     private String getRequest() {
-        return firstLine() + "User-Agent: HTTPTool/1.0\r\n";
+        return firstLine() + "Content-Length: 10\n";
     }
 
     private String firstLine() {
@@ -41,5 +42,15 @@ class HttpRequestTest {
     @Test
     void version() {
         assertEquals("HTTP/1.0\r", httpRequest.version());
+    }
+
+    @Test
+    void getContentLength() {
+        assertEquals(10, httpRequest.getContentLength());
+    }
+
+    @Test
+    void headers() {
+        assertTrue(httpRequest.headers().containsKey("Content-Length"));
     }
 }

@@ -1,6 +1,7 @@
 package http.request;
 
 import http.method.httpMethod;
+import http.request.error.InvalidRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,11 +14,14 @@ public class HttpRequestParser {
     private String version;
     private HashMap<String, String> headers;
 
-    public HttpRequestParser(String request) {
-        parseRequestLine(getFirstLine(request));
-        this.headers = parseHeaders(request);
-        if (headers.containsKey("Content-Length")) {
-            setContentLength(Integer.parseInt(headers.get("Content-Length")));
+    public HttpRequestParser(String request) throws InvalidRequestException {
+        try {
+            parseRequestLine(getFirstLine(request));
+            this.headers = parseHeaders(request);
+            if (headers.containsKey("Content-Length"))
+                setContentLength(Integer.parseInt(headers.get("Content-Length")));
+        } catch (Exception e) {
+                throw new InvalidRequestException();
         }
     }
 
@@ -40,11 +44,7 @@ public class HttpRequestParser {
 
     private void parseRequestLine(String requestLine) {
         setRequestLine(requestLine);
-        try {
-            setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
-        } catch(IllegalArgumentException e) {
-            setMethod(httpMethod.INVALID);
-        }
+        setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
         String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);
         setPath(pathAndParameters[0]);
         setVersion(requestLine.split(" ")[2]);

@@ -10,15 +10,9 @@ public class PathChecker {
     public static boolean validRoute(String path) {
         return VALID_PATHS.containsKey(path);
     }
-
-    private static boolean validPath(String path, FileIO fileIO) {
-        return fileIO.exists(path);
-    }
-
     public static boolean writePermitted(String path) {
         return VALID_PATHS.get(path).contains(httpMethod.POST);
     }
-
     public static boolean updatePermitted(String path) {
         return VALID_PATHS.get(path).contains(httpMethod.PUT);
     }
