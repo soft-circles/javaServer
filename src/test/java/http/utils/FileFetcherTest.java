@@ -17,7 +17,7 @@ class FileFetcherTest {
     @BeforeEach
     void setUp() {
         fileIO = new FileIO("./public");
-        files = FileFetcher.fetch("", fileIO);
+        files = DirectoryContentsUtility.listDirectoryContents("");
     }
 
     @Test
@@ -27,7 +27,7 @@ class FileFetcherTest {
 
     @Test
     void parseTextFile() throws IOException {
-        assertEquals(textFileContents(), FileFetcher.parseTextFile("/text-file.txt", fileIO));
+        assertEquals(textFileContents(), DirectoryContentsUtility.parseTextFile("/text-file.txt", fileIO));
     }
 
     private List<String> testFiles() {

@@ -3,10 +3,12 @@ package http.handlers.directory;
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.utils.FileFetcher;
+import http.utils.DirectoryContentsUtility;
 import http.utils.HTMLgenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DirectoryHandler implements IResourceHandler {
     private final HttpRequest httpRequest;
@@ -38,11 +40,19 @@ public class DirectoryHandler implements IResourceHandler {
         if (fileIO.isDirectory(httpRequest.path())) {
             httpResponse.setBody(generateDirectoryList());
         } else {
-            httpResponse.setBody(FileFetcher.parseTextFile(httpRequest.path(), fileIO));
+            httpResponse.setBody(fileIO.readFile(httpRequest.path()));
         }
     }
 
-    private String generateDirectoryList() {
-        return HTMLgenerator.generate(FileFetcher.fetch(httpRequest.path(), fileIO));
+    private byte[] generateDirectoryList() {
+        return HTMLgenerator.generate(listDirectoryContents(fileIO.getFilesInDirectory(httpRequest.path())));
+    }
+
+    private static List<String> listDirectoryContents(String[] fileNames) {
+        List<String> results = new ArrayList<>();
+        for (String fileName : fileNames) {
+            results.add(fileName);
+        }
+        return results;
     }
 }

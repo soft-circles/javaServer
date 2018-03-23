@@ -11,18 +11,16 @@ import http.utils.PathChecker;
 import java.io.IOException;
 
 public class DeleteRequestHandler implements IRequestHandler {
-    private final HttpRequest httpRequest;
     private final InvalidResourceHandler invalidResourceHandler;
     private final FileHandler fileHandler;
 
-    public DeleteRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
-        this.httpRequest = httpRequest;
+    public DeleteRequestHandler(FileIO fileIO) {
         this.invalidResourceHandler = new InvalidResourceHandler();
         this.fileHandler = new FileHandler(fileIO);
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
         if (PathChecker.validRoute(httpRequest.path()) && PathChecker.deletePermitted(httpRequest.path()) && deleted(httpRequest.path())) {
             return createResponse();
         } else  {

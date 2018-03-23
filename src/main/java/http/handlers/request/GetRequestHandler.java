@@ -11,23 +11,25 @@ import java.io.IOException;
 
 
 public class GetRequestHandler extends HeadRequestHandler implements IRequestHandler {
-    private final DirectoryHandler directoryHandler;
 
-    public GetRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
-        super(httpRequest);
-        this.directoryHandler = new DirectoryHandler(httpRequest, fileIO);
+    private final FileIO fileIO;
+
+    public GetRequestHandler(FileIO fileIO) {
+        super(fileIO);
+        this.fileIO = fileIO;
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
+        DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
         if (PathChecker.validRoute(httpRequest.path())) {
-            return createResponse();
+            return createResponse(directoryHandler);
         } else {
             return invalidResourceHandler.generateResponse();
         }
     }
 
-    private HttpResponse createResponse() throws IOException {
+    private HttpResponse createResponse(DirectoryHandler directoryHandler) throws IOException {
         HttpResponse httpResponse = directoryHandler.generateResponse();
         if ("I'm a teapot\n".equals(httpResponse.getBody())) {
             httpResponse.setStatus("418");

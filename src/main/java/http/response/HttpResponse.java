@@ -11,7 +11,7 @@ public class HttpResponse {
     private String requestMethod;
     private String requestUri;
     private String sentSize;
-    private String body;
+    private byte[] body;
     private String status = "200";
 
     public HttpResponse() {
@@ -22,11 +22,11 @@ public class HttpResponse {
         return headers;
     }
 
-    public String getBody() {
+    public byte[] getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(byte[] body) {
         this.body = body;
     }
 
@@ -58,11 +58,11 @@ public class HttpResponse {
         return statusLine() + "\r\n" + headers() + "\r\n\r\n" + body() + "\r\n";
     }
 
-    private String body() {
+    private byte[] body() {
         if (body != null) {
             return body;
         } else {
-            return "";
+            return new byte[0];
         }
     }
     public void addToBody(String string) {
@@ -72,7 +72,7 @@ public class HttpResponse {
         }
         bodyBuilder.append("\n");
         bodyBuilder.append(string);
-        this.body = bodyBuilder.toString();
+        this.body = bodyBuilder.toString().getBytes();
     }
 
     private String headers() {

@@ -1,6 +1,7 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
+import http.IO.file.InvalidPathException;
 import http.handlers.directory.InvalidResourceHandler;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
@@ -11,28 +12,26 @@ import http.utils.PathChecker;
 import java.io.IOException;
 
 public class PostRequestHandler implements IRequestHandler {
-    private final HttpRequest httpRequest;
     private final InvalidResourceHandler invalidResourceHandler;
-    private final FileHandler fileHandler;
+    private final FileIO fileIO;
 
-    public PostRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
-        this.httpRequest = httpRequest;
-        this.fileHandler = new FileHandler(fileIO);
+    public PostRequestHandler(FileIO fileIO) {
+        this.fileIO = fileIO;
         this.invalidResourceHandler = new InvalidResourceHandler();
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
         if (PathChecker.validRoute(httpRequest.path()) && PathChecker.writePermitted(httpRequest.path())) {
-            createFileAtLocation();
+            createFileAtLocation(httpRequest);
             return createResponse();
         } else {
             return invalidResourceHandler.generateResponse();
         }
     }
 
-    private void createFileAtLocation() throws IOException {
-        fileHandler.createFile(httpRequest.path(), httpRequest.getBody());
+    private void createFileAtLocation(HttpRequest httpRequest) throws IOException, InvalidPathException {
+        fileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
     private HttpResponse createResponse() {

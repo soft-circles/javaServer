@@ -11,8 +11,6 @@ a
 1src/main/java/http/request/HttpRequestParser.java,0/6/06455e021ca0b9f9b050a6b8fdf6d2f8cff5bce9
 ]
 -src/test/java/http/status/HttpStatusTest.java,a/6/a698a1aeac3c05875b7252337ba6219e8de5df3c
-c
-3src/main/java/http/request/HttpRequestVerifier.java,2/7/2780a7b8dfb8e90d9de1fc8af52de964abaced75
 \
 ,src/main/java/http/request/IHttpRequest.java,7/7/7784e34ee879ddb2e01effd50c751d415aa083af
 Y
@@ -27,8 +25,6 @@ j
 :src/test/java/http/handlers/directory/FileFetcherTest.java,7/a/7a98871cb76b9cdd0383031bc8e762e6ec427ae7
 U
 %src/main/java/http/server/Server.java,8/3/839c730c29a5f80ef988261d9ce1f87a5d033ab0
-S
-#src/main/java/http/utils/Utils.java,6/8/683cbdf30607e6ef9464d2118ee33566e01db248
 V
 &src/main/java/http/IO/ClientInput.java,6/1/61a8d93fc64f7da3689b38c4c4ddfb7308dc6901
 [
@@ -73,12 +69,8 @@ o
 ?src/test/java/http/handlers/directory/DirectoryHandlerTest.java,f/a/fa91259b91239208be6721fcaa7ac05a4f4d06e6
 Y
 )src/test/java/http/socket/ClientTest.java,8/6/86bb4ee6619b5db5b4e9daaf4d6463fdc615bd37
-_
-/src/test/java/http/socket/ClientSocketTest.java,e/5/e5df1eb31e843d1cf5207e415fc5d40d2162e6c5
 [
 +src/test/java/http/IO/ClientOutputTest.java,e/5/e594230decfbd61a07b69a8e732997c8cdc98af9
-X
-(src/test/java/mocks/ClientInputMock.java,b/d/bd4930b57e851ecc4e2a1b82030bde6fbcb476ba
 W
 'src/main/java/http/IO/IClientInput.java,1/c/1c142b6a82248c12d364a092ca4f62feb23cbc88
 Z

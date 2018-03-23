@@ -6,8 +6,8 @@ public class HTMLgenerator {
 
     private HTMLgenerator() { }
 
-    public static String generate(List<String> files) {
-        return "<DOCTYPE! html>" +
+    public static byte[] generate(List<String> files) {
+        String template = "<DOCTYPE! html>" +
                 "<html>" +
                 "<head>" +
                 "<meta charset=\"utf-8\">" +
@@ -17,6 +17,8 @@ public class HTMLgenerator {
                 generateListItems(files) +
                 "</body>" +
                 "</html>";
+
+        return template.getBytes();
     }
 
     private static String generateListItems(List<String> files) {

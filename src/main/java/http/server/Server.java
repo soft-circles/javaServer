@@ -2,6 +2,7 @@ package http.server;
 import http.IO.ClientInput;
 import http.IO.ClientOutput;
 import http.IO.file.FileIO;
+import http.IO.file.InvalidPathException;
 import http.handlers.request.IRequestHandler;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
@@ -15,7 +16,7 @@ import java.net.ServerSocket;
 
 public class Server {
 
-    public Server(int portNum, String directory) throws IOException, InvalidRequestException {
+    public Server(int portNum, String directory) throws IOException, InvalidRequestException, InvalidPathException {
         ServerSocket socket = new ServerSocket(portNum);
         while (true) {
         System.out.println("Waiting for client...");
@@ -29,7 +30,7 @@ public class Server {
         }
         System.out.println(rawRequest);
         IRequestHandler handler = Router.getHandler(httpRequest, new FileIO("../cob_spec/public"));
-        HttpResponse httpResponse = handler.returnResponse();
+        HttpResponse httpResponse = handler.returnResponse(httpRequest);
         ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
         clientOutput.writeTo(httpResponse.fullResponse());
         System.out.println(httpResponse.fullResponse());
