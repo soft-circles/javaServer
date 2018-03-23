@@ -22,10 +22,6 @@ class HttpRequestParserTest {
         assertEquals("/", httpRequestParser.getPath());
     }
 
-    @Test
-    void throwsExceptionOnInvalidRequest() {
-        assertThrows(InvalidRequestException.class, () -> new HttpRequestParser(invalidRawRequest()));
-    }
 
     @Test
     void headers() {
