@@ -11,6 +11,6 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
 before_script:
-    - cd cob_spec && ls -a 
+    - cd cob_spec && mvn package 
 script:
   - java -jar fitnesse.jar -c "HttpTestSuite.ResponseTestSuite.SimpleGet?test&format=text"
