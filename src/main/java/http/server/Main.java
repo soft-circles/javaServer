@@ -10,6 +10,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidRequestException {
         MainArgumentParser argumentParser = new MainArgumentParser(args);
-        new Server(5000, "../cob_spec/public");
+        new Server(argumentParser.getPortNumber(), argumentParser.getWorkingDirectory());
     }
 }
