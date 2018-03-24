@@ -10,6 +10,5 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
 script:
-  - cd cob_spec
-  - mvn package
+  - cd cob_spec && mvn package
   - java -jar fitnesse.jar -c "HttpTestSuite.ResponseTestSuite.SimpleGet?test&format=text"
