@@ -39,7 +39,7 @@ public class DirectoryHandler implements IResourceHandler {
     private void buildResponseBody() throws IOException {
         if (fileIO.isDirectory(httpRequest.path())) {
             httpResponse.setBody(generateDirectoryList());
-        } else {
+        } else if (fileIO.isFile(httpRequest.path())){
             httpResponse.setBody(fileIO.readFile(httpRequest.path()));
         }
     }

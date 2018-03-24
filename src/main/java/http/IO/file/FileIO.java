@@ -44,7 +44,7 @@ public class FileIO {
     }
 
     public String[] getFilesInDirectory(String path) {
-        return new File(path).list();
+        return new File(workingDirectory + path).list();
     }
 
     public String getFileName(String path) throws InvalidPathException {

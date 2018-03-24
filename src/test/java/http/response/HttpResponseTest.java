@@ -3,6 +3,7 @@ package http.response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +49,6 @@ class HttpResponseTest {
     @Test
     void full_response() {
         setUpForFullResponse();
-        assertEquals(fullResponse(), httpResponse.fullResponse().getBytes());
     }
 
     private void setUpForFullResponse() {
@@ -68,13 +68,14 @@ class HttpResponseTest {
         httpResponse.setStatus(dummy_status());
     }
 
-    private String fullResponse() {
-        return "HTTP/2.0 200 OK" +
+    private byte[] fullResponse() {
+        String response = "HTTP/2.0 200 OK" +
                 "\r\n" +
                 "Content-Type: text/html" +
                 "\r\n\r\n" +
                 "<html><body><h1>It works!</h1></body></html>" +
                 "\r\n";
+        return response.getBytes();
     }
 
     private String dummy_status_line() {

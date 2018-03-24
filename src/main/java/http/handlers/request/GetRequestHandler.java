@@ -8,6 +8,7 @@ import http.status.StatusMessages;
 import http.utils.PathChecker;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 
 public class GetRequestHandler extends HeadRequestHandler implements IRequestHandler {
@@ -31,7 +32,7 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
 
     private HttpResponse createResponse(DirectoryHandler directoryHandler) throws IOException {
         HttpResponse httpResponse = directoryHandler.generateResponse();
-        if ("I'm a teapot\n".equals(httpResponse.getBody())) {
+        if (httpResponse.getBody() != null && "I'm a teapot\n".equals(new String(httpResponse.getBody(), StandardCharsets.UTF_8))) {
             httpResponse.setStatus("418");
             httpResponse.setReasonPhrase((StatusMessages.STATUSES.get(418).toString()));
         } else  {

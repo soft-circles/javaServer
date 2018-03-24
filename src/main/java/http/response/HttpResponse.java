@@ -1,5 +1,6 @@
 package http.response;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +56,7 @@ public class HttpResponse {
     }
 
     public String fullResponse() {
-        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + body() + "\r\n";
+        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + new String(body(), StandardCharsets.UTF_8) + "\r\n";
     }
 
     private byte[] body() {
