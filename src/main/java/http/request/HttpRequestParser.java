@@ -3,6 +3,7 @@ package http.request;
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class HttpRequestParser {
         setRequestLine(requestLine);
         try {
             setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
-        } catch(Exception e) {
+        } catch (Exception e) {
             setMethod(httpMethod.GET);
         }
         String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);

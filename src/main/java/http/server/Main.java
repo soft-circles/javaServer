@@ -12,7 +12,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidRequestException, InvalidPathException {
         MainArgumentParser argumentParser = new MainArgumentParser(args);
-        System.out.println(argumentParser.getWorkingDirectory());
         new Server(argumentParser.getPortNumber(), argumentParser.getWorkingDirectory());
     }
 }
