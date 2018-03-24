@@ -10,6 +10,7 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
 before_install:
+    - gradle build
     - cd cob_spec 
 script:
   - mvn package
