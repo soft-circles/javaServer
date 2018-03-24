@@ -9,5 +9,8 @@ cache:
   directories:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
+before_install:
+    - chmod +x run_cob_spec_tests.sh
 script:
   - ./gradlew clean test
+  - "./run_cob_spec_tests.sh"
