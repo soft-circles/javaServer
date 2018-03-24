@@ -9,8 +9,9 @@ cache:
   directories:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
-before_script:
-    - cd cob_spec && mvn package 
+before_install:
+    - cd cob_spec 
 script:
+  - mvn package
   - java -jar fitnesse.jar -c "HttpTestSuite.ResponseTestSuite.SimpleGet?test&format=text"
 
