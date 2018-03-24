@@ -69,7 +69,7 @@ public class HttpResponse {
     public void addToBody(String string) {
         StringBuilder bodyBuilder = new StringBuilder();
         if (body != null) {
-            bodyBuilder.append(body);
+            bodyBuilder.append(new String(body, StandardCharsets.UTF_8));
         }
         bodyBuilder.append("\n");
         bodyBuilder.append(string);
