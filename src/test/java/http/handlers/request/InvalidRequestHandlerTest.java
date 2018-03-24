@@ -13,7 +13,7 @@ class InvalidRequestHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() throws InvalidRequestException {
-        HttpRequest httpRequest = new HttpRequest("GET /weird HTTP/1.0");
+        HttpRequest httpRequest = new HttpRequest("GET /weird HTTP/1.0\n");
         invalidRequestHandler = new InvalidRequestHandler();
         httpResponse = invalidRequestHandler.returnResponse(httpRequest);
     }
@@ -22,6 +22,6 @@ class InvalidRequestHandlerTest {
     void returnResponse() {
         assertEquals("404", httpResponse.getStatus());
         assertEquals("Not Found", httpResponse.getReasonPhrase());
-        assertEquals("Content not found", httpResponse.getBody());
+        assertEquals("Content not found".getBytes().length, httpResponse.getBody().length);
     }
 }

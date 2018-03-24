@@ -1,12 +1,0 @@
-
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(¬³ú8ÔÚ›€¤,
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(Ì›òæ8±±À…£,
-Lsquid:S1172"0Remove this unused method parameter "directory".(œ‹Ê¿8øœ”Ô¤,
-Y
-squid:S106"9Replace this use of System.out or System.err by a logger.(ĞÊÒ¥ÿÿÿÿÿ8±±À…£,
-Csquid:S2189""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8±±À…£,
-fsquid:S2095"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(ÑËÀ8±±À…£,
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(¿êâæ8ÔÚ›€¤,

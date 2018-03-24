@@ -15,14 +15,10 @@ public class HttpRequestParser {
     private HashMap<String, String> headers;
 
     public HttpRequestParser(String request) throws InvalidRequestException {
-        try {
             parseRequestLine(getFirstLine(request));
             this.headers = parseHeaders(request);
             if (headers.containsKey("Content-Length"))
                 setContentLength(Integer.parseInt(headers.get("Content-Length")));
-        } catch (Exception e) {
-                throw new InvalidRequestException();
-        }
     }
 
     private String getFirstLine(String rawRequest) {
@@ -44,7 +40,11 @@ public class HttpRequestParser {
 
     private void parseRequestLine(String requestLine) {
         setRequestLine(requestLine);
-        setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
+        try {
+            setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
+        } catch(Exception e) {
+            setMethod(httpMethod.GET);
+        }
         String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);
         setPath(pathAndParameters[0]);
         setVersion(requestLine.split(" ")[2]);

@@ -23,11 +23,6 @@ class HttpRequestParserTest {
     }
 
     @Test
-    void throwsExceptionOnInvalidRequest() {
-        assertThrows(InvalidRequestException.class, () -> new HttpRequestParser(invalidRawRequest()));
-    }
-
-    @Test
     void headers() {
         assertTrue(httpRequestParser.getHeaders().containsKey("Accept"));
         assertTrue(httpRequestParser.getHeaders().containsValue("text/html\r"));

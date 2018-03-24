@@ -3,7 +3,10 @@ package http.response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpResponseTest {
 
@@ -37,22 +40,22 @@ class HttpResponseTest {
 
     @Test
     void addToBody() {
-        httpResponse.setBody("TEXT");
+        httpResponse.setBody("TEXT".getBytes());
         httpResponse.addToBody("More text");
-        assertEquals("TEXT\nMore text", httpResponse.getBody());
+        assertTrue(Arrays.equals("TEXT\nMore text".getBytes(), httpResponse.getBody()));
     }
 
     @Test
     void full_response() {
         setUpForFullResponse();
-        assertEquals(fullResponse(), httpResponse.fullResponse());
+        assertEquals(fullResponse(), httpResponse.fullResponse().getBytes());
     }
 
     private void setUpForFullResponse() {
         httpResponse.addHeader("Content-Type", "text/html");
         httpResponse.setStatus("200");
         httpResponse.setReasonPhrase("OK");
-        httpResponse.setBody("<html><body><h1>It works!</h1></body></html>");
+        httpResponse.setBody("<html><body><h1>It works!</h1></body></html>".getBytes());
     }
 
     private void assignAttributes() {
