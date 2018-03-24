@@ -33,8 +33,3 @@ jar {
         attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
     }
 }
-
-stage {
-    dependsOn installDist
-}
-
