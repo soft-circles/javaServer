@@ -18,8 +18,8 @@ class HeadRequestHandlerTest {
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
-        httpResponse = new HeadRequestHandler(fileIO).returnResponse(httpRequest());
-        httpResponse2 = new HeadRequestHandler(fileIO).returnResponse(invalidHttpRequest());
+        httpResponse = new HeadRequestHandler(fileIO).generateResponse(httpRequest());
+        httpResponse2 = new HeadRequestHandler(fileIO).generateResponse(invalidHttpRequest());
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException {

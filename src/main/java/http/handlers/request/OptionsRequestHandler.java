@@ -9,7 +9,7 @@ public class OptionsRequestHandler implements IRequestHandler {
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) {
+    public HttpResponse generateResponse(HttpRequest httpRequest) {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.setStatus("200");
         httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());

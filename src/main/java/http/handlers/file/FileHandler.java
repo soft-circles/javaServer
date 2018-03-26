@@ -18,6 +18,9 @@ public class FileHandler {
     }
 
     public void createFile(String filePath, byte[] data) throws IOException {
+        if (data == null) {
+            data = new byte[0];
+        }
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {

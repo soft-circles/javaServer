@@ -1,33 +1,32 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
-import http.handlers.directory.InvalidResourceHandler;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.PathChecker;
+import http.utils.RouteChecker;
 
 import java.io.IOException;
 
 public class PutRequestHandler implements IRequestHandler {
 
-    private final InvalidResourceHandler invalidResourceHandler;
     private final FileHandler fileHandler;
+    private final InvalidRequestHandler invalidRequestHandler;
 
     public PutRequestHandler(FileIO fileIO) {
 
         this.fileHandler = new FileHandler(fileIO);
-        this.invalidResourceHandler = new InvalidResourceHandler();
+        this.invalidRequestHandler = new InvalidRequestHandler();
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
-        if (PathChecker.validRoute(httpRequest.path()) && PathChecker.updatePermitted(httpRequest.path())) {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
+        if (RouteChecker.validRoute(httpRequest.path()) && RouteChecker.updatePermitted(httpRequest.path())) {
             updateFileAtLocation(httpRequest);
             return createResponse();
         } else  {
-            return invalidResourceHandler.generateResponse();
+            return invalidRequestHandler.generateResponse(httpRequest);
         }
     }
 

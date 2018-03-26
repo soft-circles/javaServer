@@ -1,30 +1,30 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
-import http.handlers.directory.InvalidResourceHandler;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.PathChecker;
+import http.utils.RouteChecker;
 
 import java.io.IOException;
 
 public class DeleteRequestHandler implements IRequestHandler {
-    private final InvalidResourceHandler invalidResourceHandler;
+
     private final FileHandler fileHandler;
+    private final InvalidRequestHandler invalidRequestHandler;
 
     public DeleteRequestHandler(FileIO fileIO) {
-        this.invalidResourceHandler = new InvalidResourceHandler();
+        this.invalidRequestHandler = new InvalidRequestHandler();
         this.fileHandler = new FileHandler(fileIO);
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
-        if (PathChecker.validRoute(httpRequest.path()) && PathChecker.deletePermitted(httpRequest.path()) && deleted(httpRequest.path())) {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
+        if (RouteChecker.validRoute(httpRequest.path()) && RouteChecker.deletePermitted(httpRequest.path()) && deleted(httpRequest.path())) {
             return createResponse();
         } else  {
-            return invalidResourceHandler.generateResponse();
+            return invalidRequestHandler.generateResponse(httpRequest);
         }
     }
 
