@@ -23,7 +23,6 @@ public class HttpRequest implements IHttpRequest {
         this.requestLine = httpRequestParser.getRequestLine();
         this.headers = httpRequestParser.getHeaders();
         this.contentLength = httpRequestParser.getContentLength();
-
     }
 
     @Override
