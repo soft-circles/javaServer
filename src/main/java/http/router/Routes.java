@@ -20,6 +20,8 @@ public class Routes {
         paths.put("/tea", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         paths.put("/method_options", new ArrayList<>(Arrays.asList()));
         paths.put("/method_options2", new ArrayList<>(Arrays.asList()));
+        paths.put("/file1", new ArrayList<>(Arrays.asList(httpMethod.GET)));
+        paths.put("/text-file.txt", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         return paths;
     }
 }

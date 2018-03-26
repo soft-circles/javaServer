@@ -1,29 +1,27 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
-import http.handlers.directory.DirectoryHandler;
-import http.handlers.directory.InvalidResourceHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.PathChecker;
+import http.utils.RouteChecker;
 
 import java.io.IOException;
 
 
 public class HeadRequestHandler implements IRequestHandler {
-    protected final InvalidResourceHandler invalidResourceHandler;
+    protected InvalidRequestHandler invalidRequestHandler;
 
     public HeadRequestHandler(FileIO fileIo) {
-        this.invalidResourceHandler = new InvalidResourceHandler();
+        this.invalidRequestHandler = new InvalidRequestHandler();
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
-        if (PathChecker.validRoute(httpRequest.path())) {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
+        if (RouteChecker.validRoute(httpRequest.path())) {
             return createResponse();
         } else {
-            return invalidResourceHandler.generateResponse();
+            return invalidRequestHandler.generateResponse(httpRequest);
         }
     }
 

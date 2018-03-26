@@ -2,30 +2,28 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.IO.file.InvalidPathException;
-import http.handlers.directory.InvalidResourceHandler;
-import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.PathChecker;
+import http.utils.RouteChecker;
 
 import java.io.IOException;
 
 public class PostRequestHandler implements IRequestHandler {
-    private final InvalidResourceHandler invalidResourceHandler;
     private final FileIO fileIO;
+    private final InvalidRequestHandler invalidRequestHandler;
 
     public PostRequestHandler(FileIO fileIO) {
         this.fileIO = fileIO;
-        this.invalidResourceHandler = new InvalidResourceHandler();
+        this.invalidRequestHandler = new InvalidRequestHandler();
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
-        if (PathChecker.validRoute(httpRequest.path()) && PathChecker.writePermitted(httpRequest.path())) {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
+        if (RouteChecker.validRoute(httpRequest.path()) && RouteChecker.writePermitted(httpRequest.path())) {
             return createResponse(httpRequest);
         } else {
-            return invalidResourceHandler.generateResponse();
+            return invalidRequestHandler.generateResponse(httpRequest);
         }
     }
 

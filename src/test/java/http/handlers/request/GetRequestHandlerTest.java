@@ -20,8 +20,8 @@ class GetRequestHandlerTest {
         FileIO fileIO = new FileIO("./public");
         getRequestHandler = new GetRequestHandler(fileIO);
         getRequestHandler2 = new GetRequestHandler(fileIO);
-        httpResponse = getRequestHandler.returnResponse(getRequest());
-        httpResponse2 = getRequestHandler2.returnResponse(invalidGetRequest());
+        httpResponse = getRequestHandler.generateResponse(getRequest());
+        httpResponse2 = getRequestHandler2.generateResponse(invalidGetRequest());
     }
     private HttpRequest getRequest() throws InvalidRequestException {
         String rawRequest = "GET / HTTP/1.1\\r\\n\" +\n" +

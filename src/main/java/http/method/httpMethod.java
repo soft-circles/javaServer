@@ -7,5 +7,6 @@ public enum httpMethod {
     PATCH,
     DELETE,
     OPTIONS,
-    HEAD
+    HEAD,
+    INVALID
 }

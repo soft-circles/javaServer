@@ -5,7 +5,7 @@ import http.method.httpMethod;
 
 import static http.router.Routes.VALID_PATHS;
 
-public class PathChecker {
+public class RouteChecker {
 
     public static boolean validRoute(String path) {
         return VALID_PATHS.containsKey(path);
@@ -18,5 +18,8 @@ public class PathChecker {
     }
     public static boolean deletePermitted(String path) {
         return VALID_PATHS.get(path).contains(httpMethod.DELETE);
+    }
+    public static boolean validAction(String path, httpMethod method) {
+        return VALID_PATHS.get(path).contains(method);
     }
 }

@@ -5,7 +5,7 @@ import http.handlers.directory.DirectoryHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.PathChecker;
+import http.utils.RouteChecker;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,12 +21,12 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
     }
 
     @Override
-    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
-        if (PathChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
+        if (RouteChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
             return createResponse(directoryHandler);
         } else {
-            return invalidResourceHandler.generateResponse();
+            return invalidRequestHandler.generateResponse(httpRequest);
         }
     }
 

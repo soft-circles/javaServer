@@ -23,7 +23,7 @@ class PostRequestHandlerTest {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = postRequest();
         httpRequest.setBody(data());
-        httpResponse = new PostRequestHandler(fileIO).returnResponse(httpRequest);
+        httpResponse = new PostRequestHandler(fileIO).generateResponse(httpRequest);
     }
 
     @AfterEach

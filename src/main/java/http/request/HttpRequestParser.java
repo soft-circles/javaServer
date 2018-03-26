@@ -44,7 +44,7 @@ public class HttpRequestParser {
         try {
             setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
         } catch (Exception e) {
-            setMethod(httpMethod.GET);
+            setMethod(httpMethod.INVALID);
         }
         String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);
         setPath(pathAndParameters[0]);

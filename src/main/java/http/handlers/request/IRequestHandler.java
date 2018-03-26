@@ -8,5 +8,5 @@ import java.io.IOException;
 
 public interface IRequestHandler {
 
-    HttpResponse returnResponse(HttpRequest httpRequest) throws IOException, InvalidPathException;
+    HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException;
 }

@@ -15,7 +15,7 @@ class InvalidRequestHandlerTest {
     void setUp() throws InvalidRequestException {
         HttpRequest httpRequest = new HttpRequest("GET /weird HTTP/1.0\n");
         invalidRequestHandler = new InvalidRequestHandler();
-        httpResponse = invalidRequestHandler.returnResponse(httpRequest);
+        httpResponse = invalidRequestHandler.generateResponse(httpRequest);
     }
 
     @Test
