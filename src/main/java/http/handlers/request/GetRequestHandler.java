@@ -8,31 +8,34 @@ import http.status.StatusMessages;
 import http.utils.PathChecker;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 
 public class GetRequestHandler extends HeadRequestHandler implements IRequestHandler {
-    private final DirectoryHandler directoryHandler;
 
-    public GetRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
-        super(httpRequest);
-        this.directoryHandler = new DirectoryHandler(httpRequest, fileIO);
+    private final FileIO fileIO;
+
+    public GetRequestHandler(FileIO fileIO) {
+        super(fileIO);
+        this.fileIO = fileIO;
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
-        if (PathChecker.validRoute(httpRequest.path())) {
-            return createResponse();
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
+        DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
+        if (PathChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
+            return createResponse(directoryHandler);
         } else {
             return invalidResourceHandler.generateResponse();
         }
     }
 
-    private HttpResponse createResponse() throws IOException {
+    private HttpResponse createResponse(DirectoryHandler directoryHandler) throws IOException {
         HttpResponse httpResponse = directoryHandler.generateResponse();
-        if ("I'm a teapot\n".equals(httpResponse.getBody())) {
+        if (httpResponse.getBody() != null && "I'm a teapot\n".equals(new String(httpResponse.getBody(), StandardCharsets.UTF_8))) {
             httpResponse.setStatus("418");
             httpResponse.setReasonPhrase((StatusMessages.STATUSES.get(418).toString()));
-        } else  {
+        } else {
             httpResponse.setStatus("200");
             httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
         }

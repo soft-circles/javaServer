@@ -12,16 +12,14 @@ import java.io.IOException;
 
 
 public class HeadRequestHandler implements IRequestHandler {
-    protected final HttpRequest httpRequest;
     protected final InvalidResourceHandler invalidResourceHandler;
 
-    public HeadRequestHandler(HttpRequest httpRequest) {
-        this.httpRequest = httpRequest;
+    public HeadRequestHandler(FileIO fileIo) {
         this.invalidResourceHandler = new InvalidResourceHandler();
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
         if (PathChecker.validRoute(httpRequest.path())) {
             return createResponse();
         } else {

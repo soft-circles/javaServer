@@ -32,7 +32,7 @@ class DirectoryHandlerTest {
 
     @Test
     void generateResponse() {
-        assertTrue(!httpResponse.getBody().isEmpty());
+        assertTrue(httpResponse.getBody().length > 0);
         assertTrue(!httpResponse.getHeaders().isEmpty());
     }
 }

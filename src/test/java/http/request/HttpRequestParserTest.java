@@ -21,8 +21,7 @@ class HttpRequestParserTest {
         assertEquals("HTTP/2.0\r", httpRequestParser.getVersion());
         assertEquals("/", httpRequestParser.getPath());
     }
-
-
+  
     @Test
     void headers() {
         assertTrue(httpRequestParser.getHeaders().containsKey("Accept"));

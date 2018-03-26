@@ -5,11 +5,11 @@ import http.response.HttpResponse;
 import http.status.StatusMessages;
 
 public class OptionsRequestHandler implements IRequestHandler {
-    public OptionsRequestHandler(HttpRequest httpRequest) {
+    public OptionsRequestHandler() {
     }
 
     @Override
-    public HttpResponse returnResponse() {
+    public HttpResponse returnResponse(HttpRequest httpRequest) {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.setStatus("200");
         httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());

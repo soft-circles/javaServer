@@ -1,35 +1,19 @@
 package http.utils;
 
 public class MainArgumentParser {
-    private int portNumber;
-    private String workingDirectory;
-
     public MainArgumentParser(String[] args) {
-        portNumber = 5000;
-        workingDirectory = "./";
-
         for (int i = 0; i < args.length; i++) {
-            try {
-
-                if (args[i].equals("-p")) {
-                    portNumber = Integer.parseInt(args[++i]);
-                }
-                if (args[i].equals("-d")) {
-                    workingDirectory = args[++i];
-            }
-            } catch(Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+            if (ServerConfig.OPTIONS.containsKey(args[i])) {
+                ServerConfig.OPTIONS.replace(args[i], args[++i]);
             }
         }
-
     }
 
     public int getPortNumber() {
-        return portNumber;
+        return Integer.parseInt(ServerConfig.OPTIONS.get("-p"));
     }
 
     public String getWorkingDirectory() {
-        return workingDirectory;
+        return ServerConfig.OPTIONS.get("-d");
     }
 }

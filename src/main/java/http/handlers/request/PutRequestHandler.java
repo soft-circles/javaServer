@@ -11,27 +11,27 @@ import http.utils.PathChecker;
 import java.io.IOException;
 
 public class PutRequestHandler implements IRequestHandler {
-    private final HttpRequest httpRequest;
+
     private final InvalidResourceHandler invalidResourceHandler;
     private final FileHandler fileHandler;
 
-    public PutRequestHandler(HttpRequest httpRequest, FileIO fileIO) {
-        this.httpRequest = httpRequest;
+    public PutRequestHandler(FileIO fileIO) {
+
         this.fileHandler = new FileHandler(fileIO);
         this.invalidResourceHandler = new InvalidResourceHandler();
     }
 
     @Override
-    public HttpResponse returnResponse() throws IOException {
+    public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
         if (PathChecker.validRoute(httpRequest.path()) && PathChecker.updatePermitted(httpRequest.path())) {
-            updateFileAtLocation();
+            updateFileAtLocation(httpRequest);
             return createResponse();
         } else  {
             return invalidResourceHandler.generateResponse();
         }
     }
 
-    private void updateFileAtLocation() throws IOException {
+    private void updateFileAtLocation(HttpRequest httpRequest) throws IOException {
         fileHandler.createFile(httpRequest.path(), httpRequest.getBody());
     }
 

@@ -1,6 +1,7 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
+import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
@@ -18,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class PostRequestHandlerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException {
+    void setUp() throws IOException, InvalidRequestException, InvalidPathException {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = postRequest();
         httpRequest.setBody(data());
-        httpResponse = new PostRequestHandler(httpRequest, fileIO).returnResponse();
+        httpResponse = new PostRequestHandler(fileIO).returnResponse(httpRequest);
     }
 
     @AfterEach

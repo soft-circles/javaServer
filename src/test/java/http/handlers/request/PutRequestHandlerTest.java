@@ -23,7 +23,7 @@ class PutRequestHandlerTest {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = putRequest();
         httpRequest.setBody(data());
-        httpResponse = new PutRequestHandler(httpRequest, fileIO).returnResponse();
+        httpResponse = new PutRequestHandler(fileIO).returnResponse(httpRequest);
     }
 
 

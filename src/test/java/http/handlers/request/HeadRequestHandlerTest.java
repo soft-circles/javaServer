@@ -1,5 +1,6 @@
 package http.handlers.request;
 
+import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
@@ -16,8 +17,9 @@ class HeadRequestHandlerTest {
 
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException {
-        httpResponse = new HeadRequestHandler(httpRequest()).returnResponse();
-        httpResponse2 = new HeadRequestHandler(invalidHttpRequest()).returnResponse();
+        FileIO fileIO = new FileIO("./public");
+        httpResponse = new HeadRequestHandler(fileIO).returnResponse(httpRequest());
+        httpResponse2 = new HeadRequestHandler(fileIO).returnResponse(invalidHttpRequest());
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException {

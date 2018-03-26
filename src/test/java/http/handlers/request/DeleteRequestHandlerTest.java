@@ -20,7 +20,7 @@ class DeleteRequestHandlerTest {
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException {
         FileIO fileIO = new FileIO("./public");
-        httpResponse = new DeleteRequestHandler(deleteRequest(), fileIO).returnResponse();
+        httpResponse = new DeleteRequestHandler(fileIO).returnResponse(deleteRequest());
     }
 
     @Test
