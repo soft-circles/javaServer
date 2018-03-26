@@ -58,7 +58,7 @@ public class FileIO {
     }
 
     public void createFile(String path, byte[] data) throws IOException, InvalidPathException {
-        Path file = Paths.get(getWorkingDirectory() + "/" + getFileName(path));
+        Path file = Paths.get(workingDirectory + path);
         Files.write(file, data);
     }
 

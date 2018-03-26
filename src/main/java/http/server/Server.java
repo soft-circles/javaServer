@@ -29,7 +29,7 @@ public class Server {
             httpRequest.setBody(clientInput.getBytes(httpRequest.getContentLength()));
         }
         System.out.println(rawRequest);
-        IRequestHandler handler = Router.getHandler(httpRequest, new FileIO("../cob_spec/public"));
+        IRequestHandler handler = Router.getHandler(httpRequest, new FileIO(directory));
         HttpResponse httpResponse = handler.returnResponse(httpRequest);
         ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
         clientOutput.writeTo(httpResponse.fullResponse());

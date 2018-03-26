@@ -23,7 +23,7 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
     @Override
     public HttpResponse returnResponse(HttpRequest httpRequest) throws IOException {
         DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
-        if (PathChecker.validRoute(httpRequest.path())) {
+        if (PathChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
             return createResponse(directoryHandler);
         } else {
             return invalidResourceHandler.generateResponse();
@@ -35,7 +35,7 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
         if (httpResponse.getBody() != null && "I'm a teapot\n".equals(new String(httpResponse.getBody(), StandardCharsets.UTF_8))) {
             httpResponse.setStatus("418");
             httpResponse.setReasonPhrase((StatusMessages.STATUSES.get(418).toString()));
-        } else  {
+        } else {
             httpResponse.setStatus("200");
             httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
         }

@@ -21,7 +21,7 @@ public class FileHandler {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {
-            Path file = Paths.get(fileIO.getWorkingDirectory() + "/" + matcher.group(0));
+            Path file = Paths.get(fileIO.getWorkingDirectory() + filePath);
             Files.write(file, data);
         }
     }
@@ -30,7 +30,7 @@ public class FileHandler {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {
-            Path pathToFile = Paths.get(fileIO.getWorkingDirectory() + "/" + matcher.group(0));
+            Path pathToFile = Paths.get(fileIO.getWorkingDirectory() + filePath);
             Files.delete(pathToFile);
             return true;
         }

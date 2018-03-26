@@ -13,6 +13,8 @@ public class Routes {
         paths.put("/", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         paths.put("/put-target", new ArrayList<>(Arrays.asList(httpMethod.PUT)));
         paths.put("/form", new ArrayList<>(Arrays.asList(httpMethod.POST, httpMethod.PUT, httpMethod.DELETE)));
+        paths.put("/cat-form", new ArrayList<>(Arrays.asList(httpMethod.POST, httpMethod.PUT, httpMethod.DELETE)));
+        paths.put("/cat-form/data", new ArrayList<>(Arrays.asList(httpMethod.GET, httpMethod.DELETE, httpMethod.PUT)));
         paths.put("/redirect", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         paths.put("/coffee", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         paths.put("/tea", new ArrayList<>(Arrays.asList(httpMethod.GET)));
