@@ -20,6 +20,10 @@ public class RouteChecker {
         return VALID_PATHS.get(path).contains(httpMethod.DELETE);
     }
     public static boolean validAction(String path, httpMethod method) {
-        return VALID_PATHS.get(path).contains(method);
+        try {
+            return VALID_PATHS.get(path).contains(method);
+        } catch(Exception e) {
+            return false;
+        }
     }
 }
