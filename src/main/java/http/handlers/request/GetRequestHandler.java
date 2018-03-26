@@ -2,8 +2,10 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.handlers.directory.DirectoryHandler;
+import http.handlers.redirect.RedirectHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.router.Redirects;
 import http.status.StatusMessages;
 import http.utils.RouteChecker;
 
@@ -23,8 +25,11 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
+        RedirectHandler redirectHandler = new RedirectHandler();
         if (RouteChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
             return createResponse(directoryHandler);
+        } else if (Redirects.isRedirect(httpRequest.path())) {
+            return redirectHandler.generateResponse(httpRequest);
         } else {
             return invalidRequestHandler.generateResponse(httpRequest);
         }
