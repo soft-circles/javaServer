@@ -5,7 +5,6 @@ import http.IO.file.InvalidPathException;
 import http.request.error.InvalidRequestException;
 import http.utils.MainArgumentParser;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {

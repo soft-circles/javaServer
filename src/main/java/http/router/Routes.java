@@ -22,6 +22,9 @@ public class Routes {
         paths.put("/method_options2", new ArrayList<>(Arrays.asList()));
         paths.put("/file1", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         paths.put("/text-file.txt", new ArrayList<>(Arrays.asList(httpMethod.GET)));
+        paths.put("/image.jpeg", new ArrayList<>(Arrays.asList(httpMethod.GET)));
+        paths.put("/image.png", new ArrayList<>(Arrays.asList(httpMethod.GET)));
+        paths.put("/image.gif", new ArrayList<>(Arrays.asList(httpMethod.GET)));
         return paths;
     }
 }

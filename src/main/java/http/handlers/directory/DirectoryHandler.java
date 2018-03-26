@@ -3,6 +3,7 @@ package http.handlers.directory;
 import http.IO.file.FileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.utils.ContentReader;
 import http.utils.DirectoryContentsUtility;
 import http.utils.HTMLgenerator;
 
@@ -33,7 +34,7 @@ public class DirectoryHandler implements IResourceHandler {
     }
 
     private void buildResponseHeaders() {
-        httpResponse.addHeader("Content-Type", "text/html");
+        httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
     }
 
     private void buildResponseBody() throws IOException {

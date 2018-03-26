@@ -1,6 +1,4 @@
 package http.request.error;
 
-public class InvalidRequestException extends Throwable {
-    public InvalidRequestException() {
-    }
+public class InvalidRequestException extends Exception {
 }
