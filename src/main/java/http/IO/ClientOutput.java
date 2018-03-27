@@ -8,8 +8,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientOutput implements IClientOutput {
+    public final OutputStream output;
     private PrintWriter writer;
     public ClientOutput(OutputStream outputStream) throws IOException {
+        this.output = outputStream;
         this.writer = new PrintWriter(outputStream);
     }
 
@@ -17,5 +19,9 @@ public class ClientOutput implements IClientOutput {
     public void writeTo(String string){
         writer.println(string);
         writer.close();
+    }
+
+    public void writeBytes(byte[] bytes) throws IOException {
+        output.write(bytes);
     }
 }

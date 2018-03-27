@@ -14,6 +14,7 @@ public class InvalidRequestHandler implements IRequestHandler {
         if (RouteChecker.validRoute(httpRequest.path()) && !RouteChecker.validAction(httpRequest.path(), httpRequest.method())) {
            httpResponse.setStatus("405");
            httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(405).toString());
+           httpResponse.addToBody("");
         } else {
             httpResponse.setStatus("404");
             httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(404).toString());

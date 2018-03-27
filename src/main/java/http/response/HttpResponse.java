@@ -56,7 +56,7 @@ public class HttpResponse {
     }
 
     public String fullResponse() {
-        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + new String(body(), StandardCharsets.UTF_8) + "\r\n";
+        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + body();
     }
 
     private byte[] body() {
@@ -80,7 +80,7 @@ public class HttpResponse {
         StringBuilder headerBuilder = new StringBuilder();
         if (headers != null) {
             for(Map.Entry<String, String> e: headers.entrySet()){
-                headerBuilder.append(e.getKey()).append(": ").append(e.getValue());
+                headerBuilder.append(e.getKey()).append(": ").append(e.getValue()).append("\n");
             }
         }
         return headerBuilder.toString();
