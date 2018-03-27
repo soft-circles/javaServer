@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class HttpResponse {
     private Map<String, String> headers;
-    private static final String HTTP_VERSION = "HTTP/2.0";
+    private static final String HTTP_VERSION = "HTTP/1.1";
     private String reasonPhrase;
     private String requestHttpVersion;
     private String requestMethod;
