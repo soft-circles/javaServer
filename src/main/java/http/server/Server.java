@@ -18,6 +18,7 @@ import java.net.ServerSocket;
 public class Server {
 
     public Server(int portNum, String directory) throws IOException, InvalidRequestException, InvalidPathException {
+        System.out.println("Server starting on port: " + String.valueOf(portNum) + " " + "with public directory: " + directory);
         ServerSocket socket = new ServerSocket(portNum);
         while (true) {
         System.out.println("Waiting for client...");
