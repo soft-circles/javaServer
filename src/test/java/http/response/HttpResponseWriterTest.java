@@ -28,7 +28,7 @@ class HttpResponseWriterTest {
     }
 
     private String dummyResponseString() {
-        return "HTTP/2.0 200 OK" + "\r\n" + "Content-Type: html/text" + "\r\n\r\n\n" + "Test";
+        return "HTTP/1.1 200 OK" + "\r\n" + "Content-Type: html/text" + "\r\n\r\n\n" + "Test";
     }
 
 

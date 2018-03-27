@@ -83,7 +83,7 @@ class HttpResponseTest {
     }
 
     private String dummy_version() {
-        return "HTTP/2.0";
+        return "HTTP/1.1";
     }
 
     private String dummy_status() {
