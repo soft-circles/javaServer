@@ -43,7 +43,7 @@ class HttpResponseTest {
     void addToBody() {
         httpResponse.setBody("TEXT".getBytes());
         httpResponse.addToBody("More text");
-        assertEquals(new String("TEXT\nMore text".getBytes(), StandardCharsets.UTF_8), new String(httpResponse.getBody(), StandardCharsets.UTF_8));
+        assertEquals(new String("TEXTMore text".getBytes(), StandardCharsets.UTF_8), new String(httpResponse.getBody(), StandardCharsets.UTF_8));
     }
 
     @Test
