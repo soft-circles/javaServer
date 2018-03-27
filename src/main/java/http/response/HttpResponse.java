@@ -24,6 +24,7 @@ public class HttpResponse {
     }
 
     public byte[] getBody() {
+        new String(body, StandardCharsets.UTF_8);
         return body;
     }
 
@@ -71,7 +72,6 @@ public class HttpResponse {
         if (body != null) {
             bodyBuilder.append(new String(body, StandardCharsets.UTF_8));
         }
-        bodyBuilder.append("\n");
         bodyBuilder.append(string);
         this.body = bodyBuilder.toString().getBytes();
     }
