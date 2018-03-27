@@ -80,7 +80,7 @@ public class HttpResponse {
         StringBuilder headerBuilder = new StringBuilder();
         if (headers != null) {
             for(Map.Entry<String, String> e: headers.entrySet()){
-                headerBuilder.append(e.getKey()).append(": ").append(e.getValue()).append("\n");
+                headerBuilder.append(e.getKey()).append(": ").append(e.getValue());
             }
         }
         return headerBuilder.toString();
