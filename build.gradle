@@ -45,3 +45,6 @@ jar {
         attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
     }
 }
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
