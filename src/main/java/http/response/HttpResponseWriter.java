@@ -1,11 +1,6 @@
 package http.response;
 
-
-import http.socket.IClient;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.Socket;
 import java.util.Map;
 
 
@@ -13,9 +8,8 @@ public class HttpResponseWriter {
 
     private final byte[] NEWLINE = "\r\n".getBytes();
 
-    public void sendHttpResponse(IClient client, HttpResponse httpResponse) throws IOException {
-        byte[] responseBytes = responseAsBytes(httpResponse);
-        client.getOutputStream().write(responseBytes);
+    public byte[] sendHttpResponse(HttpResponse httpResponse) {
+        return responseAsBytes(httpResponse);
     }
 
     private byte[] responseAsBytes(HttpResponse httpResponse) {

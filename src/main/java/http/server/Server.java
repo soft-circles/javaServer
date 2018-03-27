@@ -33,7 +33,8 @@ public class Server {
         IRequestHandler handler = Router.getHandler(httpRequest, new FileIO(directory));
         HttpResponse httpResponse = handler.generateResponse(httpRequest);
         ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
-        new HttpResponseWriter().sendHttpResponse(client, httpResponse);
+        byte[] byteResponse = new HttpResponseWriter().sendHttpResponse(httpResponse);
+        client.getOutputStream().write(byteResponse);
         client.closeConnection();
         System.out.println(httpResponse.fullResponse());
         }
