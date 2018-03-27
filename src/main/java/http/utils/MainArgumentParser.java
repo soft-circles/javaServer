@@ -10,7 +10,11 @@ public class MainArgumentParser {
     }
 
     public int getPortNumber() {
-        return Integer.parseInt(ServerConfig.OPTIONS.get("-p"));
+        if (System.getenv("PORT") != null) {
+            return Integer.parseInt(System.getenv("PORT"));
+        } else  {
+            return Integer.parseInt(ServerConfig.OPTIONS.get("-p"));
+        }
     }
 
     public String getWorkingDirectory() {
