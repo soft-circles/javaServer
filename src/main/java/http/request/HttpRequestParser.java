@@ -27,13 +27,17 @@ public class HttpRequestParser {
 
     private HashMap<String, String> parseHeaders(String rawRequest) {
          HashMap<String, String> headers = new HashMap<>();
-         String rawHeaders = rawRequest.split("\n", 2)[1];
-         String[] headerLines = rawHeaders.split("\n");
-         for (String line : headerLines) {
-             String[] lineSplit = line.split(": ", 2);
-             if (lineSplit.length == 2) {
-                 headers.put(lineSplit[0], lineSplit[1]);
+         try {
+             String rawHeaders = rawRequest.split("\n", 2)[1];
+             String[] headerLines = rawHeaders.split("\n");
+             for (String line : headerLines) {
+                 String[] lineSplit = line.split(": ", 2);
+                 if (lineSplit.length == 2) {
+                     headers.put(lineSplit[0], lineSplit[1]);
+                 }
              }
+         } catch (Exception e) {
+
          }
          return headers;
      }
