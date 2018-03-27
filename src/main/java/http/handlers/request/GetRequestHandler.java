@@ -44,7 +44,6 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
             httpResponse.setStatus("200");
             httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
         }
-        httpResponse.addToBody("");
         return httpResponse;
     }
 }
