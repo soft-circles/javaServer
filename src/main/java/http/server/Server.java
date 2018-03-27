@@ -7,6 +7,7 @@ import http.handlers.request.IRequestHandler;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.response.HttpResponseWriter;
 import http.router.Router;
 import http.socket.IClient;
 import http.socket.Client;
@@ -32,7 +33,9 @@ public class Server {
         IRequestHandler handler = Router.getHandler(httpRequest, new FileIO(directory));
         HttpResponse httpResponse = handler.generateResponse(httpRequest);
         ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
-        clientOutput.writeTo(httpResponse.fullResponse());
+        byte[] byteResponse = new HttpResponseWriter().sendHttpResponse(httpResponse);
+        client.getOutputStream().write(byteResponse);
+        client.closeConnection();
         System.out.println(httpResponse.fullResponse());
         }
     }

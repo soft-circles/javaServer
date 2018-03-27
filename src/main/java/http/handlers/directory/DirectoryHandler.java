@@ -42,6 +42,7 @@ public class DirectoryHandler implements IResourceHandler {
             httpResponse.setBody(generateDirectoryList());
         } else if (fileIO.isFile(httpRequest.path())){
             httpResponse.setBody(fileIO.readFile(httpRequest.path()));
+            httpResponse.addHeader("Content-Length", String.valueOf(httpResponse.getBody().length));
         }
     }
 

@@ -38,6 +38,7 @@ public class PutRequestHandler implements IRequestHandler {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.setStatus("200");
         httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+        httpResponse.addToBody("");
         return httpResponse;
     }
 }

@@ -20,6 +20,7 @@ public class RedirectHandler implements IRequestHandler {
         httpResponse.setStatus("302");
         httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(302).toString());
         httpResponse.addHeader("Location", getRedirectLocation(httpRequest.path()));
+        httpResponse.addToBody("");
         return httpResponse;
     }
 
