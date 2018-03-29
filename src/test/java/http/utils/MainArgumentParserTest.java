@@ -22,6 +22,8 @@ class MainArgumentParserTest {
 
     @Test
     void ReturnsArguments() throws Exception {
+        parser.addFlag(FLAG, NAME);
+        args = new String[] {FLAG, VALUE};
         Map<String, String> parsedArguments = parser.parse(args);
 
         assertEquals(VALUE, parsedArguments.get(NAME));
@@ -30,8 +32,6 @@ class MainArgumentParserTest {
     @Test
     void HandlesUnregiesteredFlags() {
         parser.addFlag(FLAG, NAME);
-
-
         assertThrows(Exception.class, () -> parser.parse(args));
     }
 
