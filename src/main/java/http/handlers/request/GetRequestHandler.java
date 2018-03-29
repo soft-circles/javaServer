@@ -27,7 +27,7 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
         DirectoryHandler directoryHandler = new DirectoryHandler(httpRequest, fileIO);
         RedirectHandler redirectHandler = new RedirectHandler();
         if (RouteChecker.validRoute(httpRequest.path()) && fileIO.exists(httpRequest.path())) {
-            return createResponse(directoryHandler);
+            return createResponse(directoryHandler, httpRequest);
         } else if (Redirects.isRedirect(httpRequest.path())) {
             return redirectHandler.generateResponse(httpRequest);
         } else {
@@ -35,11 +35,12 @@ public class GetRequestHandler extends HeadRequestHandler implements IRequestHan
         }
     }
 
-    private HttpResponse createResponse(DirectoryHandler directoryHandler) throws IOException {
+    private HttpResponse createResponse(DirectoryHandler directoryHandler, HttpRequest httpRequest) throws IOException {
         HttpResponse httpResponse = directoryHandler.generateResponse();
-        if (httpResponse.getBody() != null && "I'm a teapot\n".equals(new String(httpResponse.getBody(), StandardCharsets.UTF_8))) {
+        if (httpRequest.path().equals("/coffee")){
             httpResponse.setStatus("418");
             httpResponse.setReasonPhrase((StatusMessages.STATUSES.get(418).toString()));
+            httpResponse.setBody("I'm a teapot\n");
         } else {
             httpResponse.setStatus("200");
             httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());

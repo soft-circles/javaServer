@@ -24,12 +24,19 @@ public class HttpResponse {
     }
 
     public byte[] getBody() {
-        new String(body, StandardCharsets.UTF_8);
         return body;
+    }
+
+    public String getBodyAsString() {
+        return new String(body, StandardCharsets.UTF_8);
     }
 
     public void setBody(byte[] body) {
         this.body = body;
+    }
+
+    public void setBody(String body) {
+        this.body = body.getBytes();
     }
 
     public String getHttpVersion() {

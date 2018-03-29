@@ -3,36 +3,47 @@ package http.utils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainArgumentParserTest {
-    private String[] args;
-    private MainArgumentParser argumentParser;
+
+    public static final String FLAG = "-f";
+    public static final String NAME = "ArgumentName";
+    public static final String VALUE = "ArgumentValue";
+    MainArgumentParser parser;
+    String[] args;
+
     @BeforeEach
     void setUp() {
-        args = new String[]{"-p", portNumber(), "-d", directory()};
-        argumentParser = new MainArgumentParser(args);
+        parser = new MainArgumentParser();
     }
 
     @Test
-    void getPortNumber() {
-        assertEquals(portNumberInt(), argumentParser.getPortNumber());
+    void ReturnsArguments() throws Exception {
+        parser.addFlag(FLAG, NAME);
+        args = new String[] {FLAG, VALUE};
+        Map<String, String> parsedArguments = parser.parse(args);
+
+        assertEquals(VALUE, parsedArguments.get(NAME));
     }
 
     @Test
-    void getWorkingDirectory() {
-        assertEquals(directory(), argumentParser.getWorkingDirectory());
+    void HandlesUnregiesteredFlags() {
+        parser.addFlag(FLAG, NAME);
+        assertThrows(Exception.class, () -> parser.parse(args));
     }
 
-    private String portNumber() {
-        return "5000";
-    }
 
-    private int portNumberInt() {
-        return Integer.parseInt(portNumber());
-    }
+    @Test
+    void ReturnsDefaultValueIfNoFlagInArguments() throws Exception {
+        parser.addFlag(FLAG, NAME, VALUE);
 
-    private String directory() {
-        return "./test_dir";
+        args = new String[0];
+
+        Map<String, String> parsedArguments = parser.parse(args);
+
+        assertEquals(VALUE, parsedArguments.get(NAME));
     }
 }
