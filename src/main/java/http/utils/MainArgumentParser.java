@@ -1,23 +1,38 @@
 package http.utils;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainArgumentParser {
-    public MainArgumentParser(String[] args) {
+
+    private Map<String, String> flags;
+    private Map<String, String> defaults;
+
+    public MainArgumentParser() {
+        flags = new HashMap<>();
+        defaults = new HashMap<>();
+    }
+
+    public MainArgumentParser addFlag(String flag, String name) {
+        flags.put(flag, name);
+        return this;
+    }
+
+    public Map<String,String> parse(String[] args) throws Exception {
+        Map<String, String> parsedArguments = defaults;
         for (int i = 0; i < args.length; i++) {
-            if (ServerConfig.OPTIONS.containsKey(args[i])) {
-                ServerConfig.OPTIONS.replace(args[i], args[++i]);
+            if (flags.containsKey(args[i])) {
+                parsedArguments.put(flags.get(args[i]), args[++i]);
+            }
+            else {
+                throw new Exception();
             }
         }
+        return parsedArguments;
     }
 
-    public int getPortNumber() {
-        if (System.getenv("PORT") != null) {
-            return Integer.parseInt(System.getenv("PORT"));
-        } else  {
-            return Integer.parseInt(ServerConfig.OPTIONS.get("-p"));
-        }
-    }
-
-    public String getWorkingDirectory() {
-        return ServerConfig.OPTIONS.get("-d");
+    public MainArgumentParser addFlag(String flag, String name, String defaultValue) {
+        flags.put(flag, name);
+        defaults.put(name, defaultValue);
+        return this;
     }
 }
