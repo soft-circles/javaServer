@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class RouterTest {
 
     public static final String PATH = "/path";
+    public static final String PATH2 = "/path2";
     public static final MockController CONTROLLER = new MockController();
     public static final httpMethod METHOD = httpMethod.GET;
+    public static final httpMethod METHOD2 = httpMethod.PUT;
     private Router router;
 
     private
@@ -57,5 +60,11 @@ class RouterTest {
         methods.add(httpMethod.PUT);
         methods.add(httpMethod.PUT);
         return methods;
+    }
+
+    @Test
+    void getHttpMethodsAsString() {
+        router.addRoute(PATH, Arrays.asList(METHOD, METHOD2), CONTROLLER);
+        assertEquals("GET, PUT", router.getRoute(PATH).getHttpMethodsAsString());
     }
 }

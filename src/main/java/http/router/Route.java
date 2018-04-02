@@ -5,6 +5,7 @@ import http.method.httpMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Route {
     private final IController controller;
@@ -30,6 +31,12 @@ public class Route {
 
     public List<httpMethod> getHttpMethods() {
         return httpMethods;
+    }
+
+    public String getHttpMethodsAsString() {
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        httpMethods.stream().forEach(method -> stringJoiner.add(String.valueOf(method)));
+        return stringJoiner.toString();
     }
 
     public String getPath() {
