@@ -18,10 +18,12 @@ public class HttpRequestParser {
     private Map<String, String> parameters;
 
     public HttpRequestParser(String request) throws InvalidRequestException {
-            parseRequestLine(getFirstLine(request));
-            this.headers = parseHeaders(request);
-            if (headers.containsKey("Content-Length"))
-                setContentLength(Integer.parseInt(headers.get("Content-Length")));
+        parseRequestLine(getFirstLine(request));
+        this.headers = parseHeaders(request);
+        if (headers.containsKey("Content-Length")) {
+            setContentLength(Integer.parseInt(headers.get("Content-Length")));
+        }
+
     }
 
     private String getFirstLine(String rawRequest) {
