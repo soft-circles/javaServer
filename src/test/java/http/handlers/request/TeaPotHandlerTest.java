@@ -1,9 +1,11 @@
 package http.handlers.request;
 
 import http.IO.file.InvalidPathException;
+import http.controllers.TeaPotController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.status.InvalidStatusCodeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,15 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TeaPotHandlerTest {
 
-    TeaPotHandler handlerUnderTest;
+    TeaPotController handlerUnderTest;
 
     @BeforeEach
     void setUp() {
-        handlerUnderTest = new TeaPotHandler();
+        handlerUnderTest = new TeaPotController();
     }
 
     @Test
-    void returns418code() throws InvalidRequestException, IOException, InvalidPathException {
+    void returns418code() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
         String rawRequest = "GET /coffee HTTP/1.1 \r\n\r\n";
         HttpRequest request = new HttpRequest(rawRequest);
 
@@ -32,7 +34,7 @@ class TeaPotHandlerTest {
     }
 
     @Test
-    void returns200code() throws InvalidRequestException, IOException, InvalidPathException {
+    void returns200code() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
 
         String rawRequest = "GET /tea HTTP/1.1 \r\n\r\n";
         HttpRequest request = new HttpRequest(rawRequest);

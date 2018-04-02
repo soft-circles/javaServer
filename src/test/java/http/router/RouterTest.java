@@ -1,69 +1,61 @@
 package http.router;
 
-import http.IO.file.FileIO;
-import http.handlers.request.*;
-import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
+import http.Controller.MockController;
+import http.method.httpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RouterTest {
 
-    private HttpRequest httpRequestGet,
-                        httpRequestPost,
-                        httpRequestDelete,
-                        httpRequestOptions,
-                        httpRequestPut,
-                        httpRequestHead;
-    private FileIO fileIO;
+    public static final String PATH = "/path";
+    public static final MockController CONTROLLER = new MockController();
+    public static final httpMethod METHOD = httpMethod.GET;
+    private Router router;
+
+    private
 
     @BeforeEach
-    void setUp() throws InvalidRequestException {
-        fileIO = new FileIO("./public");
-        httpRequestGet = new HttpRequest(rawGetRequest());
-        httpRequestPut = new HttpRequest(rawPutRequest());
-        httpRequestPost = new HttpRequest(rawPostRequest());
-        httpRequestDelete = new HttpRequest(rawDeleteRequest());
-        httpRequestOptions = new HttpRequest(rawOptionsRequest());
-        httpRequestHead = new HttpRequest(rawHeadRequest());
+    void setUp() {
+        router = new Router();
     }
-
-
 
     @Test
-    void returnsAppropriateHandler() {
-        assertEquals(GetRequestHandler.class, Router.getHandler(httpRequestGet, fileIO).getClass());
-        assertEquals(PutRequestHandler.class, Router.getHandler(httpRequestPut, fileIO).getClass());
-        assertEquals(PostRequestHandler.class, Router.getHandler(httpRequestPost, fileIO).getClass());
-        assertEquals(DeleteRequestHandler.class, Router.getHandler(httpRequestDelete, fileIO).getClass());
-        assertEquals(OptionsRequestHandler.class, Router.getHandler(httpRequestOptions, fileIO).getClass());
-        assertEquals(HeadRequestHandler.class, Router.getHandler(httpRequestHead, fileIO).getClass());
+    void itAddsARouteWithListOfMethods() {
+        router.addRoute(PATH, listOfMethods(), CONTROLLER);
+        assertEquals(1, router.size());
     }
 
-
-    private String rawGetRequest() {
-        return "GET / HTTP/1.1\r\n";
+    @Test
+    void itAddsARoute() {
+        router.addRoute(PATH, METHOD, CONTROLLER);
+        assertEquals(1, router.size());
     }
 
-    private String rawPutRequest() {
-        return "PUT / HTTP/1.1\r\n";
+    @Test
+    void getsRouteFromPath() {
+        router.addRoute(PATH, METHOD, CONTROLLER);
+        Route route = new Route(PATH, METHOD, CONTROLLER);
+        assertEquals(route.getPath(), router.getRoute(PATH).getPath());
+        assertEquals(route.getController(), router.getRoute(PATH).getController());
+        assertEquals(route.getHttpMethods(), router.getRoute(PATH).getHttpMethods());
     }
 
-    private String rawHeadRequest() {
-        return "HEAD / HTTP/1.1\r\n";
+    @Test
+    void getController() {
+        router.addRoute(PATH, METHOD, CONTROLLER);
+        assertEquals(CONTROLLER, router.getController(PATH, METHOD));
     }
 
-    private String rawPostRequest() {
-        return "POST / HTTP/1.1\r\n";
-
-    }   private String rawOptionsRequest() {
-        return "OPTIONS / HTTP/1.1\r\n";
-    }
-
-    private String rawDeleteRequest() {
-        return "DELETE / HTTP/1.1\r\n";
+    private List<httpMethod> listOfMethods() {
+        List<httpMethod> methods = new ArrayList<>();
+        methods.add(httpMethod.GET);
+        methods.add(httpMethod.PUT);
+        methods.add(httpMethod.PUT);
+        return methods;
     }
 }

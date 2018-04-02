@@ -1,9 +1,13 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
+import http.controllers.DeleteFileController;
+import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.router.Router;
+import http.status.InvalidStatusCodeException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +19,14 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeleteRequestHandlerTest {
+class DeleteFileControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException {
+    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
         FileIO fileIO = new FileIO("./public");
-        httpResponse = new DeleteRequestHandler(fileIO).generateResponse(deleteRequest());
+        Router router = new Router();
+        router.addRoute("/form", httpMethod.DELETE, new DeleteFileController(router, fileIO));
+        httpResponse = new DeleteFileController(router, fileIO).generateResponse(deleteRequest());
     }
 
     @Test

@@ -30,8 +30,8 @@ public class StatusMessages {
         statuses.put(304, "Not Modified");
         statuses.put(305, "Use Proxy");
         statuses.put(306, "Switch Proxy");
-        statuses.put(307, "Temporary RedirectHandler");
-        statuses.put(308, "Permanent RedirectHandler");
+        statuses.put(307, "Temporary RedirectController");
+        statuses.put(308, "Permanent RedirectController");
         statuses.put(400, "Bad Request");
         statuses.put(401, "Unauthorized");
         statuses.put(402, "Payment Required");

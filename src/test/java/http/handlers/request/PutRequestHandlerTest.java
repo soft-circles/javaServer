@@ -1,6 +1,7 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
+import http.controllers.EditFileController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
@@ -23,7 +24,7 @@ class PutRequestHandlerTest {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = putRequest();
         httpRequest.setBody(data());
-        httpResponse = new PutRequestHandler(fileIO).generateResponse(httpRequest);
+        httpResponse = new EditFileController(fileIO).generateResponse(httpRequest);
     }
 
 

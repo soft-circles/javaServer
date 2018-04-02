@@ -1,28 +1,29 @@
-package http.handlers.request;
+package http.controllers;
 
 import http.IO.file.FileIO;
+import http.handlers.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
-import http.utils.RouteChecker;
 
 import java.io.IOException;
 
+public class EditFileController implements IController {
 
-public class HeadRequestHandler implements IRequestHandler {
-    protected InvalidRequestHandler invalidRequestHandler;
+    private final FileHandler fileHandler;
 
-    public HeadRequestHandler(FileIO fileIo) {
-        this.invalidRequestHandler = new InvalidRequestHandler();
+    public EditFileController(FileIO fileIO) {
+        this.fileHandler = new FileHandler(fileIO);
     }
 
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
-        if (RouteChecker.validRoute(httpRequest.path())) {
-            return createResponse();
-        } else {
-            return invalidRequestHandler.generateResponse(httpRequest);
-        }
+        updateFileAtLocation(httpRequest);
+        return createResponse();
+    }
+
+    private void updateFileAtLocation(HttpRequest httpRequest) throws IOException {
+        fileHandler.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
     private HttpResponse createResponse() {
