@@ -1,20 +1,22 @@
 package http.handlers.request;
 
+import http.controllers.InvalidRequestController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.status.InvalidStatusCodeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InvalidRequestHandlerTest {
-    private InvalidRequestHandler invalidRequestHandler;
+class InvalidRequestControllerTest {
+    private InvalidRequestController invalidRequestHandler;
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws InvalidRequestException {
+    void setUp() throws InvalidRequestException, InvalidStatusCodeException {
         HttpRequest httpRequest = new HttpRequest("GET /weird HTTP/1.0\n");
-        invalidRequestHandler = new InvalidRequestHandler();
+        invalidRequestHandler = new InvalidRequestController();
         httpResponse = invalidRequestHandler.generateResponse(httpRequest);
     }
 

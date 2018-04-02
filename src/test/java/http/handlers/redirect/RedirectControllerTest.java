@@ -1,5 +1,6 @@
 package http.handlers.redirect;
 
+import http.controllers.RedirectController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
@@ -8,14 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RedirectHandlerTest {
+class RedirectControllerTest {
 
     private HttpResponse httpResponse;
 
     @BeforeEach
     void setUp() throws InvalidRequestException {
         HttpRequest httpRequest = new HttpRequest(rawRequest());
-        httpResponse = new RedirectHandler().generateResponse(httpRequest);
+        httpResponse = new RedirectController().generateResponse(httpRequest);
     }
 
     private String rawRequest() {

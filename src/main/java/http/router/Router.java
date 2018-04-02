@@ -1,35 +1,53 @@
 package http.router;
 
-import http.IO.file.FileIO;
-import http.handlers.request.*;
-import http.request.HttpRequest;
+import http.controllers.IController;
+import http.controllers.InvalidMethodController;
+import http.controllers.InvalidRequestController;
+import http.method.httpMethod;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Router {
+    private Map<String, Route> routes;
 
-    private Router(){}
-
-    public static IRequestHandler getHandler(HttpRequest httpRequest, FileIO fileIO) {
-        return selectHandler(httpRequest, fileIO);
+    public Router() {
+        this.routes = new HashMap<>();
     }
 
-    private static IRequestHandler selectHandler(HttpRequest httpRequest, FileIO fileIO) {
-        IRequestHandler handler;
-        switch (httpRequest.method()) {
-            case GET: handler = new GetRequestHandler(fileIO);
-                        break;
-            case HEAD: handler = new HeadRequestHandler(fileIO);
-                        break;
-            case PUT: handler = new PutRequestHandler(fileIO);
-                        break;
-            case POST: handler = new PostRequestHandler(fileIO);
-                        break;
-            case OPTIONS: handler = new OptionsRequestHandler();
-                        break;
-            case DELETE: handler = new DeleteRequestHandler(fileIO);
-                        break;
-            default: handler = new InvalidRequestHandler();
-                         break;
+    public void addRoute(String path, httpMethod method, IController handler) {
+        Route route = new Route(path, method, handler);
+        routes.put(path, route);
+    }
+
+    public void addRoute(String path, List<httpMethod> methods, IController handler) {
+        Route route = new Route(path, methods, handler);
+        routes.put(path, route);
+    }
+
+    public int size() {
+        return routes.size();
+    }
+
+    public Route getRoute(String path) {
+        return routes.get(path);
+    }
+
+    public IController getController(String path, httpMethod httpMethod) {
+        try {
+            Route route = routes.get(path);
+            if (route.getHttpMethods().contains(httpMethod)) {
+                return route.getController();
+            } else  {
+                return new InvalidMethodController();
+            }
+        } catch(Exception e) {
+            return new InvalidRequestController();
         }
-        return handler;
+    }
+
+    public void removeRoute(String path) {
+        routes.remove(path);
     }
 }

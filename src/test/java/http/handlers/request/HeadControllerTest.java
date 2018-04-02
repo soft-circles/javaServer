@@ -1,6 +1,6 @@
 package http.handlers.request;
 
-import http.IO.file.FileIO;
+import http.controllers.HeadController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
@@ -11,15 +11,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeadRequestHandlerTest {
+class HeadControllerTest {
 
     private HttpResponse httpResponse, httpResponse2;
 
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException {
-        FileIO fileIO = new FileIO("./public");
-        httpResponse = new HeadRequestHandler(fileIO).generateResponse(httpRequest());
-        httpResponse2 = new HeadRequestHandler(fileIO).generateResponse(invalidHttpRequest());
+        httpResponse = new HeadController().generateResponse(httpRequest());
+        httpResponse2 = new HeadController().generateResponse(invalidHttpRequest());
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException {
@@ -46,7 +45,5 @@ class HeadRequestHandlerTest {
     void returnResponse() {
         assertEquals("200", httpResponse.getStatus());
         assertEquals("OK", httpResponse.getReasonPhrase());
-        assertEquals("404", httpResponse2.getStatus());
-        assertEquals("Not Found", httpResponse2.getReasonPhrase());
     }
 }

@@ -1,9 +1,11 @@
 package http.handlers.directory;
 
 import http.IO.file.FileIO;
+import http.controllers.DirectoryController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.status.InvalidStatusCodeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +13,13 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DirectoryHandlerTest {
+class DirectoryControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException {
+    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
         FileIO fileIO = new FileIO("./public");
         HttpRequest httpRequest = httpRequest();
-        httpResponse = new DirectoryHandler(httpRequest, fileIO).generateResponse();
+        httpResponse = new DirectoryController(fileIO).generateResponse(httpRequest);
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException {

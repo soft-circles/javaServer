@@ -1,11 +1,11 @@
-package http.handlers.request;
+package http.controllers;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
 
-public class OptionsRequestHandler implements IRequestHandler {
-    public OptionsRequestHandler() {
+public class OptionsController implements IController {
+    public OptionsController() {
     }
 
     @Override

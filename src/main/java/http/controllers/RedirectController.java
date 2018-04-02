@@ -1,6 +1,6 @@
-package http.handlers.redirect;
+package http.controllers;
 
-import http.handlers.request.IRequestHandler;
+import http.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.Redirects;
@@ -10,8 +10,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 
-public class RedirectHandler implements IRequestHandler {
-    public RedirectHandler() {
+public class RedirectController implements IController {
+    public RedirectController() {
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RedirectHandler implements IRequestHandler {
         Iterator<String> iterator = strings.iterator();
         while(iterator.hasNext()) {
             String route = iterator.next();
-            if (Redirects.VALID_REDIRECTS.containsValue(Redirects.VALID_REDIRECTS.get(route))) {
+            if (Redirects.isRedirect(path)) {
                 return route;
             }
         }
