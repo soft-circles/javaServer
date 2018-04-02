@@ -47,9 +47,9 @@ public class DirectoryController implements IController {
             httpResponse.setBody(generateDirectoryList());
         } else if (fileIO.isFile(httpRequest.path())){
             httpResponse.setBody(fileIO.readFile(httpRequest.path()));
-            httpResponse.addHeader("Content-Length", String.valueOf(httpResponse.getBody().length));
-            httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
         }
+        httpResponse.addHeader("Content-Length", String.valueOf(httpResponse.getBody().length));
+        httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
         httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
     }
 

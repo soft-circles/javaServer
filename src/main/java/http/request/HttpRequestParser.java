@@ -2,7 +2,6 @@ package http.request;
 
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
-
 import java.util.HashMap;
 import java.util.Map;
 
