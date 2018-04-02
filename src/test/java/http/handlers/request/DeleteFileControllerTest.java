@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +42,7 @@ class DeleteFileControllerTest {
         Files.write(path, "".getBytes());
     }
 
-    private HttpRequest deleteRequest() throws InvalidRequestException {
+    private HttpRequest deleteRequest() throws InvalidRequestException, UnsupportedEncodingException {
         String rawRequest = "DELETE /form HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +

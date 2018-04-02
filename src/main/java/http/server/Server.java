@@ -66,6 +66,7 @@ public class Server {
         router.addRoute("/cat-form", Arrays.asList(httpMethod.GET, httpMethod.POST), new CatFormController(router, fileIO));
         router.addRoute("/method_options", Arrays.asList(httpMethod.OPTIONS, httpMethod.GET, httpMethod.PUT, httpMethod.POST, httpMethod.HEAD), new MethodOptionsController(router));
         router.addRoute("/method_options2", Arrays.asList(httpMethod.GET, httpMethod.OPTIONS, httpMethod.HEAD), new MethodOptionsController(router));
+        router.addRoute("/parameters", httpMethod.GET, new ParameterDecodeController());
         return router;
     }
 }

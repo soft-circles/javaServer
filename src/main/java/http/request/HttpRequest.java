@@ -3,9 +3,11 @@ package http.request;
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
+    private final Map<String, String> parameters;
     private httpMethod method;
     private int contentLength;
     private String version;
@@ -14,7 +16,7 @@ public class HttpRequest implements IHttpRequest {
     private Map<String, String> headers;
     private byte[] body;
 
-    public HttpRequest(String request) throws InvalidRequestException {
+    public HttpRequest(String request) throws InvalidRequestException, UnsupportedEncodingException {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
         this.method = httpRequestParser.getMethod();
         this.version = httpRequestParser.getVersion();
@@ -22,6 +24,7 @@ public class HttpRequest implements IHttpRequest {
         this.requestLine = httpRequestParser.getRequestLine();
         this.headers = httpRequestParser.getHeaders();
         this.contentLength = httpRequestParser.getContentLength();
+        this.parameters = httpRequestParser.getParameters();
     }
 
     @Override
@@ -59,5 +62,9 @@ public class HttpRequest implements IHttpRequest {
 
     public byte[] getBody() {
         return body;
+    }
+
+    public Map<String, String> getParameters() {
+        return parameters;
     }
 }

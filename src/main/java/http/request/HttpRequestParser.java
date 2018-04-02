@@ -2,6 +2,9 @@ package http.request;
 
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ public class HttpRequestParser {
     private String path;
     private String version;
     private HashMap<String, String> headers;
+    private Map<String, String> parameters;
 
     public HttpRequestParser(String request) throws InvalidRequestException {
             parseRequestLine(getFirstLine(request));
@@ -43,19 +47,40 @@ public class HttpRequestParser {
 
     private void parseRequestLine(String requestLine) {
         setRequestLine(requestLine);
+        assignMethod(requestLine);
+        assignPathAndParameters(requestLine);
+        setVersion(requestLine.split(" ")[2]);
+    }
+
+    private void assignPathAndParameters(String requestLine) {
+        try {
+            String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);
+            setPath(pathAndParameters[0]);
+            if (pathAndParameters.length > 1) {
+                setParameters(parseParameters(pathAndParameters[1]));
+            }
+        } catch (Exception e) {
+            setPath("/");
+            setVersion("HTTP/1.1");
+        }
+    }
+
+    private void assignMethod(String requestLine) {
         try {
             setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
         } catch (Exception e) {
             setMethod(httpMethod.INVALID);
         }
-        try {
-            String[] pathAndParameters = requestLine.split(" ")[1].split("\\?", 2);
-            setPath(pathAndParameters[0]);
-            setVersion(requestLine.split(" ")[2]);
-        } catch (Exception e) {
-            setPath("/");
-            setVersion("HTTP/1.1");
+    }
+
+    private Map<String, String>parseParameters(String parameterString) throws UnsupportedEncodingException {
+        Map<String, String> params = new HashMap<>();
+        String[] split = parameterString.split("&");
+        for (String pair : split) {
+            String[] split1 = pair.split("=");
+            params.put(split1[0], URLDecoder.decode(split1[1], "UTF-8"));
         }
+        return params;
     }
 
     public int getContentLength() {
@@ -100,5 +125,13 @@ public class HttpRequestParser {
 
     public Map<String, String> getHeaders() {
         return headers;
+    }
+
+    public void setParameters(Map<String,String> parameters) {
+        this.parameters = parameters;
+    }
+
+    public Map<String, String> getParameters() {
+        return this.parameters;
     }
 }

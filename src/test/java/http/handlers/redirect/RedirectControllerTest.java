@@ -7,6 +7,8 @@ import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RedirectControllerTest {
@@ -14,7 +16,7 @@ class RedirectControllerTest {
     private HttpResponse httpResponse;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException {
+    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
         HttpRequest httpRequest = new HttpRequest(rawRequest());
         httpResponse = new RedirectController().generateResponse(httpRequest);
     }

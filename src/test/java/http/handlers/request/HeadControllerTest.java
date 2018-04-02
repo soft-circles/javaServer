@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ class HeadControllerTest {
         httpResponse2 = new HeadController().generateResponse(invalidHttpRequest());
     }
 
-    private HttpRequest httpRequest() throws InvalidRequestException {
+    private HttpRequest httpRequest() throws InvalidRequestException, UnsupportedEncodingException {
         String rawRequest = "HEAD / HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
@@ -31,7 +32,7 @@ class HeadControllerTest {
         return new HttpRequest(rawRequest);
     }
 
-    private HttpRequest invalidHttpRequest() throws InvalidRequestException {
+    private HttpRequest invalidHttpRequest() throws InvalidRequestException, UnsupportedEncodingException {
             String rawRequest = "HEAD /nowhere HTTP/1.1\\r\\n\" +\n" +
                     "Host: www.nowhere123.com\\r\\n\" +\n" +
                     "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
