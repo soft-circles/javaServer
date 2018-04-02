@@ -1,15 +1,9 @@
 package http.server;
-import http.controllers.CatFormController;
-import http.controllers.IController;
+import http.controllers.*;
 import http.IO.ClientInput;
 import http.IO.ClientOutput;
 import http.IO.file.FileIO;
 import http.IO.file.InvalidPathException;
-import http.controllers.DirectoryController;
-import http.controllers.EditFileController;
-import http.controllers.PostFileContentsController;
-import http.controllers.RedirectController;
-import http.controllers.TeaPotController;
 import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
@@ -70,6 +64,8 @@ public class Server {
         router.addRoute("/image.gif", httpMethod.GET, dirHandler);
         router.addRoute("/image.png", httpMethod.GET, dirHandler);
         router.addRoute("/cat-form", Arrays.asList(httpMethod.GET, httpMethod.POST), new CatFormController(router, fileIO));
+        router.addRoute("/method_options", Arrays.asList(httpMethod.OPTIONS, httpMethod.GET, httpMethod.PUT, httpMethod.POST, httpMethod.HEAD), new MethodOptionsController(router));
+        router.addRoute("/method_options2", Arrays.asList(httpMethod.GET, httpMethod.OPTIONS, httpMethod.HEAD), new MethodOptionsController(router));
         return router;
     }
 }
