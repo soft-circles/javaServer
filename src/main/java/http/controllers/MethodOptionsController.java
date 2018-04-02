@@ -23,11 +23,11 @@ public class MethodOptionsController implements IController {
             case OPTIONS:
                 return handleOptions(httpRequest);
             default:
-                return handleDefault(httpRequest);
+                return handleDefault();
         }
     }
 
-    private HttpResponse handleDefault(HttpRequest httpRequest) throws InvalidStatusCodeException {
+    private HttpResponse handleDefault() throws InvalidStatusCodeException {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
         httpResponse.setBody("");

@@ -31,7 +31,7 @@ class MethodOptionsControllerTest {
     @Test
     void generateResponse() {
         assertEquals("200", httpResponse.getStatus());
-        assertEquals("GET HEAD POST", httpResponse.getHeaders().get("Allow"));
+        assertEquals("GET, HEAD, POST", httpResponse.getHeaders().get("Allow"));
         assertEquals("OK", httpResponse.getReasonPhrase());
     }
 
