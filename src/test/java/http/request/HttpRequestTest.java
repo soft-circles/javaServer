@@ -5,6 +5,8 @@ import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpRequestTest {
@@ -12,7 +14,7 @@ class HttpRequestTest {
 
 
     @BeforeEach
-    void setUp() throws InvalidRequestException {
+    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
         httpRequest = new HttpRequest(getRequest());
     }
 

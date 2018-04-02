@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +23,7 @@ class DirectoryControllerTest {
         httpResponse = new DirectoryController(fileIO).generateResponse(httpRequest);
     }
 
-    private HttpRequest httpRequest() throws InvalidRequestException {
+    private HttpRequest httpRequest() throws InvalidRequestException, UnsupportedEncodingException {
         String rawRequest = "GET / HTTP/1.1\\r\\n\" +\n" +
                 "Host: www.nowhere123.com\\r\\n\" +\n" +
                 "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
