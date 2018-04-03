@@ -1,7 +1,11 @@
 package http.response;
 
+import http.handlers.cookie.Cookie;
+
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class HttpResponse {
@@ -14,8 +18,11 @@ public class HttpResponse {
     private String sentSize;
     private byte[] body;
     private String status = "200";
+    private ArrayList<Cookie> cookies;
 
-    public HttpResponse() {
+    public HttpResponse()
+    {
+        cookies = new ArrayList<>();
         headers = new HashMap<>();
     }
 
@@ -129,5 +136,28 @@ public class HttpResponse {
 
     public void setRequestHttpVersion(String requestHttpVersion) {
         this.requestHttpVersion = requestHttpVersion;
+    }
+
+    public void addCookie(Cookie cookie) {
+        cookies.add(cookie);
+    }
+
+    public ArrayList<Cookie> getCookies() {
+        return this.cookies;
+    }
+
+    public void setCookieHeader() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Cookie> iterator = this.cookies.iterator();
+        while (iterator.hasNext()) {
+            Cookie cookie = iterator.next();
+            sb.append(cookie.getName())
+                .append("=")
+                .append(cookie.getValue());
+            if (iterator.hasNext()) {
+                sb.append("; ");
+            }
+        }
+        addHeader("Set-Cookie", sb.toString());
     }
 }

@@ -78,8 +78,8 @@ public class Server {
         PostFileContentsController postFileHandler = new PostFileContentsController(router, fileIO);
         EditFileController editFileController = new EditFileController(fileIO);
         LogsController logsController = new LogsController();
-        IAuth logAuthHandler = new AuthHandler();
-        logAuthHandler.setAuthCredentials("admin", "hunter2");
+        IAuth logAuthHandler = new AuthHandler("admin", "hunter2");
+        CookiesController cookiesController = new CookiesController();
 
         router.addRoute("/", Arrays.asList(httpMethod.GET, httpMethod.HEAD), dirHandler);
         router.addRoute("/coffee", httpMethod.GET, new TeaPotController());
@@ -97,6 +97,8 @@ public class Server {
         router.addRoute("/method_options2", Arrays.asList(httpMethod.GET, httpMethod.OPTIONS, httpMethod.HEAD), new MethodOptionsController(router));
         router.addRoute("/parameters", httpMethod.GET, new ParameterDecodeController());
         router.addRouteWithAuth("/logs", httpMethod.GET, logsController, logAuthHandler);
+        router.addRoute("/cookie", httpMethod.GET, cookiesController);
+        router.addRoute("/eat_cookie", httpMethod.GET, cookiesController);
         return router;
     }
 }
