@@ -28,6 +28,6 @@ class LoggerTest {
     }
 
     private String result() {
-        return "GET / HTTP/1.1\nGET /test HTTP/1.1\n";
+        return GET_TEST + GET_TEST_2;
     }
 }
