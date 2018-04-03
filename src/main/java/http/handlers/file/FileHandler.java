@@ -1,4 +1,4 @@
-package http.handlers;
+package http.handlers.file;
 
 import http.IO.file.FileIO;
 
