@@ -1,6 +1,4 @@
-package http.logger;
-
-import http.request.HttpRequest;
+package http.utils.logger;
 
 public class Logger implements ILogger {
     private StringBuilder log;
@@ -10,9 +8,8 @@ public class Logger implements ILogger {
     }
 
     @Override
-    public void addRequest(HttpRequest httpRequest) {
-        log.append(httpRequest.requestLine());
-        log.append("\n");
+    public void addRequest(String info) {
+        log.append(info);
     }
 
     @Override

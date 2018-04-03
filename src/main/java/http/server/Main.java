@@ -1,6 +1,5 @@
 package http.server;
 
-
 import http.IO.file.InvalidPathException;
 import http.request.error.InvalidRequestException;
 import http.router.NoAuthOnRouteException;

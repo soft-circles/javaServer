@@ -30,8 +30,13 @@ class HttpRequestParserTest {
         assertTrue(httpRequestParser.getHeaders().containsValue("keep-alive\r"));
     }
 
+    @Test
+    void getCookies() {
+        assertEquals(1, httpRequestParser.getCookies().size());
+    }
+
     private String rawRequest() {
-        return "GET / HTTP/2.0\r\nAccept: text/html\r\nConnection: keep-alive\r\n\r\n";
+        return "GET / HTTP/2.0\r\nAccept: text/html\r\nCookie: test=cookie\r\nConnection: keep-alive\r\n\r\n";
     }
     private String invalidRawRequest() { return "TESTHDSF:LKJA";}
 

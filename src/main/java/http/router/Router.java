@@ -73,19 +73,23 @@ public class Router {
     }
 
     public IController getControllerWithAuth(HttpRequest httpRequest) throws NoAuthOnRouteException {
-        try {
-            Route route = routes.get(httpRequest.path());
-            if (route.getAuth().authorized(httpRequest)) {
-                if (route.getHttpMethods().contains(httpRequest.method())) {
-                    return route.getController();
-                } else {
-                    return new InvalidMethodController();
-                }
+        Route route = routes.get(httpRequest.path());
+        if (route.getAuth().authorized(authorizationHeader(httpRequest))) {
+            if (route.getHttpMethods().contains(httpRequest.method())) {
+                return route.getController();
             } else {
-                return new UnauthorizedController(route.getAuth().authString());
+                return new InvalidMethodController();
             }
-        } catch(Exception e) {
-            return new InvalidRequestController();
+        } else {
+            return new UnauthorizedController(route.getAuth());
+        }
+    }
+
+    private String authorizationHeader(HttpRequest httpRequest) {
+        try {
+            return httpRequest.headers().get("Authorization").split(" ")[1];
+        } catch (Exception e) {
+            return "";
         }
     }
 }

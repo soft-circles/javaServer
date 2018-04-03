@@ -1,5 +1,6 @@
 package http.response;
 
+import http.handlers.cookie.Cookie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HttpResponseTest {
 
     private HttpResponse httpResponse;
+    public static final String NAME = "testName";
+    public static final String VALUE = "testValue";
+    private Cookie cookie;
+
     @BeforeEach
     void setUp() {
         httpResponse = new HttpResponse();
+        cookie = new Cookie(NAME, VALUE);
         assignAttributes();
     }
 
@@ -44,6 +50,13 @@ class HttpResponseTest {
         httpResponse.setBody("TEXT".getBytes());
         httpResponse.addToBody("More text");
         assertEquals(new String("TEXTMore text".getBytes(), StandardCharsets.UTF_8), new String(httpResponse.getBody(), StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void returnsCookies() {
+        httpResponse.addCookie(cookie);
+        httpResponse.addCookie(cookie);
+        assertEquals(2, httpResponse.getCookies().size());
     }
 
     @Test

@@ -1,10 +1,13 @@
 package http.request;
 
+import http.handlers.cookie.Cookie;
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
+import http.router.Router;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,14 +19,33 @@ public class HttpRequestParser {
     private String version;
     private HashMap<String, String> headers;
     private Map<String, String> parameters;
+    private ArrayList<Cookie> cookies;
 
     public HttpRequestParser(String request) throws InvalidRequestException {
+        this.cookies = new ArrayList<>();
         parseRequestLine(getFirstLine(request));
         this.headers = parseHeaders(request);
+        setCookies();
         if (headers.containsKey("Content-Length")) {
             setContentLength(Integer.parseInt(headers.get("Content-Length")));
         }
 
+    }
+
+    private void setCookies() {
+        if (this.headers.containsKey("Cookie")) {
+            try {
+                String[] cookie = this.headers.get("Cookie").split(";");
+                for (String cookieString : cookie) {
+                    String[] nameAndValue = cookieString.split("=");
+                    cookies.add(new Cookie(nameAndValue[0], nameAndValue[1]));
+                }
+            } catch (Exception e) {
+                String cookie = this.headers.get("Cookie");
+                String[] nameAndValue = cookie.split("=");
+                cookies.add(new Cookie(nameAndValue[0], nameAndValue[1]));
+            }
+        }
     }
 
     private String getFirstLine(String rawRequest) {
@@ -135,5 +157,9 @@ public class HttpRequestParser {
 
     public Map<String, String> getParameters() {
         return this.parameters;
+    }
+
+    public ArrayList<Cookie> getCookies() {
+        return this.cookies;
     }
 }

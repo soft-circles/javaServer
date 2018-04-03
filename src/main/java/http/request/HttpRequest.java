@@ -1,9 +1,11 @@
 package http.request;
 
+import http.handlers.cookie.Cookie;
 import http.method.httpMethod;
 import http.request.error.InvalidRequestException;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
@@ -15,6 +17,7 @@ public class HttpRequest implements IHttpRequest {
     private String requestLine;
     private Map<String, String> headers;
     private byte[] body;
+    private ArrayList<Cookie> cookies;
 
     public HttpRequest(String request) throws InvalidRequestException, UnsupportedEncodingException {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
@@ -25,6 +28,7 @@ public class HttpRequest implements IHttpRequest {
         this.headers = httpRequestParser.getHeaders();
         this.contentLength = httpRequestParser.getContentLength();
         this.parameters = httpRequestParser.getParameters();
+        this.cookies = httpRequestParser.getCookies();
     }
 
     @Override
@@ -66,5 +70,9 @@ public class HttpRequest implements IHttpRequest {
 
     public Map<String, String> getParameters() {
         return parameters;
+    }
+
+    public ArrayList<Cookie> getCookies() {
+        return this.cookies;
     }
 }

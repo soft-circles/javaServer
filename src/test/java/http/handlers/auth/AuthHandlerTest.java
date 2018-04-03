@@ -1,41 +1,38 @@
 package http.handlers.auth;
 
-import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthHandlerTest {
 
+    public static final String VALID_USER = "ValidUser";
+    public static final String VALID_PASSWORD = "ValidPassword";
+    public static final String INVALID_CREDS = "fake:badPassword";
+    public static final String VALID_CREDS = "ValidUser:ValidPassword";
+
     private AuthHandler authHandler;
-    private HttpRequest httpRequest;
+
+
+    private String encode(String authString) {
+        return Base64.getEncoder().encodeToString(authString.getBytes());
+    }
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
-        authHandler = new AuthHandler();
-        authHandler.setAuthCredentials("testUser", "password");
-        System.out.println(rawRequest());
-        httpRequest = new HttpRequest(rawRequest());
-    }
-
-    private String rawRequest() {
-        return "GET /secret HTTP/1.1\n" +
-                "Authorization: Basic " +
-                auth();
-    }
-
-    private String auth() {
-        String authString = "testUser:password";
-        return Base64.getEncoder().encodeToString(authString.getBytes());
+    void setUp() {
+        authHandler = new AuthHandler(VALID_USER, VALID_PASSWORD);
     }
 
     @Test
     void authorized() {
-        assertTrue(authHandler.authorized(httpRequest));
+        assertTrue(authHandler.authorized(encode(VALID_CREDS)));
+    }
+
+    @Test
+    void unauthorized() {
+        assertFalse(authHandler.authorized(encode(INVALID_CREDS)));
     }
 }
