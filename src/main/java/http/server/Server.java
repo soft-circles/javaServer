@@ -80,6 +80,7 @@ public class Server {
         LogsController logsController = new LogsController();
         IAuth logAuthHandler = new AuthHandler("admin", "hunter2");
         CookiesController cookiesController = new CookiesController();
+        PatchController patchController = new PatchController(fileIO);
 
         router.addRoute("/", Arrays.asList(httpMethod.GET, httpMethod.HEAD), dirHandler);
         router.addRoute("/coffee", httpMethod.GET, new TeaPotController());
@@ -99,6 +100,7 @@ public class Server {
         router.addRouteWithAuth("/logs", httpMethod.GET, logsController, logAuthHandler);
         router.addRoute("/cookie", httpMethod.GET, cookiesController);
         router.addRoute("/eat_cookie", httpMethod.GET, cookiesController);
+        router.addRoute("/patch-content.txt", Arrays.asList(httpMethod.GET, httpMethod.PATCH), patchController);
         return router;
     }
 }
