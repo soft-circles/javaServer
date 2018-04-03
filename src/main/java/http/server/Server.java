@@ -81,6 +81,7 @@ public class Server {
         IAuth logAuthHandler = new AuthHandler("admin", "hunter2");
         CookiesController cookiesController = new CookiesController();
         PatchController patchController = new PatchController(fileIO);
+        PartialContentController partialContentController = new PartialContentController(fileIO);
 
         router.addRoute("/", Arrays.asList(httpMethod.GET, httpMethod.HEAD), dirHandler);
         router.addRoute("/coffee", httpMethod.GET, new TeaPotController());
@@ -101,6 +102,7 @@ public class Server {
         router.addRoute("/cookie", httpMethod.GET, cookiesController);
         router.addRoute("/eat_cookie", httpMethod.GET, cookiesController);
         router.addRoute("/patch-content.txt", Arrays.asList(httpMethod.GET, httpMethod.PATCH), patchController);
+        router.addRoute("/partial_content.txt", httpMethod.GET, partialContentController);
         return router;
     }
 }
