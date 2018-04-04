@@ -1,6 +1,5 @@
 package http.controllers;
 
-import http.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.HttpStatus;
