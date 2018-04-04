@@ -59,6 +59,6 @@ class HttpRequestTest {
 
     @Test
     void getPartialRange() {
-        assertEquals(0, httpRequest.getPartialRange());
+        assertEquals(2, httpRequest.getPartialRange().length);
     }
 }

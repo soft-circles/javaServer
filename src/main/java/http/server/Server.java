@@ -48,7 +48,8 @@ public class Server {
             byte[] byteResponse = new HttpResponseWriter().sendHttpResponse(httpResponse);
             client.getOutputStream().write(byteResponse);
             client.closeConnection();
-            System.out.println(httpResponse.fullResponse());
+            String s = new String(byteResponse, "UTF-8");
+            System.out.println(s);
         }
     }
 

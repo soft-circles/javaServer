@@ -76,24 +76,10 @@ public class HttpRequest implements IHttpRequest {
         return this.cookies;
     }
 
-    public int[] getPartialRange() {
+    public String[] getPartialRange() {
         int from;
         int to;
         String range = headers.get("Range");
-        String[] ranges = range.substring("bytes=".length()).split("-");
-        try {
-            from = Integer.valueOf(ranges[0]);
-        } catch (Exception e) {
-            from = 0;
-        }
-
-        try {
-            to = Integer.valueOf(ranges[1]);
-        } catch (Exception e) {
-            to = -1;
-        }
-
-        int[] result = new int[] {from, to};
-        return result;
+        return range.substring("bytes=".length()).split("-");
     }
 }
