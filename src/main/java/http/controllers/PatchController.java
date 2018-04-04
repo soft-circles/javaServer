@@ -7,7 +7,6 @@ import http.response.HttpResponse;
 import http.status.HttpStatus;
 import http.status.InvalidStatusCodeException;
 import org.apache.commons.codec.digest.DigestUtils;
-
 import java.io.IOException;
 
 public class PatchController implements IController {
