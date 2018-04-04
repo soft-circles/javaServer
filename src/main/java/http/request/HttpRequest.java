@@ -75,4 +75,11 @@ public class HttpRequest implements IHttpRequest {
     public ArrayList<Cookie> getCookies() {
         return this.cookies;
     }
+
+    public String[] getPartialRange() {
+        int from;
+        int to;
+        String range = headers.get("Range");
+        return range.substring("bytes=".length()).split("-");
+    }
 }

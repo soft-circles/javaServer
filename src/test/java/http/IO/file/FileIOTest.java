@@ -3,6 +3,9 @@ package http.IO.file;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,5 +33,10 @@ class FileIOTest {
     void isDirectory() {
         assertTrue(fileIO.isDirectory("/"));
         assertFalse(fileIO.isDirectory("/foo"));
+    }
+
+    @Test
+    void readFile() throws IOException {
+        assertEquals(4, fileIO.readFile("/partial_content.txt", 0, 4).length);
     }
 }

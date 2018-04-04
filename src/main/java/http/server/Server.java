@@ -48,7 +48,8 @@ public class Server {
             byte[] byteResponse = new HttpResponseWriter().sendHttpResponse(httpResponse);
             client.getOutputStream().write(byteResponse);
             client.closeConnection();
-            System.out.println(httpResponse.fullResponse());
+            String s = new String(byteResponse, "UTF-8");
+            System.out.println(s);
         }
     }
 
@@ -81,6 +82,7 @@ public class Server {
         IAuth logAuthHandler = new AuthHandler("admin", "hunter2");
         CookiesController cookiesController = new CookiesController();
         PatchController patchController = new PatchController(fileIO);
+        PartialContentController partialContentController = new PartialContentController(fileIO);
 
         router.addRoute("/", Arrays.asList(httpMethod.GET, httpMethod.HEAD), dirHandler);
         router.addRoute("/coffee", httpMethod.GET, new TeaPotController());
@@ -101,6 +103,7 @@ public class Server {
         router.addRoute("/cookie", httpMethod.GET, cookiesController);
         router.addRoute("/eat_cookie", httpMethod.GET, cookiesController);
         router.addRoute("/patch-content.txt", Arrays.asList(httpMethod.GET, httpMethod.PATCH), patchController);
+        router.addRoute("/partial_content.txt", httpMethod.GET, partialContentController);
         return router;
     }
 }

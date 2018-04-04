@@ -1,5 +1,6 @@
 package http.IO.file;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class FileIO {
     private String workingDirectory;
@@ -41,6 +43,14 @@ public class FileIO {
     public byte[] readFile(String fileName) throws IOException {
         Path path = Paths.get(getWorkingDirectory() + "/" + fileName);
         return Files.readAllBytes(path);
+    }
+
+    public byte[] readFile(String fileName, int start, int end) throws IOException {
+        Path path = Paths.get(getWorkingDirectory() + "/" + fileName);
+        byte[] fileBytes = Files.readAllBytes(path);
+        String s = new String(fileBytes, "UTF-8");
+        String substring = s.substring(start, end);
+        return substring.getBytes();
     }
 
     public String[] getFilesInDirectory(String path) {
