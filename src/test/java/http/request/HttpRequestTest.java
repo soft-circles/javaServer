@@ -19,7 +19,7 @@ class HttpRequestTest {
     }
 
     private String getRequest() {
-        return firstLine() + "Content-Length: 10\n";
+        return firstLine() + "Content-Length: 10\nRange: bytes=0-4\n";
     }
 
     private String firstLine() {
@@ -54,5 +54,10 @@ class HttpRequestTest {
     @Test
     void headers() {
         assertTrue(httpRequest.headers().containsKey("Content-Length"));
+    }
+
+    @Test
+    void getPartialRange() {
+        assertEquals(2, httpRequest.getPartialRange().length);
     }
 }
