@@ -1,6 +1,5 @@
 package http.server;
 
-import http.router.NoAuthOnRouteException;
 import http.utils.MainArgumentParser;
 
 import java.util.Map;
