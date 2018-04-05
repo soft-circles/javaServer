@@ -1,4 +1,7 @@
 package http.server;
+import http.connectionProcess.ConnectionProcessMultiThread;
+import http.connectionProcess.HttpConnectionToProcess;
+import http.connectionProcess.HttpConnectionToProcessThread;
 import http.controllers.*;
 import http.IO.ClientInput;
 import http.IO.ClientOutput;
@@ -28,43 +31,13 @@ public class Server {
         router = configServer(new FileIO(directory));
         System.out.println("Server starting on port: " + String.valueOf(portNum) + " " + "with public directory: " + directory);
         ServerSocket socket = new ServerSocket(portNum);
+        ConnectionProcessMultiThread connectionProcessMultiThread = new ConnectionProcessMultiThread();
         while (true) {
             IClient client = getiClient(socket);
             System.out.println("Client connected");
-            ClientInput clientInput = new ClientInput(client.getInputStream());
-            String rawRequest = clientInput.getRawRequestString();
-            HttpRequest httpRequest = new HttpRequest(rawRequest);
-            if (httpRequest.getContentLength() > 0) {
-                httpRequest.setBody(clientInput.getBytes(httpRequest.getContentLength()));
-            }
-            System.out.println(rawRequest);
-            HttpResponse httpResponse = null;
-            if (router.hasAuth(httpRequest.path())) {
-                httpResponse = getHttpResponseWithAuth(httpRequest);
-            } else {
-                httpResponse = getHttpResponse(httpRequest);
-            }
-            ClientOutput clientOutput = new ClientOutput(client.getOutputStream());
-            byte[] byteResponse = new HttpResponseWriter().sendHttpResponse(httpResponse);
-            client.getOutputStream().write(byteResponse);
-            client.closeConnection();
-            System.out.println(httpResponse.fullResponse());
+            HttpConnectionToProcess httpConnectionToProcess = new HttpConnectionToProcess(client, router, new HttpResponseWriter());
+            connectionProcessMultiThread.execute(httpConnectionToProcess);
         }
-    }
-
-    private HttpResponse getHttpResponse(HttpRequest httpRequest) throws IOException, InvalidPathException, InvalidStatusCodeException, NoAuthOnRouteException {
-        IController handler = router.getController(httpRequest.path(), httpRequest.method());
-        return handler.generateResponse(httpRequest);
-    }
-
-    private HttpResponse getHttpResponseWithAuth(HttpRequest httpRequest) throws InvalidPathException, InvalidStatusCodeException, IOException, NoAuthOnRouteException {
-        IController handler = router.getControllerWithAuth(httpRequest);
-        return handler.generateResponse(httpRequest);
-    }
-
-
-    private boolean routeHasAuth(String path) throws NoAuthOnRouteException {
-        return router.hasAuth(path);
     }
 
     private IClient getiClient(ServerSocket socket) {

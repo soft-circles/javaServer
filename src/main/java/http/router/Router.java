@@ -12,28 +12,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Router {
+public class Router implements IRouter {
     private Map<String, Route> routes;
 
     public Router() {
         this.routes = new HashMap<>();
     }
 
+    @Override
     public void addRoute(String path, httpMethod method, IController handler) {
         Route route = new Route(path, method, handler);
         routes.put(path, route);
     }
 
+    @Override
     public void addRoute(String path, List<httpMethod> methods, IController handler) {
         Route route = new Route(path, methods, handler);
         routes.put(path, route);
     }
 
+    @Override
     public void addRouteWithAuth(String path, List<httpMethod> methods, IController handler, IAuth auth) {
         Route route = new Route(path, methods, handler, auth);
         routes.put(path, route);
     }
 
+    @Override
     public void addRouteWithAuth(String path, httpMethod method, IController handler, IAuth auth) {
         Route route = new Route(path, method, handler, auth);
         routes.put(path, route);
@@ -43,10 +47,12 @@ public class Router {
         return routes.size();
     }
 
+    @Override
     public Route getRoute(String path) {
         return routes.get(path);
     }
 
+    @Override
     public IController getController(String path, httpMethod httpMethod) {
         try {
             Route route = routes.get(path);
@@ -60,18 +66,22 @@ public class Router {
         }
     }
 
+    @Override
     public IAuth getAuth(String path) throws NoAuthOnRouteException {
         return routes.get(path).getAuth();
     }
 
+    @Override
     public boolean hasAuth(String path) throws NoAuthOnRouteException {
         return routes.containsKey(path) && routes.get(path).getAuth() != null;
     }
 
+    @Override
     public void removeRoute(String path) {
         routes.remove(path);
     }
 
+    @Override
     public IController getControllerWithAuth(HttpRequest httpRequest) throws NoAuthOnRouteException {
         Route route = routes.get(httpRequest.path());
         if (route.getAuth().authorized(authorizationHeader(httpRequest))) {

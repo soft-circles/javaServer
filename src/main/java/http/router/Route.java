@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class Route {
+public class Route implements IRoute {
     private IController controller;
     private List<httpMethod> httpMethods;
     private String path;
