@@ -10,7 +10,11 @@ public class MockFileIO implements IFileIO {
 
     @Override
     public boolean isFile(String path) {
-        return false;
+        if (path.equals("/cat-form"))
+            return true;
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -29,7 +33,7 @@ public class MockFileIO implements IFileIO {
 
     @Override
     public byte[] readFile(String fileName) throws IOException {
-        return new byte[0];
+        return new byte[] {0, 74, 53, 85};
     }
 
     @Override

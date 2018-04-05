@@ -1,9 +1,11 @@
 package http.controllers;
 
 import http.IO.file.IFileIO;
+import http.IO.file.InvalidPathException;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.router.IRouter;
 import http.router.Router;
 import http.status.InvalidStatusCodeException;
 import http.status.StatusMessages;
@@ -12,25 +14,23 @@ import java.io.IOException;
 
 public class DeleteFileController implements IController {
 
-    private final FileHandler fileHandler;
-    private final InvalidRequestController invalidRequestHandler;
-    private final Router router;
+    private final IRouter router;
+    private final IFileIO fileIO;
 
-    public DeleteFileController(Router router, IFileIO IFileIO) {
-        this.invalidRequestHandler = new InvalidRequestController();
-        this.fileHandler = new FileHandler(IFileIO);
+    public DeleteFileController(IRouter router, IFileIO fileIO) {
+        this.fileIO = fileIO;
         this.router = router;
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException, InvalidPathException {
         removeRoute(httpRequest.path());
         deleted(httpRequest.path());
         return createResponse();
     }
 
-    public boolean deleted(String path) throws IOException {
-        return fileHandler.deleteFile(path);
+    public boolean deleted(String path) throws IOException, InvalidPathException {
+        return fileIO.deleteFile(path);
     }
 
     private void removeRoute(String path) {

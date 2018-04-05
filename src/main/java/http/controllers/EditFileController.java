@@ -1,7 +1,6 @@
 package http.controllers;
 
 import http.IO.file.IFileIO;
-import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.StatusMessages;
@@ -10,10 +9,10 @@ import java.io.IOException;
 
 public class EditFileController implements IController {
 
-    private final FileHandler fileHandler;
+    private final IFileIO fileIO;
 
-    public EditFileController(IFileIO IFileIO) {
-        this.fileHandler = new FileHandler(IFileIO);
+    public EditFileController(IFileIO fileIO) {
+        this.fileIO = fileIO;
     }
 
     @Override
@@ -23,7 +22,7 @@ public class EditFileController implements IController {
     }
 
     private void updateFileAtLocation(HttpRequest httpRequest) throws IOException {
-        fileHandler.createFile(httpRequest.path(), httpRequest.getBody());
+        fileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
     private HttpResponse createResponse() {

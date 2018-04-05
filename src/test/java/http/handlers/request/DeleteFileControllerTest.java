@@ -2,6 +2,7 @@ package http.handlers.request;
 
 import http.IO.file.FileIO;
 import http.IO.file.IFileIO;
+import http.IO.file.InvalidPathException;
 import http.controllers.DeleteFileController;
 import http.method.httpMethod;
 import http.request.HttpRequest;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteFileControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
+    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException, InvalidPathException {
         IFileIO IFileIO = new FileIO("./public");
         Router router = new Router();
         router.addRoute("/form", httpMethod.DELETE, new DeleteFileController(router, IFileIO));

@@ -5,6 +5,7 @@ import http.IO.file.InvalidPathException;
 import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.router.IRouter;
 import http.router.Router;
 import http.status.InvalidStatusCodeException;
 import http.status.StatusMessages;
@@ -13,10 +14,10 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class CatFormController implements IController {
-    private final Router router;
+    private final IRouter router;
     private final IFileIO IFileIO;
 
-    public CatFormController(Router router, IFileIO IFileIO) {
+    public CatFormController(IRouter router, IFileIO IFileIO) {
         this.router = router;
         this.IFileIO = IFileIO;
     }
@@ -75,7 +76,7 @@ public class CatFormController implements IController {
         return httpResponse;
     }
 
-    private HttpResponse handleDelete(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
+    private HttpResponse handleDelete(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException, InvalidPathException {
         return new DeleteFileController(router, IFileIO).generateResponse(httpRequest);
     }
 }

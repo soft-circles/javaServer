@@ -1,5 +1,7 @@
 package http.status;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,3 +77,4 @@ public class StatusMessages {
     }
     public static final Map STATUSES = statuses();
 }
+
