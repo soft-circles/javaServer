@@ -1,4 +1,4 @@
-package http.IO.file;
+package http.IO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

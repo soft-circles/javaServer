@@ -1,10 +1,10 @@
 package http.request;
 
-import http.method.httpMethod;
+import http.method.HttpMethod;
 
 public interface IHttpRequest {
     String requestLine();
-    httpMethod method();
+    HttpMethod method();
     String path();
     String version();
 }

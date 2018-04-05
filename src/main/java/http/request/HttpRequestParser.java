@@ -1,9 +1,7 @@
 package http.request;
 
 import http.handlers.cookie.Cookie;
-import http.method.httpMethod;
-import http.request.error.InvalidRequestException;
-import http.router.Router;
+import http.method.HttpMethod;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -13,7 +11,7 @@ import java.util.Map;
 
 public class HttpRequestParser {
     private int contentLength;
-    private httpMethod method;
+    private HttpMethod method;
     private String requestLine;
     private String path;
     private String version;
@@ -91,9 +89,9 @@ public class HttpRequestParser {
 
     private void assignMethod(String requestLine) {
         try {
-            setMethod(httpMethod.valueOf(requestLine.split(" ")[0]));
+            setMethod(HttpMethod.valueOf(requestLine.split(" ")[0]));
         } catch (Exception e) {
-            setMethod(httpMethod.INVALID);
+            setMethod(HttpMethod.INVALID);
         }
     }
 
@@ -115,11 +113,11 @@ public class HttpRequestParser {
         this.contentLength = contentLength;
     }
 
-    public httpMethod getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
-    public void setMethod(httpMethod method) {
+    public void setMethod(HttpMethod method) {
         this.method = method;
     }
 

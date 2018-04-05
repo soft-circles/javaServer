@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.IFileIO;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.IRouter;

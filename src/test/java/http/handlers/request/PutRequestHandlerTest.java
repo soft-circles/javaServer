@@ -1,10 +1,9 @@
 package http.handlers.request;
 
-import http.IO.file.FileIO;
-import http.IO.file.IFileIO;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.controllers.EditFileController;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.status.Status;
 import org.junit.jupiter.api.AfterEach;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

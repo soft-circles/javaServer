@@ -1,7 +1,7 @@
 package http.response;
 
 import http.handlers.cookie.Cookie;
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import http.status.Status;
 
 import java.nio.charset.StandardCharsets;
@@ -14,7 +14,7 @@ public class HttpResponse {
     private Map<String, String> headers;
     private static final String HTTP_VERSION = "HTTP/1.1";
     private String requestHttpVersion;
-    private httpMethod requestMethod;
+    private HttpMethod requestMethod;
     private String requestUri;
     private String sentSize;
     private byte[] body;
@@ -99,11 +99,11 @@ public class HttpResponse {
         this.requestUri = requestUri;
     }
 
-    public httpMethod getRequestMethod() {
+    public HttpMethod getRequestMethod() {
         return requestMethod;
     }
 
-    public void setRequestMethod(httpMethod requestMethod) {
+    public void setRequestMethod(HttpMethod requestMethod) {
         this.requestMethod = requestMethod;
     }
 

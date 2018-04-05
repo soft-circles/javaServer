@@ -2,7 +2,7 @@ package http.router;
 
 import http.controllers.IController;
 import http.handlers.auth.IAuth;
-import http.method.httpMethod;
+import http.method.HttpMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,31 +10,31 @@ import java.util.StringJoiner;
 
 public class Route implements IRoute {
     private IController controller;
-    private List<httpMethod> httpMethods;
+    private List<HttpMethod> httpMethods;
     private String path;
     private IAuth auth = null;
 
-    public Route(String path, httpMethod httpMethod, IController controller) {
+    public Route(String path, HttpMethod httpMethod, IController controller) {
         this.path = path;
         this.httpMethods = new ArrayList<>();
         this.httpMethods.add(httpMethod);
         this.controller = controller;
     }
 
-    public Route(String path, List<httpMethod> httpMethods, IController controller) {
+    public Route(String path, List<HttpMethod> httpMethods, IController controller) {
        this.path = path;
        this.httpMethods = httpMethods;
        this.controller = controller;
     }
 
-    public Route(String path, List<httpMethod> httpMethods, IController controller, IAuth auth) {
+    public Route(String path, List<HttpMethod> httpMethods, IController controller, IAuth auth) {
         this.path = path;
         this.httpMethods = httpMethods;
         this.controller = controller;
         this.auth = auth;
     }
 
-    public Route(String path, httpMethod method, IController controller, IAuth auth) {
+    public Route(String path, HttpMethod method, IController controller, IAuth auth) {
         this.path = path;
         this.httpMethods = new ArrayList<>();
         this.httpMethods.add(method);
@@ -46,7 +46,7 @@ public class Route implements IRoute {
         return controller;
     }
 
-    public List<httpMethod> getHttpMethods() {
+    public List<HttpMethod> getHttpMethods() {
         return httpMethods;
     }
 

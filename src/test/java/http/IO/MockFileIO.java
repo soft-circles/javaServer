@@ -1,6 +1,4 @@
-package http.IO.file;
-
-import java.io.IOException;
+package http.IO;
 
 public class MockFileIO implements IFileIO {
     @Override

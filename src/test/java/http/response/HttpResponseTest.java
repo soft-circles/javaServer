@@ -1,13 +1,12 @@
 package http.response;
 
 import http.handlers.cookie.Cookie;
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,7 +35,7 @@ class HttpResponseTest {
         assertEquals(dummy_version(), httpResponse.getHttpVersion());
         assertEquals(dummy_reason(), httpResponse.getReasonPhrase());
         assertEquals(dummy_request_version(), httpResponse.getRequestHttpVersion());
-        assertEquals(httpMethod.GET, httpResponse.getRequestMethod());
+        assertEquals(HttpMethod.GET, httpResponse.getRequestMethod());
         assertEquals(dummy_request_uri(), httpResponse.getRequestUri());
         assertEquals(dummy_sent_size(), httpResponse.getSentSize());
         assertEquals(Status.Forbidden.getCode(), httpResponse.getCode());
@@ -75,7 +74,7 @@ class HttpResponseTest {
     private void assignAttributes() {
         httpResponse.setStatus(Status.Forbidden);
         httpResponse.setRequestHttpVersion(dummy_request_version());
-        httpResponse.setRequestMethod(httpMethod.GET);
+        httpResponse.setRequestMethod(HttpMethod.GET);
         httpResponse.setRequestUri(dummy_request_uri());
         httpResponse.setSentSize(dummy_sent_size());
     }

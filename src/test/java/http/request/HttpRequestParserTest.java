@@ -1,6 +1,6 @@
 package http.request;
 
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ class HttpRequestParserTest {
     @Test
     void firstLineAttributes() {
         assertEquals("GET / HTTP/2.0\r", httpRequestParser.getRequestLine());
-        assertEquals(httpMethod.GET, httpRequestParser.getMethod());
+        assertEquals(HttpMethod.GET, httpRequestParser.getMethod());
         assertEquals("HTTP/2.0\r", httpRequestParser.getVersion());
         assertEquals("/", httpRequestParser.getPath());
     }

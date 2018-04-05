@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.Router;
@@ -21,7 +21,7 @@ class MethodOptionsControllerTest {
         HttpRequest httpRequest = new HttpRequest(rawRequest());
         Router router = new Router();
         MethodOptionsController methodOptionsController = new MethodOptionsController(router);
-        router.addRoute("/method_options", Arrays.asList(httpMethod.GET, httpMethod.HEAD, httpMethod.POST), methodOptionsController);
+        router.addRoute("/method_options", Arrays.asList(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST), methodOptionsController);
         httpResponse = methodOptionsController.generateResponse(httpRequest);
     }
 

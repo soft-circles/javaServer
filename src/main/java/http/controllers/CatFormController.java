@@ -1,7 +1,7 @@
 package http.controllers;
 
-import http.IO.file.IFileIO;
-import http.method.httpMethod;
+import http.IO.IFileIO;
+import http.method.HttpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.IRouter;
@@ -51,7 +51,7 @@ public class CatFormController implements IController {
     }
 
     private void addRoute(String path) {
-        router.addRoute(path, Arrays.asList(httpMethod.GET, httpMethod.PUT, httpMethod.DELETE), this);
+        router.addRoute(path, Arrays.asList(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE), this);
     }
 
     private void createFileAtPathLocation(HttpRequest httpRequest) throws IOException {

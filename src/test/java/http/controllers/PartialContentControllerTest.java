@@ -1,7 +1,7 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
-import http.IO.file.IFileIO;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.Status;

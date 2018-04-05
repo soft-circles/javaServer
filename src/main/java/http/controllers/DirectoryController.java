@@ -1,7 +1,7 @@
 package http.controllers;
 
-import http.IO.file.IFileIO;
-import http.method.httpMethod;
+import http.IO.IFileIO;
+import http.method.HttpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.utils.ContentReader;
@@ -24,7 +24,7 @@ public class DirectoryController implements IController {
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException{
         this.httpRequest = httpRequest;
-        if (httpRequest.method() == httpMethod.HEAD) {
+        if (httpRequest.method() == HttpMethod.HEAD) {
             return new HeadController().generateResponse(httpRequest);
         }
         return buildResponse();

@@ -1,7 +1,7 @@
 package http.handlers.directory;
 
-import http.IO.file.FileIO;
-import http.IO.file.IFileIO;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.controllers.DirectoryController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;

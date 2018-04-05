@@ -1,4 +1,4 @@
-package http.IO;
+package http.client;
 
 
 interface IClientOutput {
