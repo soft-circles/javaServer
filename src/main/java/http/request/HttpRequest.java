@@ -77,8 +77,6 @@ public class HttpRequest implements IHttpRequest {
     }
 
     public String[] getPartialRange() {
-        int from;
-        int to;
         String range = headers.get("Range");
         return range.substring("bytes=".length()).split("-");
     }
