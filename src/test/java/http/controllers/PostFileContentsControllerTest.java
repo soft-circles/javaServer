@@ -1,7 +1,7 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
 import http.IO.file.IFileIO;
+import http.IO.file.MockFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,13 +19,14 @@ class PostFileContentsControllerTest {
     public static final String STATUS_MESSAGE_CREATED = "Created";
     public static final String STATUS_OK = "200";
     public static final String STATUS_MESSAGE_OK = "OK";
+    public static final String FILE_LOCATION = "/directory/data";
 
     private HttpResponse httpResponseFile;
     private HttpResponse httpResponseDirectory;
 
     @BeforeEach
     void setUp() throws IOException {
-        IFileIO IFileIO = new FileIO("./public");
+        IFileIO IFileIO = new MockFileIO();
         HttpRequest httpRequest = new HttpRequest(REQUEST_FILE);
         HttpRequest httpRequest1 = new HttpRequest(REQUEST_DIRECTORY);
         httpResponseFile = new PostFileContentsController(IFileIO).generateResponse(httpRequest);
@@ -33,7 +34,15 @@ class PostFileContentsControllerTest {
     }
 
     @Test
-    void generateResponse() {
-        assertEquals("/directory/data", httpResponseDirectory.getHeaders().get("Location"));
+    void generateResponseForDirectory() {
+        assertEquals(FILE_LOCATION, httpResponseDirectory.getHeaders().get("Location"));
+        assertEquals(STATUS_CREATED, httpResponseDirectory.getStatus());
+        assertEquals(STATUS_MESSAGE_CREATED, httpResponseDirectory.getReasonPhrase());
+    }
+
+    @Test
+    void generateResponseForFile() {
+        assertEquals(STATUS_OK, httpResponseFile.getStatus());
+        assertEquals(STATUS_MESSAGE_OK, httpResponseFile.getReasonPhrase());
     }
 }

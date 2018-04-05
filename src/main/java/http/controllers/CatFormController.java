@@ -21,7 +21,6 @@ public class CatFormController implements IController {
         this.IFileIO = IFileIO;
     }
 
-
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException, InvalidStatusCodeException {
         switch(httpRequest.method()) {
