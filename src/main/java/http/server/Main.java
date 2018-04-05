@@ -13,6 +13,9 @@ public class Main {
         int portNumber = Integer.parseInt(parsedArguments.get("PortNumber"));
         String directory = parsedArguments.get("Directory");
 
+        if (System.getenv("PORT") != null) {
+            portNumber = Integer.parseInt(System.getenv("PORT"));
+        }
         new Server(portNumber, directory);
     }
 
