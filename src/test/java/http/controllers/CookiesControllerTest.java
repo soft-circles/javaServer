@@ -1,22 +1,15 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CookiesControllerTest {
 
-    public static final String STATUS_CODE = "200";
-    public static final String STATUS_MESSAGE = "OK";
     public static final String BODY = "Eat";
     public static final String BODY_EAT_COOKIE = "mmmm chocolate\r";
     private static final String RAW_REQUEST_EAT_COOKIE = "GET /eat_cookie HTTP/1.1\r\nCookie: type=chocolate\r\n\r\n";
@@ -25,7 +18,7 @@ class CookiesControllerTest {
     private HttpResponse eatCookieHttpResponse;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
+    void setUp() {
         CookiesController cookiesController = new CookiesController();
         httpResponse = cookiesController.generateResponse(cookieHttpRequest());
         eatCookieHttpResponse = cookiesController.generateResponse(eatCookieHttpRequest());
@@ -37,18 +30,8 @@ class CookiesControllerTest {
     }
 
     @Test
-    void hasStatusMessage() {
-       assertEquals(STATUS_MESSAGE, httpResponse.getReasonPhrase());
-    }
-
-    @Test
     void returns200Status() {
-        assertEquals(STATUS_CODE, httpResponse.getStatus());
-    }
-
-    @Test
-    void hasStatusMessageEatCookie() {
-        assertEquals(STATUS_MESSAGE, eatCookieHttpResponse.getReasonPhrase());
+        assertEquals(Status.OK, httpResponse.getStatus());
     }
 
     @Test
@@ -58,14 +41,14 @@ class CookiesControllerTest {
 
     @Test
     void returns200StatusEatCookie() {
-        assertEquals(STATUS_CODE, eatCookieHttpResponse.getStatus());
+        assertEquals(Status.OK, eatCookieHttpResponse.getStatus());
     }
 
-    private HttpRequest cookieHttpRequest() throws InvalidRequestException, UnsupportedEncodingException {
+    private HttpRequest cookieHttpRequest() {
         return new HttpRequest(RAW_REQUEST_COOKIE);
     }
 
-    private HttpRequest eatCookieHttpRequest() throws InvalidRequestException, UnsupportedEncodingException {
+    private HttpRequest eatCookieHttpRequest() {
        return new HttpRequest(RAW_REQUEST_EAT_COOKIE);
     }
 }

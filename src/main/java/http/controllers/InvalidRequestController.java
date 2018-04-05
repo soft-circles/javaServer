@@ -1,19 +1,16 @@
 package http.controllers;
 
-import http.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.HttpStatus;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 
 public class InvalidRequestController implements IController {
     public InvalidRequestController() { }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("404");
-        httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
+        httpResponse.setStatus(Status.Not_Found);
         httpResponse.setBody("Content not found".getBytes());
         httpResponse.addHeader("Content-Type", "text/html");
         return httpResponse;

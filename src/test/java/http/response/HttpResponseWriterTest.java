@@ -1,5 +1,6 @@
 package http.response;
 
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,15 +21,14 @@ class HttpResponseWriterTest {
 
     private HttpResponse createHttpResponse() {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("200");
-        httpResponse.setReasonPhrase("OK");
+        httpResponse.setStatus(Status.OK);
         httpResponse.addHeader("Content-Type", "html/text");
         httpResponse.addToBody("Test");
         return httpResponse;
     }
 
     private String dummyResponseString() {
-        return "HTTP/1.1 200 OK" + "\r\n" + "Content-Type: html/text" + "\r\n\r\n" + "Test";
+        return "HTTP/1.1 " + Status.OK.getCode() + " " + Status.OK + "\r\n" + "Content-Type: html/text" + "\r\n\r\n" + "Test";
     }
 
     @Test

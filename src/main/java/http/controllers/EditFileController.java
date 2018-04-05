@@ -1,19 +1,18 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
-import http.handlers.file.FileHandler;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.StatusMessages;
+import http.status.Status;
 
 import java.io.IOException;
 
 public class EditFileController implements IController {
 
-    private final FileHandler fileHandler;
+    private final IFileIO fileIO;
 
-    public EditFileController(FileIO fileIO) {
-        this.fileHandler = new FileHandler(fileIO);
+    public EditFileController(IFileIO fileIO) {
+        this.fileIO = fileIO;
     }
 
     @Override
@@ -23,13 +22,12 @@ public class EditFileController implements IController {
     }
 
     private void updateFileAtLocation(HttpRequest httpRequest) throws IOException {
-        fileHandler.createFile(httpRequest.path(), httpRequest.getBody());
+        fileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
     private HttpResponse createResponse() {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("200");
-        httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+        httpResponse.setStatus(Status.OK);
         httpResponse.addToBody("");
         return httpResponse;
     }

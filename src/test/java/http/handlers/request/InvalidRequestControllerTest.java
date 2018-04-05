@@ -4,7 +4,7 @@ import http.controllers.InvalidRequestController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ class InvalidRequestControllerTest {
     private InvalidRequestController invalidRequestHandler;
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws InvalidRequestException, InvalidStatusCodeException, UnsupportedEncodingException {
+    void setUp() {
         HttpRequest httpRequest = new HttpRequest("GET /weird HTTP/1.0\n");
         invalidRequestHandler = new InvalidRequestController();
         httpResponse = invalidRequestHandler.generateResponse(httpRequest);
@@ -24,8 +24,7 @@ class InvalidRequestControllerTest {
 
     @Test
     void returnResponse() {
-        assertEquals("404", httpResponse.getStatus());
-        assertEquals("Not Found", httpResponse.getReasonPhrase());
+        assertEquals(Status.Not_Found, httpResponse.getStatus());
         assertEquals("Content not found".getBytes().length, httpResponse.getBody().length);
     }
 }

@@ -1,6 +1,6 @@
 package http.method;
 
-public enum httpMethod {
+public enum HttpMethod {
     GET,
     POST,
     PUT,

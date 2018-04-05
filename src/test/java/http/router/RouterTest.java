@@ -1,7 +1,7 @@
 package http.router;
 
 import http.Controller.MockController;
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,8 @@ class RouterTest {
     public static final String PATH = "/path";
     public static final String PATH2 = "/path2";
     public static final MockController CONTROLLER = new MockController();
-    public static final httpMethod METHOD = httpMethod.GET;
-    public static final httpMethod METHOD2 = httpMethod.PUT;
+    public static final HttpMethod METHOD = HttpMethod.GET;
+    public static final HttpMethod METHOD2 = HttpMethod.PUT;
     private Router router;
 
     private
@@ -54,11 +54,11 @@ class RouterTest {
         assertEquals(CONTROLLER, router.getController(PATH, METHOD));
     }
 
-    private List<httpMethod> listOfMethods() {
-        List<httpMethod> methods = new ArrayList<>();
-        methods.add(httpMethod.GET);
-        methods.add(httpMethod.PUT);
-        methods.add(httpMethod.PUT);
+    private List<HttpMethod> listOfMethods() {
+        List<HttpMethod> methods = new ArrayList<>();
+        methods.add(HttpMethod.GET);
+        methods.add(HttpMethod.PUT);
+        methods.add(HttpMethod.PUT);
         return methods;
     }
 

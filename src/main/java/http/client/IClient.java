@@ -1,4 +1,4 @@
-package http.socket;
+package http.client;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,11 +1,10 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
-import http.IO.file.InvalidPathException;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,21 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PartialContentControllerTest {
 
-    private static final String STATUS = "206";
-    private static final String OUT_OF_RANGE_STATUS = "416";
     private static final String STATUS_MESSAGE = "Partial Content";
     private static final int SIZE = 5;
     private HttpRequest httpRequest;
     private HttpResponse httpResponse;
-    private FileIO fileIO;
+    private IFileIO IFileIO;
     private HttpRequest httpRequestOutOfRange;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
+    void setUp() throws IOException {
         httpRequestOutOfRange = new HttpRequest(rawRequestOutOfRange());
         httpRequest = new HttpRequest(rawRequest());
-        fileIO = new FileIO("./public");
-        httpResponse = new PartialContentController(fileIO).generateResponse(httpRequest);
+        IFileIO = new FileIO("./public");
+        httpResponse = new PartialContentController(IFileIO).generateResponse(httpRequest);
     }
 
     private String rawRequest() {
@@ -43,15 +40,14 @@ class PartialContentControllerTest {
     }
 
     @Test
-    void generateResponse416() throws InvalidPathException, InvalidStatusCodeException, IOException {
-        httpResponse = new PartialContentController(fileIO).generateResponse(httpRequestOutOfRange);
-        assertEquals(OUT_OF_RANGE_STATUS, httpResponse.getStatus());
+    void generateResponse416() throws IOException {
+        httpResponse = new PartialContentController(IFileIO).generateResponse(httpRequestOutOfRange);
+        assertEquals(Status.Range_Not_Satisfiable, httpResponse.getStatus());
     }
 
     @Test
-    void generateResponse() throws IOException {
-        assertEquals(STATUS, httpResponse.getStatus());
-        assertEquals(STATUS_MESSAGE, httpResponse.getReasonPhrase());
+    void generateResponse() {
+        assertEquals(Status.Partial_Content, httpResponse.getStatus());
         assertEquals(SIZE, httpResponse.getBody().length);
     }
 }

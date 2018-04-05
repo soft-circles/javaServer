@@ -1,36 +1,32 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
-import http.handlers.file.FileHandler;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.router.Router;
-import http.status.InvalidStatusCodeException;
-import http.status.StatusMessages;
+import http.router.IRouter;
+import http.status.Status;
 
 import java.io.IOException;
 
 public class DeleteFileController implements IController {
 
-    private final FileHandler fileHandler;
-    private final InvalidRequestController invalidRequestHandler;
-    private final Router router;
+    private final IRouter router;
+    private final IFileIO fileIO;
 
-    public DeleteFileController(Router router, FileIO fileIO) {
-        this.invalidRequestHandler = new InvalidRequestController();
-        this.fileHandler = new FileHandler(fileIO);
+    public DeleteFileController(IRouter router, IFileIO fileIO) {
+        this.fileIO = fileIO;
         this.router = router;
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         removeRoute(httpRequest.path());
         deleted(httpRequest.path());
         return createResponse();
     }
 
     public boolean deleted(String path) throws IOException {
-        return fileHandler.deleteFile(path);
+        return fileIO.deleteFile(path);
     }
 
     private void removeRoute(String path) {
@@ -39,8 +35,7 @@ public class DeleteFileController implements IController {
 
     private HttpResponse createResponse() {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("200");
-        httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+        httpResponse.setStatus(Status.OK);
         httpResponse.addToBody("");
         return httpResponse;
     }

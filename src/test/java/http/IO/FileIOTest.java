@@ -1,4 +1,4 @@
-package http.IO.file;
+package http.IO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,32 +11,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class FileIOTest {
-    private FileIO fileIO;
+    private IFileIO IFileIO;
     @BeforeEach
     void setUp() {
-        fileIO = new FileIO("./public");
+        IFileIO = new FileIO("./public");
     }
 
     @Test
     void exists() {
-        assertFalse(fileIO.exists("/foo"));
-        assertTrue(fileIO.exists("/file1"));
+        assertFalse(IFileIO.exists("/foo"));
+        assertTrue(IFileIO.exists("/file1"));
     }
 
     @Test
     void isFile() {
-        assertFalse(fileIO.isFile("/foo"));
-        assertTrue(fileIO.isFile("/text-file.txt"));
+        assertFalse(IFileIO.isFile("/foo"));
+        assertTrue(IFileIO.isFile("/text-file.txt"));
     }
 
     @Test
     void isDirectory() {
-        assertTrue(fileIO.isDirectory("/"));
-        assertFalse(fileIO.isDirectory("/foo"));
+        assertTrue(IFileIO.isDirectory("/"));
+        assertFalse(IFileIO.isDirectory("/foo"));
     }
 
     @Test
     void readFile() throws IOException {
-        assertEquals(4, fileIO.readFile("/partial_content.txt", 0, 4).length);
+        assertEquals(4, IFileIO.readFile("/partial_content.txt", 0, 4).length);
     }
 }

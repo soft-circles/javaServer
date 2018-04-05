@@ -1,6 +1,6 @@
 package http.request;
 
-import http.method.httpMethod;
+import http.method.HttpMethod;
 import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class HttpRequestTest {
 
     @Test
     void method() {
-        assertEquals(httpMethod.GET, httpRequest.method());
+        assertEquals(HttpMethod.GET, httpRequest.method());
     }
 
     @Test

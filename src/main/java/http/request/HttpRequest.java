@@ -1,16 +1,14 @@
 package http.request;
 
 import http.handlers.cookie.Cookie;
-import http.method.httpMethod;
-import http.request.error.InvalidRequestException;
+import http.method.HttpMethod;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
     private final Map<String, String> parameters;
-    private httpMethod method;
+    private HttpMethod method;
     private int contentLength;
     private String version;
     private String path;
@@ -37,7 +35,7 @@ public class HttpRequest implements IHttpRequest {
     }
 
     @Override
-    public httpMethod method() {
+    public HttpMethod method() {
         return method;
     }
 
@@ -77,8 +75,6 @@ public class HttpRequest implements IHttpRequest {
     }
 
     public String[] getPartialRange() {
-        int from;
-        int to;
         String range = headers.get("Range");
         return range.substring("bytes=".length()).split("-");
     }

@@ -1,6 +1,8 @@
 package http.response;
 
 import http.handlers.cookie.Cookie;
+import http.method.HttpMethod;
+import http.status.Status;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -11,14 +13,14 @@ import java.util.Map;
 public class HttpResponse {
     private Map<String, String> headers;
     private static final String HTTP_VERSION = "HTTP/1.1";
-    private String reasonPhrase;
     private String requestHttpVersion;
-    private String requestMethod;
+    private HttpMethod requestMethod;
     private String requestUri;
     private String sentSize;
     private byte[] body;
-    private String status = "200";
+    private Status status = Status.OK;
     private ArrayList<Cookie> cookies;
+    private double code;
 
     public HttpResponse()
     {
@@ -51,36 +53,21 @@ public class HttpResponse {
     }
 
     public String getReasonPhrase() {
-        return reasonPhrase;
+        return this.status.getString();
     }
 
-    public void setReasonPhrase(String reasonPhrase) {
-        this.reasonPhrase = reasonPhrase;
-    }
-
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
     public String statusLine() {
-        return HTTP_VERSION + " " + status + " " + reasonPhrase;
+        return HTTP_VERSION + " " + getCode() + " " + getReasonPhrase();
     }
 
-    public String fullResponse() {
-        return statusLine() + "\r\n" + headers() + "\r\n\r\n" + body();
-    }
-
-    private byte[] body() {
-        if (body != null) {
-            return body;
-        } else {
-            return new byte[0];
-        }
-    }
     public void addToBody(String string) {
         StringBuilder bodyBuilder = new StringBuilder();
         if (body != null) {
@@ -88,16 +75,6 @@ public class HttpResponse {
         }
         bodyBuilder.append(string);
         this.body = bodyBuilder.toString().getBytes();
-    }
-
-    private String headers() {
-        StringBuilder headerBuilder = new StringBuilder();
-        if (headers != null) {
-            for(Map.Entry<String, String> e: headers.entrySet()){
-                headerBuilder.append(e.getKey()).append(": ").append(e.getValue());
-            }
-        }
-        return headerBuilder.toString();
     }
 
     public HttpResponse addHeader(String key, String value) {
@@ -122,11 +99,11 @@ public class HttpResponse {
         this.requestUri = requestUri;
     }
 
-    public String getRequestMethod() {
+    public HttpMethod getRequestMethod() {
         return requestMethod;
     }
 
-    public void setRequestMethod(String requestMethod) {
+    public void setRequestMethod(HttpMethod requestMethod) {
         this.requestMethod = requestMethod;
     }
 
@@ -159,5 +136,9 @@ public class HttpResponse {
             }
         }
         addHeader("Set-Cookie", sb.toString());
+    }
+
+    public int getCode() {
+        return status.getCode();
     }
 }

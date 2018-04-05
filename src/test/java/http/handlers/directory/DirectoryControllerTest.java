@@ -1,11 +1,11 @@
 package http.handlers.directory;
 
-import http.IO.file.FileIO;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.controllers.DirectoryController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class DirectoryControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
-        FileIO fileIO = new FileIO("./public");
+    void setUp() throws IOException, InvalidRequestException  {
+        IFileIO IFileIO = new FileIO("./public");
         HttpRequest httpRequest = httpRequest();
-        httpResponse = new DirectoryController(fileIO).generateResponse(httpRequest);
+        httpResponse = new DirectoryController(IFileIO).generateResponse(httpRequest);
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException, UnsupportedEncodingException {

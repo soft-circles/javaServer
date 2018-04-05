@@ -1,17 +1,15 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
-import http.IO.file.InvalidPathException;
+import http.IO.FileIO;
+import http.IO.IFileIO;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.sound.midi.Patch;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -20,31 +18,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatchControllerTest {
 
     public static final String CONTENT = "default content";
-    private static final String STATUS = "200";
-    private static final String MESSAGE = "OK";
-    private static final String STATUS_PATCH = "204";
     private static final String MESSAGE_PATCH = "No Content";
     private static final String CONTENT_LOCATION = "Content-Location";
     private static final String FILE = "/patch-content.txt";
     private static final String ETAG = "ETag";
     private HttpResponse httpResponse;
     private HttpResponse httpResponsePatch;
-    private FileIO fileIO;
+    private IFileIO IFileIO;
     private HttpRequest httpRequestPatch;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
-        fileIO = new FileIO("./public");
+    void setUp() throws IOException {
+        IFileIO = new FileIO("./public");
         httpRequestPatch = new HttpRequest(rawPatchRequest());
         httpRequestPatch.setBody("patch content".getBytes());
         HttpRequest httpRequest = new HttpRequest(rawGetRequest());
-        httpResponse = new PatchController(fileIO).generateResponse(httpRequest);
-        httpResponsePatch = new PatchController(fileIO).generateResponse(httpRequestPatch);
+        httpResponse = new PatchController(IFileIO).generateResponse(httpRequest);
+        httpResponsePatch = new PatchController(IFileIO).generateResponse(httpRequestPatch);
     }
 
     @AfterEach
-    void tearDown() throws IOException, InvalidPathException {
-        fileIO.createFile("/patch-content.txt", "default content".getBytes());
+    void tearDown() throws IOException {
+        IFileIO.createFile("/patch-content.txt", "default content".getBytes());
     }
 
     private String rawGetRequest() {
@@ -57,20 +52,18 @@ class PatchControllerTest {
     }
 
     private String getSha() throws IOException {
-        return DigestUtils.shaHex(fileIO.readFile("/patch-content.txt"));
+        return DigestUtils.shaHex(IFileIO.readFile("/patch-content.txt"));
     }
 
     @Test
     void generateResponse() throws UnsupportedEncodingException {
-        assertEquals(MESSAGE, httpResponse.getReasonPhrase());
-        assertEquals(STATUS, httpResponse.getStatus());
+        assertEquals(Status.OK, httpResponse.getStatus());
         assertEquals(CONTENT, getActual());
     }
 
     @Test
     void generateResponsePatch () {
-        assertEquals(STATUS_PATCH, httpResponsePatch.getStatus());
-        assertEquals(MESSAGE_PATCH, httpResponsePatch.getReasonPhrase());
+        assertEquals(Status.No_Content, httpResponsePatch.getStatus());
         assertTrue(httpResponsePatch.getHeaders().containsKey(CONTENT_LOCATION));
         assertTrue(httpResponsePatch.getHeaders().containsValue(FILE));
         assertTrue(httpResponsePatch.getHeaders().containsKey(ETAG));

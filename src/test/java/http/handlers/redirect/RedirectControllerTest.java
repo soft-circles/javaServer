@@ -4,6 +4,7 @@ import http.controllers.RedirectController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class RedirectControllerTest {
     private HttpResponse httpResponse;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
+    void setUp() {
         HttpRequest httpRequest = new HttpRequest(rawRequest());
         httpResponse = new RedirectController().generateResponse(httpRequest);
     }
@@ -27,8 +28,7 @@ class RedirectControllerTest {
 
     @Test
     void generateResponse() {
-        assertEquals("302", httpResponse.getStatus());
-        assertEquals("Found", httpResponse.getReasonPhrase());
+        assertEquals(Status.Found, httpResponse.getStatus());
         assertTrue(httpResponse.getHeaders().containsKey("Location"));
         assertTrue(httpResponse.getHeaders().containsValue("/"));
     }
