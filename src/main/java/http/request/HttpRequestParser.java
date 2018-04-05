@@ -21,7 +21,7 @@ public class HttpRequestParser {
     private Map<String, String> parameters;
     private ArrayList<Cookie> cookies;
 
-    public HttpRequestParser(String request) throws InvalidRequestException {
+    public HttpRequestParser(String request) {
         this.cookies = new ArrayList<>();
         parseRequestLine(getFirstLine(request));
         this.headers = parseHeaders(request);

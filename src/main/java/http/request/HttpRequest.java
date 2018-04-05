@@ -19,7 +19,7 @@ public class HttpRequest implements IHttpRequest {
     private byte[] body;
     private ArrayList<Cookie> cookies;
 
-    public HttpRequest(String request) throws InvalidRequestException, UnsupportedEncodingException {
+    public HttpRequest(String request) {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
         this.method = httpRequestParser.getMethod();
         this.version = httpRequestParser.getVersion();
