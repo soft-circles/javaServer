@@ -19,7 +19,7 @@ public class PostFileContentsController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         HttpResponse httpResponse = new HttpResponse();
         if (fileIO.isDirectory(httpRequest.path())) {
             createFileAtDifferentLocation(httpRequest);
@@ -35,11 +35,11 @@ public class PostFileContentsController implements IController {
         httpResponse.addToBody("");
         return httpResponse;
     }
-    private void createFileAtPathLocation(HttpRequest httpRequest) throws IOException, InvalidPathException {
+    private void createFileAtPathLocation(HttpRequest httpRequest) throws IOException {
         fileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
-    private void createFileAtDifferentLocation(HttpRequest httpRequest) throws IOException, InvalidPathException {
+    private void createFileAtDifferentLocation(HttpRequest httpRequest) throws IOException {
         String data = "/data";
         fileIO.createFile(httpRequest.path() + data, httpRequest.getBody());
     }
