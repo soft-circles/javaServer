@@ -9,7 +9,7 @@ import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.router.Router;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteFileControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
-    void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException, InvalidPathException {
+    void setUp() throws IOException, InvalidPathException {
         IFileIO IFileIO = new FileIO("./public");
         Router router = new Router();
         router.addRoute("/form", httpMethod.DELETE, new DeleteFileController(router, IFileIO));
@@ -34,8 +34,7 @@ class DeleteFileControllerTest {
 
     @Test
     void returnResponse() {
-        assertEquals("200", httpResponse.getStatus());
-        assertEquals("OK", httpResponse.getReasonPhrase());
+        assertEquals(Status.OK, httpResponse.getStatus());
     }
 
     @AfterEach
@@ -44,13 +43,7 @@ class DeleteFileControllerTest {
         Files.write(path, "".getBytes());
     }
 
-    private HttpRequest deleteRequest() throws InvalidRequestException, UnsupportedEncodingException {
-        String rawRequest = "DELETE /form HTTP/1.1\\r\\n\" +\n" +
-                "Host: www.nowhere123.com\\r\\n\" +\n" +
-                "Accept: image/gif, image/jpeg, */*\\r\\n\" +\n" +
-                "Accept-Language: en-us\\r\\n\" +\n" +
-                "Accept-Encoding: gzip, deflate\\r\\n\" +\n" +
-                "User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\r\n\r\n";
-        return new HttpRequest(rawRequest);
+    private HttpRequest deleteRequest() {
+        return new HttpRequest("DELETE /form HTTP/1.1\r\n");
     }
 }

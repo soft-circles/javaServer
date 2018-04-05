@@ -1,13 +1,8 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.Router;
-import http.status.HttpStatus;
-import http.status.InvalidStatusCodeException;
-
-import java.io.IOException;
 
 public class MethodOptionsController implements IController {
 
@@ -18,7 +13,7 @@ public class MethodOptionsController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException, InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) {
         switch (httpRequest.method()) {
             case OPTIONS:
                 return handleOptions(httpRequest);
@@ -27,17 +22,15 @@ public class MethodOptionsController implements IController {
         }
     }
 
-    private HttpResponse handleDefault() throws InvalidStatusCodeException {
+    private HttpResponse handleDefault() {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
         httpResponse.setBody("");
         return httpResponse;
     }
 
-    private HttpResponse handleOptions(HttpRequest httpRequest) throws InvalidStatusCodeException {
+    private HttpResponse handleOptions(HttpRequest httpRequest) {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.addHeader("Allow", router.getRoute(httpRequest.path()).getHttpMethodsAsString());
-        httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
         httpResponse.setBody("");
         return httpResponse;
     }

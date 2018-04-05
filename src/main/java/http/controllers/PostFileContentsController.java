@@ -3,7 +3,7 @@ package http.controllers;
 import http.IO.file.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.StatusMessages;
+import http.status.Status;
 
 import java.io.IOException;
 
@@ -21,12 +21,10 @@ public class PostFileContentsController implements IController {
             createFileAtDifferentLocation(httpRequest);
             String fileLocation = httpRequest.path() + "/data";
             httpResponse.addHeader("Location", fileLocation);
-            httpResponse.setStatus("201");
-            httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(201).toString());
+            httpResponse.setStatus(Status.Created);
         } else {
             createFileAtPathLocation(httpRequest);
-            httpResponse.setStatus("200");
-            httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+            httpResponse.setStatus(Status.OK);
         }
         httpResponse.addToBody("");
         return httpResponse;

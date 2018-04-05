@@ -2,13 +2,10 @@ package http.controllers;
 
 import http.IO.file.IFileIO;
 import http.IO.file.InvalidPathException;
-import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.IRouter;
-import http.router.Router;
-import http.status.InvalidStatusCodeException;
-import http.status.StatusMessages;
+import http.status.Status;
 
 import java.io.IOException;
 
@@ -23,7 +20,7 @@ public class DeleteFileController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException, InvalidPathException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException,  InvalidPathException {
         removeRoute(httpRequest.path());
         deleted(httpRequest.path());
         return createResponse();
@@ -39,8 +36,7 @@ public class DeleteFileController implements IController {
 
     private HttpResponse createResponse() {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("200");
-        httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(200).toString());
+        httpResponse.setStatus(Status.OK);
         httpResponse.addToBody("");
         return httpResponse;
     }

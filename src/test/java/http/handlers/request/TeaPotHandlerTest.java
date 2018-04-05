@@ -5,7 +5,7 @@ import http.controllers.TeaPotController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,24 +23,24 @@ class TeaPotHandlerTest {
     }
 
     @Test
-    void returns418code() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
-        String rawRequest = "GET /coffee HTTP/1.1 \r\n\r\n";
+    void returns418code() {
+        String rawRequest = "GET /coffee HTTP/1.1\n";
         HttpRequest request = new HttpRequest(rawRequest);
 
         HttpResponse result = handlerUnderTest.generateResponse(request);
 
-        assertEquals("418", result.getStatus());
+        assertEquals(Status.I$m_a_teapot, result.getStatus());
 
     }
 
     @Test
-    void returns200code() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
+    void returns200code() {
 
-        String rawRequest = "GET /tea HTTP/1.1 \r\n\r\n";
+        String rawRequest = "GET /tea HTTP/1.1\n";
         HttpRequest request = new HttpRequest(rawRequest);
 
         HttpResponse result = handlerUnderTest.generateResponse(request);
 
-        assertEquals("200", result.getStatus());
+        assertEquals(Status.OK, result.getStatus());
     }
 }

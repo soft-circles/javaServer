@@ -6,7 +6,7 @@ import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.router.Router;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class MethodOptionsControllerTest {
     private HttpResponse httpResponse;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, InvalidPathException, InvalidStatusCodeException, IOException {
+    void setUp() {
         HttpRequest httpRequest = new HttpRequest(rawRequest());
         Router router = new Router();
         MethodOptionsController methodOptionsController = new MethodOptionsController(router);
@@ -30,9 +30,8 @@ class MethodOptionsControllerTest {
 
     @Test
     void generateResponse() {
-        assertEquals("200", httpResponse.getStatus());
+        assertEquals(Status.OK, httpResponse.getStatus());
         assertEquals("GET, HEAD, POST", httpResponse.getHeaders().get("Allow"));
-        assertEquals("OK", httpResponse.getReasonPhrase());
     }
 
     private String rawRequest() {

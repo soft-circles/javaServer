@@ -2,15 +2,14 @@ package http.controllers;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.StatusMessages;
+import http.status.Status;
 
 
 public class InvalidMethodController implements IController {
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.setStatus("405");
-        httpResponse.setReasonPhrase(StatusMessages.STATUSES.get(405).toString());
+        httpResponse.setStatus(Status.Method_Not_Allowed);
         httpResponse.addToBody("");
         httpResponse.addHeader("Content-Type", "text/html");
         return httpResponse;

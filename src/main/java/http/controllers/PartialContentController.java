@@ -3,8 +3,7 @@ package http.controllers;
 import http.IO.file.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.HttpStatus;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import http.utils.ContentReader;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class PartialContentController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException  {
         int end;
         int start;
         HttpResponse httpResponse = new HttpResponse();
@@ -35,16 +34,15 @@ public class PartialContentController implements IController {
             end = Integer.parseInt(partialRange[1]) + 1;
         }
         if (start > totalBytes || end > totalBytes) {
-            httpResponse.setStatus("416");
+            httpResponse.setStatus(Status.Range_Not_Satisfiable);
             httpResponse.addHeader("Content-Range", "bytes " + "*/" + String.valueOf(bytes.length));
             httpResponse.setBody("");
         } else {
-            httpResponse.setStatus("206");
+            httpResponse.setStatus(Status.Partial_Content);
             httpResponse.setBody(IFileIO.readFile(httpRequest.path(), start, end));
             httpResponse.addHeader("Content-Range", "bytes " + String.valueOf(start) + "-" + String.valueOf(end - 1) + "/" + String.valueOf(bytes.length));
             httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
         }
-        httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
         return httpResponse;
     }
 }

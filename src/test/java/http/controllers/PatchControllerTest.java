@@ -6,7 +6,7 @@ import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,9 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatchControllerTest {
 
     public static final String CONTENT = "default content";
-    private static final String STATUS = "200";
-    private static final String MESSAGE = "OK";
-    private static final String STATUS_PATCH = "204";
     private static final String MESSAGE_PATCH = "No Content";
     private static final String CONTENT_LOCATION = "Content-Location";
     private static final String FILE = "/patch-content.txt";
@@ -33,7 +30,7 @@ class PatchControllerTest {
     private HttpRequest httpRequestPatch;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
+    void setUp() throws IOException {
         IFileIO = new FileIO("./public");
         httpRequestPatch = new HttpRequest(rawPatchRequest());
         httpRequestPatch.setBody("patch content".getBytes());
@@ -43,7 +40,7 @@ class PatchControllerTest {
     }
 
     @AfterEach
-    void tearDown() throws IOException, InvalidPathException {
+    void tearDown() throws IOException {
         IFileIO.createFile("/patch-content.txt", "default content".getBytes());
     }
 
@@ -62,15 +59,13 @@ class PatchControllerTest {
 
     @Test
     void generateResponse() throws UnsupportedEncodingException {
-        assertEquals(MESSAGE, httpResponse.getReasonPhrase());
-        assertEquals(STATUS, httpResponse.getStatus());
+        assertEquals(Status.OK, httpResponse.getStatus());
         assertEquals(CONTENT, getActual());
     }
 
     @Test
     void generateResponsePatch () {
-        assertEquals(STATUS_PATCH, httpResponsePatch.getStatus());
-        assertEquals(MESSAGE_PATCH, httpResponsePatch.getReasonPhrase());
+        assertEquals(Status.No_Content, httpResponsePatch.getStatus());
         assertTrue(httpResponsePatch.getHeaders().containsKey(CONTENT_LOCATION));
         assertTrue(httpResponsePatch.getHeaders().containsValue(FILE));
         assertTrue(httpResponsePatch.getHeaders().containsKey(ETAG));

@@ -2,6 +2,7 @@ package http.controllers;
 
 import http.request.HttpRequest;
 import http.response.HttpResponse;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class InvalidMethodControllerTest {
 
     public static final String REQUEST = "GET /invalid HTTP/1.1\n";
-    public static final String STATUS  = "405";
-    public static final String STATUS_MESSAGE = "Method Not Allowed";
     private HttpResponse httpResponse;
 
     @BeforeEach
@@ -22,7 +21,6 @@ class InvalidMethodControllerTest {
 
     @Test
     void generateResponse() {
-        assertEquals(STATUS, httpResponse.getStatus());
-        assertEquals(STATUS_MESSAGE, httpResponse.getReasonPhrase());
+        assertEquals(Status.Method_Not_Allowed, httpResponse.getStatus());
     }
 }

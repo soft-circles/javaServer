@@ -6,7 +6,7 @@ import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
-import http.status.InvalidStatusCodeException;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PartialContentControllerTest {
 
-    private static final String STATUS = "206";
-    private static final String OUT_OF_RANGE_STATUS = "416";
     private static final String STATUS_MESSAGE = "Partial Content";
     private static final int SIZE = 5;
     private HttpRequest httpRequest;
@@ -26,7 +24,7 @@ class PartialContentControllerTest {
     private HttpRequest httpRequestOutOfRange;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
+    void setUp() throws IOException {
         httpRequestOutOfRange = new HttpRequest(rawRequestOutOfRange());
         httpRequest = new HttpRequest(rawRequest());
         IFileIO = new FileIO("./public");
@@ -44,15 +42,14 @@ class PartialContentControllerTest {
     }
 
     @Test
-    void generateResponse416() throws InvalidPathException, InvalidStatusCodeException, IOException {
+    void generateResponse416() throws IOException {
         httpResponse = new PartialContentController(IFileIO).generateResponse(httpRequestOutOfRange);
-        assertEquals(OUT_OF_RANGE_STATUS, httpResponse.getStatus());
+        assertEquals(Status.Range_Not_Satisfiable, httpResponse.getStatus());
     }
 
     @Test
-    void generateResponse() throws IOException {
-        assertEquals(STATUS, httpResponse.getStatus());
-        assertEquals(STATUS_MESSAGE, httpResponse.getReasonPhrase());
+    void generateResponse() {
+        assertEquals(Status.Partial_Content, httpResponse.getStatus());
         assertEquals(SIZE, httpResponse.getBody().length);
     }
 }

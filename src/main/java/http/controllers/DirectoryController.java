@@ -4,8 +4,6 @@ import http.IO.file.IFileIO;
 import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
-import http.status.HttpStatus;
-import http.status.InvalidStatusCodeException;
 import http.utils.ContentReader;
 import http.utils.HTMLgenerator;
 
@@ -24,7 +22,7 @@ public class DirectoryController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException{
         this.httpRequest = httpRequest;
         if (httpRequest.method() == httpMethod.HEAD) {
             return new HeadController().generateResponse(httpRequest);
@@ -32,7 +30,7 @@ public class DirectoryController implements IController {
         return buildResponse();
     }
 
-    private HttpResponse buildResponse() throws IOException, InvalidStatusCodeException {
+    private HttpResponse buildResponse() throws IOException {
         buildResponseBody();
         buildResponseHeaders();
         return httpResponse;
@@ -42,7 +40,7 @@ public class DirectoryController implements IController {
         httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
     }
 
-    private void buildResponseBody() throws IOException, InvalidStatusCodeException {
+    private void buildResponseBody() throws IOException {
         if (IFileIO.isDirectory(httpRequest.path())) {
             httpResponse.setBody(generateDirectoryList());
         } else if (IFileIO.isFile(httpRequest.path())){
@@ -50,7 +48,6 @@ public class DirectoryController implements IController {
         }
         httpResponse.addHeader("Content-Length", String.valueOf(httpResponse.getBody().length));
         httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
-        httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
     }
 
     private byte[] generateDirectoryList() {

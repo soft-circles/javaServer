@@ -1,6 +1,8 @@
 package http.response;
 
 import http.handlers.cookie.Cookie;
+import http.method.httpMethod;
+import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +28,7 @@ class HttpResponseTest {
 
     @Test
     void setStatus() {
-        assertEquals(dummy_status(), httpResponse.getStatus());
+        assertEquals(Status.Forbidden, httpResponse.getStatus());
     }
 
     @Test
@@ -34,10 +36,10 @@ class HttpResponseTest {
         assertEquals(dummy_version(), httpResponse.getHttpVersion());
         assertEquals(dummy_reason(), httpResponse.getReasonPhrase());
         assertEquals(dummy_request_version(), httpResponse.getRequestHttpVersion());
-        assertEquals(dummmy_request_method(), httpResponse.getRequestMethod());
+        assertEquals(httpMethod.GET, httpResponse.getRequestMethod());
         assertEquals(dummy_request_uri(), httpResponse.getRequestUri());
         assertEquals(dummy_sent_size(), httpResponse.getSentSize());
-        assertEquals(dummy_status(), httpResponse.getStatus());
+        assertEquals(Status.Forbidden.getCode(), httpResponse.getCode());
     }
 
     @Test
@@ -66,29 +68,16 @@ class HttpResponseTest {
 
     private void setUpForFullResponse() {
         httpResponse.addHeader("Content-Type", "text/html");
-        httpResponse.setStatus("200");
-        httpResponse.setReasonPhrase("OK");
+        httpResponse.setStatus(Status.OK);
         httpResponse.setBody("<html><body><h1>It works!</h1></body></html>".getBytes());
     }
 
     private void assignAttributes() {
-        httpResponse.setStatus(dummy_status());
-        httpResponse.setReasonPhrase(dummy_reason());
+        httpResponse.setStatus(Status.Forbidden);
         httpResponse.setRequestHttpVersion(dummy_request_version());
-        httpResponse.setRequestMethod(dummmy_request_method());
+        httpResponse.setRequestMethod(httpMethod.GET);
         httpResponse.setRequestUri(dummy_request_uri());
         httpResponse.setSentSize(dummy_sent_size());
-        httpResponse.setStatus(dummy_status());
-    }
-
-    private byte[] fullResponse() {
-        String response = "HTTP/2.0 200 OK" +
-                "\r\n" +
-                "Content-Type: text/html" +
-                "\r\n\r\n" +
-                "<html><body><h1>It works!</h1></body></html>" +
-                "\r\n";
-        return response.getBytes();
     }
 
     private String dummy_status_line() {
@@ -109,10 +98,6 @@ class HttpResponseTest {
 
     private String dummy_request_version() {
         return "HTTP/1.1";
-    }
-
-    private String dummmy_request_method() {
-        return "GET";
     }
 
     private String dummy_request_uri() {

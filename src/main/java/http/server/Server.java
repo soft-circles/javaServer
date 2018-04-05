@@ -14,7 +14,6 @@ import http.router.NoAuthOnRouteException;
 import http.router.Router;
 import http.socket.IClient;
 import http.socket.Client;
-import http.status.InvalidStatusCodeException;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,7 +22,7 @@ import java.util.Arrays;
 public class Server {
     private Router router;
 
-    public Server(int portNum, String directory) throws IOException, InvalidRequestException, InvalidPathException, InvalidStatusCodeException, NoAuthOnRouteException {
+    public Server(int portNum, String directory) throws IOException {
         router = configServer(new FileIO(directory));
         System.out.println("Server starting on port: " + String.valueOf(portNum) + " " + "with public directory: " + directory);
         ServerSocket socket = new ServerSocket(portNum);
