@@ -1,12 +1,10 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.handlers.auth.IAuth;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.Status;
 
-import java.io.IOException;
 import java.util.Base64;
 
 public class UnauthorizedController implements IController {

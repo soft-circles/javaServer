@@ -17,9 +17,7 @@ public interface IFileIO {
 
     String[] getFilesInDirectory(String path);
 
-    String getFileName(String path) throws InvalidPathException;
-
     void createFile(String path, byte[] data) throws IOException;
 
-    boolean deleteFile(String path) throws IOException, InvalidPathException;
+    boolean deleteFile(String path) throws IOException;
 }

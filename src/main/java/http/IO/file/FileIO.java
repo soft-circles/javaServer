@@ -64,25 +64,14 @@ public class FileIO implements IFileIO {
     }
 
     @Override
-    public String getFileName(String path) throws InvalidPathException {
-        Pattern p = Pattern.compile("([^/]*)$");
-        Matcher matcher = p.matcher(path);
-        if (matcher.find()) {
-            return matcher.group(0);
-        } else  {
-            throw new InvalidPathException("Invalid file path: " + path);
-        }
-    }
-
-    @Override
     public void createFile(String path, byte[] data) throws IOException {
         Path file = Paths.get(workingDirectory + path);
         Files.write(file, data);
     }
 
     @Override
-    public boolean deleteFile(String path) throws IOException, InvalidPathException {
-        Path pathToFile = Paths.get(getWorkingDirectory() + "/" + getFileName(path));
+    public boolean deleteFile(String path) throws IOException {
+        Path pathToFile = Paths.get(getWorkingDirectory() + path);
         return Files.deleteIfExists(pathToFile);
     }
 

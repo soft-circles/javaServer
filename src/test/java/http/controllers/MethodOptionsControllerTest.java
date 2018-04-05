@@ -1,16 +1,13 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.method.httpMethod;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.router.Router;
 import http.status.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;

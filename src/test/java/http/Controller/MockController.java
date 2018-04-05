@@ -9,7 +9,7 @@ import java.io.IOException;
 public class MockController implements IController {
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) {
         return null;
     }
 }

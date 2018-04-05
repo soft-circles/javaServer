@@ -1,7 +1,6 @@
 package http.controllers;
 
 import http.IO.file.IFileIO;
-import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.router.IRouter;
@@ -20,13 +19,13 @@ public class DeleteFileController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException,  InvalidPathException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         removeRoute(httpRequest.path());
         deleted(httpRequest.path());
         return createResponse();
     }
 
-    public boolean deleted(String path) throws IOException, InvalidPathException {
+    public boolean deleted(String path) throws IOException {
         return fileIO.deleteFile(path);
     }
 

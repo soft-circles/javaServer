@@ -32,12 +32,12 @@ public class MockFileIO implements IFileIO {
     }
 
     @Override
-    public byte[] readFile(String fileName) throws IOException {
+    public byte[] readFile(String fileName) {
         return new byte[] {0, 74, 53, 85};
     }
 
     @Override
-    public byte[] readFile(String fileName, int start, int end) throws IOException {
+    public byte[] readFile(String fileName, int start, int end) {
         return new byte[0];
     }
 
@@ -47,17 +47,12 @@ public class MockFileIO implements IFileIO {
     }
 
     @Override
-    public String getFileName(String path) throws InvalidPathException {
-        return null;
-    }
-
-    @Override
-    public void createFile(String path, byte[] data) throws IOException {
+    public void createFile(String path, byte[] data) {
 
     }
 
     @Override
-    public boolean deleteFile(String path) throws IOException, InvalidPathException {
+    public boolean deleteFile(String path) {
         return false;
     }
 }

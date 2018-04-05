@@ -1,6 +1,5 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.IO.file.MockFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -29,7 +28,7 @@ class CatFormControllerTest {
     }
 
     @Test
-    void generateResponsePost() throws InvalidPathException,  IOException {
+    void generateResponsePost() throws IOException {
         HttpRequest httpRequest = new HttpRequest(POST_REQUEST);
 
         HttpResponse httpResponse = catFormController.generateResponse(httpRequest);
@@ -38,7 +37,7 @@ class CatFormControllerTest {
     }
 
     @Test
-    void generateResponseGet() throws InvalidPathException,  IOException {
+    void generateResponseGet() throws IOException {
         HttpRequest httpRequest = new HttpRequest(GET_REQUEST);
 
         HttpResponse httpResponse = catFormController.generateResponse(httpRequest);
@@ -47,7 +46,7 @@ class CatFormControllerTest {
     }
 
     @Test
-    void generateResponseDelete() throws InvalidPathException,  IOException {
+    void generateResponseDelete() throws IOException {
         HttpRequest httpRequest = new HttpRequest(DELETE_REQUEST);
 
         HttpResponse httpResponse = catFormController.generateResponse(httpRequest);
@@ -56,7 +55,7 @@ class CatFormControllerTest {
     }
 
     @Test
-    void generateResponsePut() throws InvalidPathException,  IOException {
+    void generateResponsePut() throws IOException {
         HttpRequest httpRequest = new HttpRequest(PUT_REQUEST);
 
         HttpResponse httpResponse = catFormController.generateResponse(httpRequest);

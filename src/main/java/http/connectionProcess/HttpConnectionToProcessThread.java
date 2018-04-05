@@ -1,6 +1,5 @@
 package http.connectionProcess;
 
-import http.IO.file.InvalidPathException;
 import http.router.NoAuthOnRouteException;
 
 import java.io.IOException;
@@ -20,8 +19,6 @@ public class HttpConnectionToProcessThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NoAuthOnRouteException e) {
-            e.printStackTrace();
-        } catch (InvalidPathException e) {
             e.printStackTrace();
         }
     }

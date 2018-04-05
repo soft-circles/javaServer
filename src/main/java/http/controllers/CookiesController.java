@@ -1,12 +1,9 @@
 package http.controllers;
 
-import http.IO.file.InvalidPathException;
 import http.handlers.cookie.Cookie;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.Status;
-
-import java.io.IOException;
 
 public class CookiesController implements IController {
     @Override

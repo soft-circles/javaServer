@@ -2,9 +2,7 @@ package http.controllers;
 
 import http.IO.file.FileIO;
 import http.IO.file.IFileIO;
-import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import http.response.HttpResponse;
 import http.status.Status;
 import org.apache.commons.codec.digest.DigestUtils;

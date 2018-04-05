@@ -1,7 +1,6 @@
 package http.controllers;
 
 import http.IO.file.IFileIO;
-import http.IO.file.InvalidPathException;
 import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -21,7 +20,7 @@ public class CatFormController implements IController {
     }
 
     @Override
-    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
+    public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
         switch(httpRequest.method()) {
             case GET:
                 return handleGet(httpRequest);
@@ -72,7 +71,7 @@ public class CatFormController implements IController {
         return httpResponse;
     }
 
-    private HttpResponse handleDelete(HttpRequest httpRequest) throws IOException,  InvalidPathException {
+    private HttpResponse handleDelete(HttpRequest httpRequest) throws IOException {
         return new DeleteFileController(router, IFileIO).generateResponse(httpRequest);
     }
 }

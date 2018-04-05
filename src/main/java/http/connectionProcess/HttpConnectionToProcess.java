@@ -1,7 +1,6 @@
 package http.connectionProcess;
 
 import http.IO.ClientInput;
-import http.IO.file.InvalidPathException;
 import http.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -23,7 +22,7 @@ public class HttpConnectionToProcess implements IHttpConnectionToProcess {
         this.httpResponseWriter = httpResponseWriter;
     }
 
-    public void execute() throws IOException, NoAuthOnRouteException,  InvalidPathException {
+    public void execute() throws IOException, NoAuthOnRouteException {
         ClientInput clientInput = new ClientInput(client.getInputStream());
         String rawRequestString = clientInput.getRawRequestString();
         HttpRequest httpRequest = new HttpRequest(rawRequestString);
@@ -41,12 +40,12 @@ public class HttpConnectionToProcess implements IHttpConnectionToProcess {
         client.closeConnection();
     }
 
-    private HttpResponse getHttpResponse(HttpRequest httpRequest) throws IOException, InvalidPathException {
+    private HttpResponse getHttpResponse(HttpRequest httpRequest) throws IOException {
         IController handler = router.getController(httpRequest.path(), httpRequest.method());
         return handler.generateResponse(httpRequest);
     }
 
-    private HttpResponse getHttpResponseWithAuth(HttpRequest httpRequest) throws InvalidPathException, IOException, NoAuthOnRouteException {
+    private HttpResponse getHttpResponseWithAuth(HttpRequest httpRequest) throws IOException, NoAuthOnRouteException {
         IController handler = router.getControllerWithAuth(httpRequest);
         return handler.generateResponse(httpRequest);
     }

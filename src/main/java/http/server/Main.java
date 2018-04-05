@@ -1,6 +1,5 @@
 package http.server;
 
-import http.IO.file.InvalidPathException;
 import http.router.NoAuthOnRouteException;
 import http.utils.MainArgumentParser;
 
@@ -8,7 +7,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception, InvalidPathException, NoAuthOnRouteException {
+    public static void main(String[] args) throws Exception {
         Map<String, String> parsedArguments = parseArguments(args);
 
         int portNumber = Integer.parseInt(parsedArguments.get("PortNumber"));
