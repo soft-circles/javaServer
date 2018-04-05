@@ -1,6 +1,7 @@
 package http.controllers;
 
 import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.sound.midi.Patch;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -29,22 +29,22 @@ class PatchControllerTest {
     private static final String ETAG = "ETag";
     private HttpResponse httpResponse;
     private HttpResponse httpResponsePatch;
-    private FileIO fileIO;
+    private IFileIO IFileIO;
     private HttpRequest httpRequestPatch;
 
     @BeforeEach
     void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
-        fileIO = new FileIO("./public");
+        IFileIO = new FileIO("./public");
         httpRequestPatch = new HttpRequest(rawPatchRequest());
         httpRequestPatch.setBody("patch content".getBytes());
         HttpRequest httpRequest = new HttpRequest(rawGetRequest());
-        httpResponse = new PatchController(fileIO).generateResponse(httpRequest);
-        httpResponsePatch = new PatchController(fileIO).generateResponse(httpRequestPatch);
+        httpResponse = new PatchController(IFileIO).generateResponse(httpRequest);
+        httpResponsePatch = new PatchController(IFileIO).generateResponse(httpRequestPatch);
     }
 
     @AfterEach
     void tearDown() throws IOException, InvalidPathException {
-        fileIO.createFile("/patch-content.txt", "default content".getBytes());
+        IFileIO.createFile("/patch-content.txt", "default content".getBytes());
     }
 
     private String rawGetRequest() {
@@ -57,7 +57,7 @@ class PatchControllerTest {
     }
 
     private String getSha() throws IOException {
-        return DigestUtils.shaHex(fileIO.readFile("/patch-content.txt"));
+        return DigestUtils.shaHex(IFileIO.readFile("/patch-content.txt"));
     }
 
     @Test

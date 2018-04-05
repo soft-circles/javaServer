@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -16,9 +16,9 @@ public class DeleteFileController implements IController {
     private final InvalidRequestController invalidRequestHandler;
     private final Router router;
 
-    public DeleteFileController(Router router, FileIO fileIO) {
+    public DeleteFileController(Router router, IFileIO IFileIO) {
         this.invalidRequestHandler = new InvalidRequestController();
-        this.fileHandler = new FileHandler(fileIO);
+        this.fileHandler = new FileHandler(IFileIO);
         this.router = router;
     }
 

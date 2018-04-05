@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.handlers.file.FileHandler;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -12,8 +12,8 @@ public class EditFileController implements IController {
 
     private final FileHandler fileHandler;
 
-    public EditFileController(FileIO fileIO) {
-        this.fileHandler = new FileHandler(fileIO);
+    public EditFileController(IFileIO IFileIO) {
+        this.fileHandler = new FileHandler(IFileIO);
     }
 
     @Override

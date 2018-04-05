@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.status.HttpStatus;
@@ -10,10 +10,10 @@ import http.utils.ContentReader;
 import java.io.IOException;
 
 public class PartialContentController implements IController {
-    private final FileIO fileIO;
+    private final IFileIO IFileIO;
 
-    public PartialContentController(FileIO fileIO) {
-        this.fileIO = fileIO;
+    public PartialContentController(IFileIO IFileIO) {
+        this.IFileIO = IFileIO;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class PartialContentController implements IController {
         int end;
         int start;
         HttpResponse httpResponse = new HttpResponse();
-        byte[] bytes = fileIO.readFile(httpRequest.path());
+        byte[] bytes = IFileIO.readFile(httpRequest.path());
         int totalBytes = bytes.length;
         String[] partialRange = httpRequest.getPartialRange();
         if(partialRange.length == 1) {
@@ -40,7 +40,7 @@ public class PartialContentController implements IController {
             httpResponse.setBody("");
         } else {
             httpResponse.setStatus("206");
-            httpResponse.setBody(fileIO.readFile(httpRequest.path(), start, end));
+            httpResponse.setBody(IFileIO.readFile(httpRequest.path(), start, end));
             httpResponse.addHeader("Content-Range", "bytes " + String.valueOf(start) + "-" + String.valueOf(end - 1) + "/" + String.valueOf(bytes.length));
             httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
         }

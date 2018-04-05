@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.IO.file.InvalidPathException;
 import http.method.httpMethod;
 import http.request.HttpRequest;
@@ -14,11 +14,11 @@ import java.util.Arrays;
 
 public class CatFormController implements IController {
     private final Router router;
-    private final FileIO fileIO;
+    private final IFileIO IFileIO;
 
-    public CatFormController(Router router, FileIO fileIO) {
+    public CatFormController(Router router, IFileIO IFileIO) {
         this.router = router;
-        this.fileIO = fileIO;
+        this.IFileIO = IFileIO;
     }
 
 
@@ -39,7 +39,7 @@ public class CatFormController implements IController {
     }
 
     private HttpResponse handleGet(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
-        return new DirectoryController(fileIO).generateResponse(httpRequest);
+        return new DirectoryController(IFileIO).generateResponse(httpRequest);
     }
 
     private HttpResponse handlePost(HttpRequest httpRequest) throws IOException, InvalidPathException {
@@ -59,12 +59,12 @@ public class CatFormController implements IController {
     }
 
     private void createFileAtPathLocation(HttpRequest httpRequest) throws IOException, InvalidPathException {
-        fileIO.createFile(httpRequest.path(), httpRequest.getBody());
+        IFileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
 
     private void createFileAtDifferentLocation(HttpRequest httpRequest) throws IOException, InvalidPathException {
         String data = "/data";
-        fileIO.createFile(httpRequest.path() + data, httpRequest.getBody());
+        IFileIO.createFile(httpRequest.path() + data, httpRequest.getBody());
     }
 
     private HttpResponse handlePut(HttpRequest httpRequest) throws IOException, InvalidPathException {
@@ -77,6 +77,6 @@ public class CatFormController implements IController {
     }
 
     private HttpResponse handleDelete(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
-        return new DeleteFileController(router, fileIO).generateResponse(httpRequest);
+        return new DeleteFileController(router, IFileIO).generateResponse(httpRequest);
     }
 }

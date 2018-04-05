@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -11,10 +11,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.io.IOException;
 
 public class PatchController implements IController {
-    private final FileIO fileIO;
+    private final IFileIO IFileIO;
 
-    public PatchController(FileIO fileIO) {
-        this.fileIO = fileIO;
+    public PatchController(IFileIO IFileIO) {
+        this.IFileIO = IFileIO;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class PatchController implements IController {
     }
 
     private HttpResponse handlePatch(HttpRequest httpRequest) throws InvalidStatusCodeException, IOException, InvalidPathException {
-        if((DigestUtils.shaHex(fileIO.readFile(httpRequest.path())).equals(httpRequest.headers().get("If-Match")))) {
-            fileIO.createFile(httpRequest.path(),httpRequest.getBody());
+        if((DigestUtils.shaHex(IFileIO.readFile(httpRequest.path())).equals(httpRequest.headers().get("If-Match")))) {
+            IFileIO.createFile(httpRequest.path(),httpRequest.getBody());
             HttpResponse httpResponse = new HttpResponse();
             httpResponse.setStatus("204");
             httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
             httpResponse.addHeader("Content-Location", httpRequest.path());
-            httpResponse.addHeader("ETag", DigestUtils.shaHex(fileIO.readFile(httpRequest.path())));
+            httpResponse.addHeader("ETag", DigestUtils.shaHex(IFileIO.readFile(httpRequest.path())));
             httpResponse.setBody("");
             return httpResponse;
         } else {
@@ -46,7 +46,7 @@ public class PatchController implements IController {
     private HttpResponse handleGet(HttpRequest httpRequest) throws IOException, InvalidStatusCodeException {
         HttpResponse httpResponse = new HttpResponse();
         httpResponse.setStatus("200");
-        httpResponse.setBody(fileIO.readFile(httpRequest.path()));
+        httpResponse.setBody(IFileIO.readFile(httpRequest.path()));
         httpResponse.setReasonPhrase(HttpStatus.message(httpResponse.getStatus()));
         return httpResponse;
     }

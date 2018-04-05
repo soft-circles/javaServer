@@ -1,6 +1,6 @@
 package http.controllers;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.method.httpMethod;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
@@ -16,11 +16,11 @@ import java.util.List;
 public class DirectoryController implements IController {
     private HttpRequest httpRequest;
     private HttpResponse httpResponse;
-    private FileIO fileIO;
+    private IFileIO IFileIO;
 
-    public DirectoryController(FileIO fileIO) {
+    public DirectoryController(IFileIO IFileIO) {
         httpResponse = new HttpResponse();
-        this.fileIO = fileIO;
+        this.IFileIO = IFileIO;
     }
 
     @Override
@@ -43,10 +43,10 @@ public class DirectoryController implements IController {
     }
 
     private void buildResponseBody() throws IOException, InvalidStatusCodeException {
-        if (fileIO.isDirectory(httpRequest.path())) {
+        if (IFileIO.isDirectory(httpRequest.path())) {
             httpResponse.setBody(generateDirectoryList());
-        } else if (fileIO.isFile(httpRequest.path())){
-            httpResponse.setBody(fileIO.readFile(httpRequest.path()));
+        } else if (IFileIO.isFile(httpRequest.path())){
+            httpResponse.setBody(IFileIO.readFile(httpRequest.path()));
         }
         httpResponse.addHeader("Content-Length", String.valueOf(httpResponse.getBody().length));
         httpResponse.addHeader("Content-Type", ContentReader.getFileType(httpRequest.path()));
@@ -54,7 +54,7 @@ public class DirectoryController implements IController {
     }
 
     private byte[] generateDirectoryList() {
-        return HTMLgenerator.generate(listDirectoryContents(fileIO.getFilesInDirectory(httpRequest.path())));
+        return HTMLgenerator.generate(listDirectoryContents(IFileIO.getFilesInDirectory(httpRequest.path())));
     }
 
     private static List<String> listDirectoryContents(String[] fileNames) {

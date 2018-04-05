@@ -1,6 +1,7 @@
 package http.controllers;
 
 import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.IO.file.InvalidPathException;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
@@ -21,15 +22,15 @@ class PartialContentControllerTest {
     private static final int SIZE = 5;
     private HttpRequest httpRequest;
     private HttpResponse httpResponse;
-    private FileIO fileIO;
+    private IFileIO IFileIO;
     private HttpRequest httpRequestOutOfRange;
 
     @BeforeEach
     void setUp() throws InvalidRequestException, IOException, InvalidPathException, InvalidStatusCodeException {
         httpRequestOutOfRange = new HttpRequest(rawRequestOutOfRange());
         httpRequest = new HttpRequest(rawRequest());
-        fileIO = new FileIO("./public");
-        httpResponse = new PartialContentController(fileIO).generateResponse(httpRequest);
+        IFileIO = new FileIO("./public");
+        httpResponse = new PartialContentController(IFileIO).generateResponse(httpRequest);
     }
 
     private String rawRequest() {
@@ -44,7 +45,7 @@ class PartialContentControllerTest {
 
     @Test
     void generateResponse416() throws InvalidPathException, InvalidStatusCodeException, IOException {
-        httpResponse = new PartialContentController(fileIO).generateResponse(httpRequestOutOfRange);
+        httpResponse = new PartialContentController(IFileIO).generateResponse(httpRequestOutOfRange);
         assertEquals(OUT_OF_RANGE_STATUS, httpResponse.getStatus());
     }
 

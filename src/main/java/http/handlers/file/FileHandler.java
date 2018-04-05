@@ -1,6 +1,6 @@
 package http.handlers.file;
 
-import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 
 public class FileHandler {
 
-    private FileIO fileIO;
+    private IFileIO IFileIO;
 
-    public FileHandler(FileIO fileIO) {
-        this.fileIO = fileIO;
+    public FileHandler(IFileIO IFileIO) {
+        this.IFileIO = IFileIO;
     }
 
     public void createFile(String filePath, byte[] data) throws IOException {
@@ -24,7 +24,7 @@ public class FileHandler {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {
-            Path file = Paths.get(fileIO.getWorkingDirectory() + filePath);
+            Path file = Paths.get(IFileIO.getWorkingDirectory() + filePath);
             Files.write(file, data);
         }
     }
@@ -33,7 +33,7 @@ public class FileHandler {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(filePath);
         if (matcher.find()) {
-            Path pathToFile = Paths.get(fileIO.getWorkingDirectory() + filePath);
+            Path pathToFile = Paths.get(IFileIO.getWorkingDirectory() + filePath);
             Files.delete(pathToFile);
             return true;
         }

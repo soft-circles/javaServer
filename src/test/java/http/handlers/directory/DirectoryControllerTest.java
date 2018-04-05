@@ -1,6 +1,7 @@
 package http.handlers.directory;
 
 import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.controllers.DirectoryController;
 import http.request.HttpRequest;
 import http.request.error.InvalidRequestException;
@@ -18,9 +19,9 @@ class DirectoryControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
-        FileIO fileIO = new FileIO("./public");
+        IFileIO IFileIO = new FileIO("./public");
         HttpRequest httpRequest = httpRequest();
-        httpResponse = new DirectoryController(fileIO).generateResponse(httpRequest);
+        httpResponse = new DirectoryController(IFileIO).generateResponse(httpRequest);
     }
 
     private HttpRequest httpRequest() throws InvalidRequestException, UnsupportedEncodingException {

@@ -9,23 +9,26 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileIO {
+public class FileIO implements IFileIO {
     private String workingDirectory;
 
     public FileIO(String path) {
         workingDirectory = path;
     }
 
+    @Override
     public boolean exists(String path) {
         File fileToCheck = new File(getPath(path));
         return fileToCheck.exists();
     }
 
+    @Override
     public boolean isFile(String path) {
         File fileToCheck = new File(getPath(path));
         return fileToCheck.isFile();
     }
 
+    @Override
     public boolean isDirectory(String path) {
         File directoryToCheck = new File(getPath(path));
         return directoryToCheck.isDirectory();
@@ -35,15 +38,18 @@ public class FileIO {
         return workingDirectory + fileName;
     }
 
+    @Override
     public String getWorkingDirectory() {
         return workingDirectory;
     }
 
+    @Override
     public byte[] readFile(String fileName) throws IOException {
         Path path = Paths.get(getWorkingDirectory() + "/" + fileName);
         return Files.readAllBytes(path);
     }
 
+    @Override
     public byte[] readFile(String fileName, int start, int end) throws IOException {
         Path path = Paths.get(getWorkingDirectory() + "/" + fileName);
         byte[] fileBytes = Files.readAllBytes(path);
@@ -52,10 +58,12 @@ public class FileIO {
         return substring.getBytes();
     }
 
+    @Override
     public String[] getFilesInDirectory(String path) {
         return new File(workingDirectory + path).list();
     }
 
+    @Override
     public String getFileName(String path) throws InvalidPathException {
         Pattern p = Pattern.compile("([^/]*)$");
         Matcher matcher = p.matcher(path);
@@ -66,11 +74,13 @@ public class FileIO {
         }
     }
 
+    @Override
     public void createFile(String path, byte[] data) throws IOException {
         Path file = Paths.get(workingDirectory + path);
         Files.write(file, data);
     }
 
+    @Override
     public boolean deleteFile(String path) throws IOException, InvalidPathException {
         Path pathToFile = Paths.get(getWorkingDirectory() + "/" + getFileName(path));
         return Files.deleteIfExists(pathToFile);

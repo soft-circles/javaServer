@@ -1,6 +1,7 @@
 package http.handlers.request;
 
 import http.IO.file.FileIO;
+import http.IO.file.IFileIO;
 import http.controllers.DeleteFileController;
 import http.method.httpMethod;
 import http.request.HttpRequest;
@@ -24,10 +25,10 @@ class DeleteFileControllerTest {
     private HttpResponse httpResponse;
     @BeforeEach
     void setUp() throws IOException, InvalidRequestException, InvalidStatusCodeException {
-        FileIO fileIO = new FileIO("./public");
+        IFileIO IFileIO = new FileIO("./public");
         Router router = new Router();
-        router.addRoute("/form", httpMethod.DELETE, new DeleteFileController(router, fileIO));
-        httpResponse = new DeleteFileController(router, fileIO).generateResponse(deleteRequest());
+        router.addRoute("/form", httpMethod.DELETE, new DeleteFileController(router, IFileIO));
+        httpResponse = new DeleteFileController(router, IFileIO).generateResponse(deleteRequest());
     }
 
     @Test
