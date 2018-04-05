@@ -71,7 +71,11 @@ public class HttpRequestParser {
         setRequestLine(requestLine);
         assignMethod(requestLine);
         assignPathAndParameters(requestLine);
-        setVersion(requestLine.split(" ")[2]);
+        try {
+            setVersion(requestLine.split(" ")[2]);
+        } catch(Exception e) {
+            setVersion("HTTP/1.1");
+        }
     }
 
     private void assignPathAndParameters(String requestLine) {
