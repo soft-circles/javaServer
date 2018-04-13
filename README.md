@@ -7,6 +7,13 @@ If you have gradle installed on your system:
 
 ```gradle build```
 
+Add cob_spec submodule
+
+```
+git submodule init
+git submodule update
+```
+
 Then to run the server:
 
 ```gradle run```
