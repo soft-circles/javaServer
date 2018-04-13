@@ -17,9 +17,19 @@ public class EditFileController implements IController {
 
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
-        updateFileAtLocation(httpRequest);
-        return createResponse();
+        switch (httpRequest.method()) {
+            case GET:
+                return handleGet(httpRequest);
+            default:
+                updateFileAtLocation(httpRequest);
+                return createResponse();
+        }
     }
+
+    private HttpResponse handleGet(HttpRequest httpRequest) throws IOException {
+        return new DirectoryController(fileIO).generateResponse(httpRequest);
+    }
+
 
     private void updateFileAtLocation(HttpRequest httpRequest) throws IOException {
         fileIO.createFile(httpRequest.path(), httpRequest.getBody());

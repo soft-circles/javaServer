@@ -16,19 +16,25 @@ public class PostFileContentsController implements IController {
 
     @Override
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException {
-        HttpResponse httpResponse = new HttpResponse();
-        if (IFileIO.isDirectory(httpRequest.path())) {
-            createFileAtDifferentLocation(httpRequest);
-            String fileLocation = httpRequest.path() + "/data";
-            httpResponse.addHeader("Location", fileLocation);
-            httpResponse.setStatus(Status.Created);
-        } else {
-            createFileAtPathLocation(httpRequest);
-            httpResponse.setStatus(Status.OK);
+        switch (httpRequest.method()) {
+            case GET:
+                return new DirectoryController(IFileIO).generateResponse(httpRequest);
+            default:
+                HttpResponse httpResponse = new HttpResponse();
+                if (IFileIO.isDirectory(httpRequest.path())) {
+                    createFileAtDifferentLocation(httpRequest);
+                    String fileLocation = httpRequest.path() + "/data";
+                    httpResponse.addHeader("Location", fileLocation);
+                    httpResponse.setStatus(Status.Created);
+                } else {
+                    createFileAtPathLocation(httpRequest);
+                    httpResponse.setStatus(Status.OK);
+                }
+                httpResponse.addToBody("");
+                return httpResponse;
         }
-        httpResponse.addToBody("");
-        return httpResponse;
     }
+
     private void createFileAtPathLocation(HttpRequest httpRequest) throws IOException {
         IFileIO.createFile(httpRequest.path(), httpRequest.getBody());
     }
