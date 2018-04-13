@@ -19,10 +19,15 @@ public class PartialContentController implements IController {
     public HttpResponse generateResponse(HttpRequest httpRequest) throws IOException  {
         int end;
         int start;
+        String [] partialRange;
         HttpResponse httpResponse = new HttpResponse();
         byte[] bytes = IFileIO.readFile(httpRequest.path());
         int totalBytes = bytes.length;
-        String[] partialRange = httpRequest.getPartialRange();
+        try {
+            partialRange = httpRequest.getPartialRange();
+        } catch(Exception e) {
+            partialRange = new String[]{"0"};
+        }
         if(partialRange.length == 1) {
             start = Integer.parseInt(partialRange[0]);
             end = totalBytes;

@@ -51,10 +51,11 @@ public class Server {
         router.addRoute("/", Arrays.asList(HttpMethod.GET, HttpMethod.HEAD), dirHandler);
         router.addRoute("/coffee", HttpMethod.GET, new TeaPotController());
         router.addRoute("/tea", HttpMethod.GET, new TeaPotController());
-        router.addRoute("/form", HttpMethod.POST, postFileHandler);
-        router.addRoute("/put-target", HttpMethod.PUT, editFileController);
+        router.addRoute("/form", Arrays.asList(HttpMethod.GET, HttpMethod.POST), postFileHandler);
+        router.addRoute("/put-target", Arrays.asList(HttpMethod.GET, HttpMethod.PUT), editFileController);
         router.addRoute("/redirect", HttpMethod.GET, new RedirectController());
         router.addRoute("/file1", HttpMethod.GET, dirHandler);
+        router.addRoute("/file2", HttpMethod.GET, dirHandler);
         router.addRoute("/text-file.txt", HttpMethod.GET, dirHandler);
         router.addRoute("/image.jpeg", HttpMethod.GET, dirHandler);
         router.addRoute("/image.gif", HttpMethod.GET, dirHandler);
