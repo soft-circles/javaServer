@@ -1,5 +1,5 @@
-package http.server;
 
+import http.server.Server;
 import http.utils.MainArgumentParser;
 
 import java.util.Map;

@@ -2,7 +2,6 @@ package http.client;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -20,8 +19,8 @@ public class Client implements IClient {
     }
 
     @Override
-    public OutputStream getOutputStream() throws IOException {
-        return socket.getOutputStream();
+    public void write(byte[] bytes) throws IOException {
+        this.socket.getOutputStream().write(bytes);
     }
 
     public void closeConnection() {

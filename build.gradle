@@ -42,7 +42,7 @@ test {
 
 jar {
     manifest {
-        attributes "Main-Class": "http.server.Main"
+        attributes "Main-Class": "Main"
         attributes "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
     }
 }

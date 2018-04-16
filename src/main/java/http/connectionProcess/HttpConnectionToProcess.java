@@ -36,7 +36,7 @@ public class HttpConnectionToProcess implements IHttpConnectionToProcess {
             httpResponse = getHttpResponse(httpRequest);
         }
         byte[] byteResponse = httpResponseWriter.sendHttpResponse(httpResponse);
-        client.getOutputStream().write(byteResponse);
+        client.write(byteResponse);
         client.closeConnection();
     }
 
