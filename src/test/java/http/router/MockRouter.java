@@ -39,12 +39,12 @@ public class MockRouter implements IRouter {
     }
 
     @Override
-    public IAuth getAuth(String path) throws NoAuthOnRouteException {
+    public IAuth getAuth(String path) {
         return null;
     }
 
     @Override
-    public boolean hasAuth(String path) throws NoAuthOnRouteException {
+    public boolean hasAuth(String path) {
         return false;
     }
 
@@ -54,7 +54,7 @@ public class MockRouter implements IRouter {
     }
 
     @Override
-    public IController getControllerWithAuth(HttpRequest httpRequest) throws NoAuthOnRouteException {
+    public IController getControllerWithAuth(HttpRequest httpRequest) {
         return null;
     }
 }

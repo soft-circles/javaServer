@@ -1,6 +1,5 @@
 package http.router;
 
-
 import java.util.*;
 
 public class Redirects {

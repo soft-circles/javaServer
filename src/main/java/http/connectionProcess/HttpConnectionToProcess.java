@@ -1,13 +1,13 @@
 package http.connectionProcess;
 
 import http.client.ClientInput;
+import http.client.IClient;
 import http.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.response.HttpResponseWriter;
 import http.router.NoAuthOnRouteException;
 import http.router.Router;
-import http.client.IClient;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class HttpConnectionToProcess implements IHttpConnectionToProcess {
             httpResponse = getHttpResponse(httpRequest);
         }
         byte[] byteResponse = httpResponseWriter.sendHttpResponse(httpResponse);
-        client.getOutputStream().write(byteResponse);
+        client.write(byteResponse);
         client.closeConnection();
     }
 

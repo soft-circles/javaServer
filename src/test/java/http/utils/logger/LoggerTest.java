@@ -1,13 +1,9 @@
 package http.utils.logger;
 
-import http.request.HttpRequest;
-import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LoggerTest {
 
@@ -16,7 +12,7 @@ class LoggerTest {
     private Logger logger;
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
+    void setUp() {
         logger = new Logger();
     }
 

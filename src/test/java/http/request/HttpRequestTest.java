@@ -1,20 +1,18 @@
 package http.request;
 
 import http.method.HttpMethod;
-import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpRequestTest {
     private HttpRequest httpRequest;
 
 
     @BeforeEach
-    void setUp() throws InvalidRequestException, UnsupportedEncodingException {
+    void setUp() {
         httpRequest = new HttpRequest(getRequest());
     }
 

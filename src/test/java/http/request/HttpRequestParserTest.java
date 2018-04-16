@@ -1,16 +1,16 @@
 package http.request;
 
 import http.method.HttpMethod;
-import http.request.error.InvalidRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpRequestParserTest {
     private HttpRequestParser httpRequestParser;
     @BeforeEach
-    void setUp() throws InvalidRequestException {
+    void setUp() {
         httpRequestParser = new HttpRequestParser(rawRequest());
     }
 
@@ -38,6 +38,4 @@ class HttpRequestParserTest {
     private String rawRequest() {
         return "GET / HTTP/2.0\r\nAccept: text/html\r\nCookie: test=cookie\r\nConnection: keep-alive\r\n\r\n";
     }
-    private String invalidRawRequest() { return "TESTHDSF:LKJA";}
-
 }

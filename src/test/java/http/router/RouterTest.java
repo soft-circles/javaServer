@@ -1,23 +1,29 @@
 package http.router;
 
 import http.Controller.MockController;
+import http.handlers.auth.AuthHandler;
+import http.handlers.auth.IAuth;
 import http.method.HttpMethod;
+import http.request.HttpRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RouterTest {
 
     public static final String PATH = "/path";
-    public static final String PATH2 = "/path2";
     public static final MockController CONTROLLER = new MockController();
+    public static final IAuth AUTH = new AuthHandler("test", "test");
     public static final HttpMethod METHOD = HttpMethod.GET;
     public static final HttpMethod METHOD2 = HttpMethod.PUT;
+    public static final String ENCODED = Base64.getEncoder().encodeToString("test:test".getBytes());
+    public static final HttpRequest REQUEST = new HttpRequest("GET " + PATH + " HTTP/1/1\r\nAuthorization: Basic " + ENCODED);
     private Router router;
 
     private
@@ -67,4 +73,23 @@ class RouterTest {
         router.addRoute(PATH, Arrays.asList(METHOD, METHOD2), CONTROLLER);
         assertEquals("GET, PUT", router.getRoute(PATH).getHttpMethodsAsString());
     }
+
+    @Test
+    void addRouteWithAuth() {
+        router.addRouteWithAuth(PATH, METHOD, CONTROLLER, AUTH);
+        assertEquals(1, router.size());
+    }
+
+    @Test
+    void addRouteWithAuthWithMultipleMethods() {
+        router.addRouteWithAuth(PATH, Arrays.asList(METHOD, METHOD2), CONTROLLER, AUTH);
+        assertEquals(1, router.size());
+    }
+
+    @Test
+    void getControllerWithAuth() throws NoAuthOnRouteException {
+        router.addRouteWithAuth(PATH, METHOD, CONTROLLER, AUTH);
+        assertEquals(CONTROLLER, router.getControllerWithAuth(REQUEST));
+    }
+
 }

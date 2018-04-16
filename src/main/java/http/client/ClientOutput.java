@@ -1,13 +1,12 @@
 package http.client;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
 public class ClientOutput implements IClientOutput {
     public final OutputStream output;
     private PrintWriter writer;
-    public ClientOutput(OutputStream outputStream) throws IOException {
+    public ClientOutput(OutputStream outputStream) {
         this.output = outputStream;
         this.writer = new PrintWriter(outputStream);
     }
@@ -16,9 +15,5 @@ public class ClientOutput implements IClientOutput {
     public void writeTo(String string){
         writer.println(string);
         writer.close();
-    }
-
-    public void writeBytes(byte[] bytes) throws IOException {
-        output.write(bytes);
     }
 }
