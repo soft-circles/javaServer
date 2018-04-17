@@ -1,9 +1,5 @@
 package http.connectionProcess;
 
-import http.router.NoAuthOnRouteException;
-
-import java.io.IOException;
-
 public class HttpConnectionToProcessThread implements Runnable {
 
     private final HttpConnectionToProcess httpConnectionToProcess;

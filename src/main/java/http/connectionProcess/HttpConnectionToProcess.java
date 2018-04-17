@@ -11,9 +11,7 @@ import http.router.NoAuthOnRouteException;
 import http.router.Router;
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class HttpConnectionToProcess implements IHttpConnectionToProcess {
     private final HttpResponseWriter httpResponseWriter;
