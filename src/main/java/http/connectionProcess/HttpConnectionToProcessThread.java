@@ -14,12 +14,6 @@ public class HttpConnectionToProcessThread implements Runnable {
 
     @Override
     public void run() {
-        try {
-            httpConnectionToProcess.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoAuthOnRouteException e) {
-            e.printStackTrace();
-        }
+        httpConnectionToProcess.execute();
     }
 }
