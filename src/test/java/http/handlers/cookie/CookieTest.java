@@ -27,14 +27,14 @@ class CookieTest {
     }
 
     @Test
-    void setName() {
+    void cookieSetName() {
         cookie = new Cookie(VALUE, NAME);
         cookie.setName(NAME);
         assertEquals(NAME, cookie.getName());
     }
 
     @Test
-    void setValue() {
+    void cookieSetValue() {
         cookie = new Cookie(VALUE, NAME);
         cookie.setValue(VALUE);
         assertEquals(VALUE, cookie.getValue());

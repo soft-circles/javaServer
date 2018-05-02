@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HttpRequestParser {
@@ -19,7 +20,7 @@ public class HttpRequestParser {
     private Map<String, String> parameters;
     private ArrayList<Cookie> cookies;
 
-    public HttpRequestParser(String request) {
+    HttpRequestParser(String request) {
         this.cookies = new ArrayList<>();
         parseRequestLine(getFirstLine(request));
         this.headers = parseHeaders(request);
@@ -62,7 +63,7 @@ public class HttpRequestParser {
                  }
              }
          } catch (Exception e) {
-
+             e.printStackTrace();
          }
          return headers;
      }
@@ -109,7 +110,7 @@ public class HttpRequestParser {
         return params;
     }
 
-    public int getContentLength() {
+    int getContentLength() {
         return contentLength;
     }
 
@@ -125,7 +126,7 @@ public class HttpRequestParser {
         this.method = method;
     }
 
-    public String getRequestLine() {
+    String getRequestLine() {
         return requestLine;
     }
 
@@ -141,7 +142,7 @@ public class HttpRequestParser {
         this.path = path;
     }
 
-    public String getVersion() {
+    String getVersion() {
         return version;
     }
 
@@ -153,15 +154,15 @@ public class HttpRequestParser {
         return headers;
     }
 
-    public void setParameters(Map<String,String> parameters) {
+    private void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
 
-    public Map<String, String> getParameters() {
+    Map<String, String> getParameters() {
         return this.parameters;
     }
 
-    public ArrayList<Cookie> getCookies() {
+    List<Cookie> getCookies() {
         return this.cookies;
     }
 }

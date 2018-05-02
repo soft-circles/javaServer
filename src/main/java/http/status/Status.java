@@ -43,7 +43,7 @@ public enum Status {
     Unsupported_Media_Type(415),
     Range_Not_Satisfiable(416),
     Expectation_Failed(417),
-    I$m_a_teapot(418),
+    Im_a_teapot(418),
     Misdirected_Request(421),
     Unprocessable_Entity(422),
     Locked(423),

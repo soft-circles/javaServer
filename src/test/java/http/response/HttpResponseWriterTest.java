@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpResponseWriterTest {
 
+    public static final String RESPONSE = "HTTP/1.1 " + Status.OK.getCode() + " " + Status.OK + "\r\n" + "Content-Type: html/text" + "\r\n\r\n" + "Test";
     private byte[] byteArray;
     private HttpResponse httpResponse;
 
@@ -27,12 +28,8 @@ class HttpResponseWriterTest {
         return httpResponse;
     }
 
-    private String dummyResponseString() {
-        return "HTTP/1.1 " + Status.OK.getCode() + " " + Status.OK + "\r\n" + "Content-Type: html/text" + "\r\n\r\n" + "Test";
-    }
-
     @Test
-    void sendHttpResponse() {
-        assertTrue(Arrays.equals(byteArray, dummyResponseString().getBytes()));
+    void responseWriterWritesBodyCorrectly() {
+        assertTrue(Arrays.equals(byteArray, RESPONSE.getBytes()));
     }
 }

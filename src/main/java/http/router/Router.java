@@ -1,9 +1,9 @@
 package http.router;
 
-import http.controllers.IController;
-import http.controllers.InvalidMethodController;
-import http.controllers.InvalidRequestController;
-import http.controllers.UnauthorizedController;
+import cob_spec.controllers.IController;
+import cob_spec.controllers.InvalidMethodController;
+import cob_spec.controllers.InvalidRequestController;
+import cob_spec.controllers.UnauthorizedController;
 import http.handlers.auth.IAuth;
 import http.method.HttpMethod;
 import http.request.HttpRequest;
@@ -43,7 +43,7 @@ public class Router implements IRouter {
         routes.put(path, route);
     }
 
-    public int size() {
+    int size() {
         return routes.size();
     }
 

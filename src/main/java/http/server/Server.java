@@ -6,7 +6,7 @@ import http.client.Client;
 import http.client.IClient;
 import http.connectionProcess.ConnectionProcessMultiThread;
 import http.connectionProcess.HttpConnectionToProcess;
-import http.controllers.*;
+import cob_spec.controllers.*;
 import http.handlers.auth.AuthHandler;
 import http.handlers.auth.IAuth;
 import http.method.HttpMethod;
@@ -22,7 +22,7 @@ public class Server {
     private final int portNumber;
     private Router router;
 
-    public Server(int portNum, String directory, Router router) throws IOException {
+    public Server(int portNum, String directory, Router router) {
         this.router = router;
         this.portNumber = portNum;
         this.directory = directory;

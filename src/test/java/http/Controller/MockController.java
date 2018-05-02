@@ -1,6 +1,6 @@
 package http.Controller;
 
-import http.controllers.IController;
+import cob_spec.controllers.IController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 

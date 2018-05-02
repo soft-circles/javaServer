@@ -20,12 +20,15 @@ public class HttpResponse {
     private byte[] body;
     private Status status = Status.OK;
     private ArrayList<Cookie> cookies;
-    private double code;
 
     public HttpResponse()
     {
         cookies = new ArrayList<>();
         headers = new HashMap<>();
+    }
+
+    public void setEmptyBody() {
+        this.body = "".getBytes();
     }
 
     public Map<String, String> getHeaders() {
@@ -48,11 +51,11 @@ public class HttpResponse {
         this.body = body.getBytes();
     }
 
-    public String getHttpVersion() {
+    String getHttpVersion() {
         return HTTP_VERSION;
     }
 
-    public String getReasonPhrase() {
+    String getReasonPhrase() {
         return this.status.getString();
     }
 
@@ -64,7 +67,7 @@ public class HttpResponse {
         this.status = status;
     }
 
-    public String statusLine() {
+    String statusLine() {
         return HTTP_VERSION + " " + getCode() + " " + getReasonPhrase();
     }
 
@@ -83,35 +86,35 @@ public class HttpResponse {
     }
 
 
-    public String getSentSize() {
+    String getSentSize() {
         return sentSize;
     }
 
-    public void setSentSize(String sentSize) {
+    void setSentSize(String sentSize) {
         this.sentSize = sentSize;
     }
 
-    public String getRequestUri() {
+    String getRequestUri() {
         return requestUri;
     }
 
-    public void setRequestUri(String requestUri) {
+    void setRequestUri(String requestUri) {
         this.requestUri = requestUri;
     }
 
-    public HttpMethod getRequestMethod() {
+    HttpMethod getRequestMethod() {
         return requestMethod;
     }
 
-    public void setRequestMethod(HttpMethod requestMethod) {
+    void setRequestMethod(HttpMethod requestMethod) {
         this.requestMethod = requestMethod;
     }
 
-    public String getRequestHttpVersion() {
+    String getRequestHttpVersion() {
         return requestHttpVersion;
     }
 
-    public void setRequestHttpVersion(String requestHttpVersion) {
+    void setRequestHttpVersion(String requestHttpVersion) {
         this.requestHttpVersion = requestHttpVersion;
     }
 
@@ -119,7 +122,7 @@ public class HttpResponse {
         cookies.add(cookie);
     }
 
-    public ArrayList<Cookie> getCookies() {
+    ArrayList<Cookie> getCookies() {
         return this.cookies;
     }
 
@@ -138,7 +141,7 @@ public class HttpResponse {
         addHeader("Set-Cookie", sb.toString());
     }
 
-    public int getCode() {
+    int getCode() {
         return status.getCode();
     }
 }

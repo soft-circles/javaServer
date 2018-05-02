@@ -28,12 +28,12 @@ class AuthHandlerTest {
     }
 
     @Test
-    void authorized() {
+    void authorizedReturnsTrueIfCredentialsAreCorrect() {
         assertTrue(authHandler.authorized(encode(VALID_CREDS)));
     }
 
     @Test
-    void unauthorized() {
+    void authorizedReturnsFalseIfCredentialsAreIncorrect() {
         assertFalse(authHandler.authorized(encode(INVALID_CREDS)));
     }
 }

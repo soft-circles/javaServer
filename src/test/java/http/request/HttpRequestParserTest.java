@@ -31,7 +31,7 @@ class HttpRequestParserTest {
     }
 
     @Test
-    void getCookies() {
+    void getCookiesReturnsCookies() {
         assertEquals(1, httpRequestParser.getCookies().size());
     }
 

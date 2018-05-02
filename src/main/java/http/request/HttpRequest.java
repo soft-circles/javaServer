@@ -3,7 +3,7 @@ package http.request;
 import http.handlers.cookie.Cookie;
 import http.method.HttpMethod;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class HttpRequest implements IHttpRequest {
@@ -15,7 +15,7 @@ public class HttpRequest implements IHttpRequest {
     private String requestLine;
     private Map<String, String> headers;
     private byte[] body;
-    private ArrayList<Cookie> cookies;
+    private List<Cookie> cookies;
 
     public HttpRequest(String request) {
         HttpRequestParser httpRequestParser = new HttpRequestParser(request);
@@ -70,7 +70,7 @@ public class HttpRequest implements IHttpRequest {
         return parameters;
     }
 
-    public ArrayList<Cookie> getCookies() {
+    public List<Cookie> getCookies() {
         return this.cookies;
     }
 

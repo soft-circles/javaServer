@@ -13,14 +13,14 @@ class ClientOutputTest {
     ClientOutput clientOutput;
     ByteArrayOutputStream output;
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         output = new ByteArrayOutputStream();
         clientOutput = new ClientOutput(output);
         clientOutput.writeTo(testString());
     }
 
     @Test
-    void writeTo() {
+    void writesToOutputStream() {
         String string = new String(output.toByteArray());
         assertEquals(testString() + "\n", string);
     }

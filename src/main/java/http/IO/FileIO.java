@@ -1,10 +1,12 @@
 package http.IO;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class FileIO implements IFileIO {
     private String workingDirectory;
@@ -57,7 +59,8 @@ public class FileIO implements IFileIO {
 
     @Override
     public String[] getFilesInDirectory(String path) {
-        return new File(workingDirectory + path).list();
+        File file = new File(workingDirectory + path);
+        return file.list((dir, name) -> !name.startsWith("."));
     }
 
     @Override
