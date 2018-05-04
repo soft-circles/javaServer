@@ -12,6 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpResponseTest {
 
+    public static final String HTTP_VERSION = "HTTP/1.1";
+    public static final String STATUS_LINE = HTTP_VERSION + " " + Status.Forbidden.getCode() + " " + Status.Forbidden.getString();
+    public static final String URI = "/";
+    public static final String SENT_SIZE = "0";
+    public static final String BODY = "<html><body><h1>It works!</h1></body></html>";
     private HttpResponse httpResponse;
     public static final String NAME = "testName";
     public static final String VALUE = "testValue";
@@ -31,22 +36,22 @@ class HttpResponseTest {
 
     @Test
     void testAttributes() {
-        assertEquals(dummy_version(), httpResponse.getHttpVersion());
-        assertEquals(dummy_reason(), httpResponse.getReasonPhrase());
-        assertEquals(dummy_request_version(), httpResponse.getRequestHttpVersion());
+        assertEquals(HTTP_VERSION, httpResponse.getHttpVersion());
+        assertEquals(Status.Forbidden.getString(), httpResponse.getReasonPhrase());
+        assertEquals(HTTP_VERSION, httpResponse.getRequestHttpVersion());
         assertEquals(HttpMethod.GET, httpResponse.getRequestMethod());
-        assertEquals(dummy_request_uri(), httpResponse.getRequestUri());
-        assertEquals(dummy_sent_size(), httpResponse.getSentSize());
+        assertEquals(URI, httpResponse.getRequestUri());
+        assertEquals(SENT_SIZE, httpResponse.getSentSize());
         assertEquals(Status.Forbidden.getCode(), httpResponse.getCode());
     }
 
     @Test
     void status_line() {
-        assertEquals(dummy_status_line(), httpResponse.statusLine());
+        assertEquals(STATUS_LINE, httpResponse.statusLine());
     }
 
     @Test
-    void addToBody() {
+    void addsStringsToBodyAndConvertsItToBytes() {
         httpResponse.setBody("TEXT".getBytes());
         httpResponse.addToBody("More text");
         assertEquals(new String("TEXTMore text".getBytes(), StandardCharsets.UTF_8), new String(httpResponse.getBody(), StandardCharsets.UTF_8));
@@ -67,43 +72,21 @@ class HttpResponseTest {
     private void setUpForFullResponse() {
         httpResponse.addHeader("Content-Type", "text/html");
         httpResponse.setStatus(Status.OK);
-        httpResponse.setBody("<html><body><h1>It works!</h1></body></html>".getBytes());
+        httpResponse.setBody(BODY.getBytes());
+    }
+
+    @Test
+    void setEmptyBody() {
+        HttpResponse httpResponse = new HttpResponse();
+        httpResponse.setEmptyBody();
+        assertEquals("", httpResponse.getBodyAsString());
     }
 
     private void assignAttributes() {
         httpResponse.setStatus(Status.Forbidden);
-        httpResponse.setRequestHttpVersion(dummy_request_version());
+        httpResponse.setRequestHttpVersion(HTTP_VERSION);
         httpResponse.setRequestMethod(HttpMethod.GET);
-        httpResponse.setRequestUri(dummy_request_uri());
-        httpResponse.setSentSize(dummy_sent_size());
+        httpResponse.setRequestUri(URI);
+        httpResponse.setSentSize(SENT_SIZE);
     }
-
-    private String dummy_status_line() {
-        return dummy_version() +  " " + dummy_status() + " " + dummy_reason();
-    }
-
-    private String dummy_version() {
-        return "HTTP/1.1";
-    }
-
-    private String dummy_status() {
-        return "403";
-    }
-
-    private String dummy_reason() {
-        return "Forbidden";
-    }
-
-    private String dummy_request_version() {
-        return "HTTP/1.1";
-    }
-
-    private String dummy_request_uri() {
-        return "/";
-    }
-
-    private String dummy_sent_size() {
-        return "0";
-    }
-
 }

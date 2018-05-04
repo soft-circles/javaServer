@@ -31,11 +31,10 @@ class MainArgumentParserTest {
     }
 
     @Test
-    void HandlesUnregiesteredFlags() {
+    void HandlesUnregisteredFlags() {
         parser.addFlag(FLAG, NAME);
         assertThrows(Exception.class, () -> parser.parse(args));
     }
-
 
     @Test
     void ReturnsDefaultValueIfNoFlagInArguments() throws Exception {

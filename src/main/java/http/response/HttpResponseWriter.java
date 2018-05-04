@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class HttpResponseWriter {
 
-    private final byte[] NEWLINE = "\r\n".getBytes();
+    private final byte[] NEW_LINE = "\r\n".getBytes();
 
     public byte[] sendHttpResponse(HttpResponse httpResponse) {
         return responseAsBytes(httpResponse);
@@ -15,16 +15,16 @@ public class HttpResponseWriter {
     private byte[] responseAsBytes(HttpResponse httpResponse) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         writeToByteArrayOS(stream, httpResponse.statusLine());
-        writeToByteArrayOS(stream, NEWLINE);
+        writeToByteArrayOS(stream, NEW_LINE);
         writeToByteArrayOS(stream, headers(httpResponse.getHeaders()));
-        writeToByteArrayOS(stream, NEWLINE);
+        writeToByteArrayOS(stream, NEW_LINE);
         writeToByteArrayOS(stream, httpResponse.getBody());
         return stream.toByteArray();
     }
 
     private String headers(Map<String, String> headers) {
         StringBuilder builder = new StringBuilder();
-        headers.forEach((key, value) -> builder.append(key + ": " + value + "\r\n"));
+        headers.forEach((key, value) -> builder.append(key).append(": ").append(value).append("\r\n"));
         return builder.toString();
     }
 

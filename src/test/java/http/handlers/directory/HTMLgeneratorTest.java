@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HTMLgeneratorTest {
 
     @Test
-    void generate() {
+    void generatesHTML() {
         assertEquals(expectedOutput().getBytes().length, HTMLgenerator.generate(files()).length);
     }
 

@@ -35,8 +35,4 @@ class ConnectionProcessMultiThreadTest {
         Thread.sleep(1500);
         assertTrue(clientShortDelay.getClosedTime() < clientLongDelay.getClosedTime());
     }
-
-    @AfterEach
-    void tearDown() {
-    }
 }

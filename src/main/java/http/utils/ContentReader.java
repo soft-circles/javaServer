@@ -17,7 +17,7 @@ public class ContentReader {
         }
     }
 
-    public static final Map<String, String> VALID_FILE_TYPES = types();
+    private static final Map<String, String> VALID_FILE_TYPES = types();
 
     private static Map<String, String> types() {
         Map<String, String> types = new HashMap<>();

@@ -2,8 +2,8 @@ package http.connectionProcess;
 
 import http.client.ClientInput;
 import http.client.IClient;
-import http.controllers.IController;
-import http.controllers.InternalServerErrorController;
+import cob_spec.controllers.IController;
+import cob_spec.controllers.InternalServerErrorController;
 import http.request.HttpRequest;
 import http.response.HttpResponse;
 import http.response.HttpResponseWriter;

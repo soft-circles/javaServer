@@ -1,6 +1,6 @@
 package http.router;
 
-import http.controllers.IController;
+import cob_spec.controllers.IController;
 import http.handlers.auth.IAuth;
 import http.method.HttpMethod;
 

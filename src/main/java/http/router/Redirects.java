@@ -12,9 +12,7 @@ public class Redirects {
     }
 
     public static boolean isRedirect(String path) {
-        Iterator<ArrayList<String>> iterator = paths().values().iterator();
-        while (iterator.hasNext()) {
-            ArrayList<String> redirectList = iterator.next();
+        for (ArrayList<String> redirectList : paths().values()) {
             if (redirectList.contains(path)) {
                 return true;
             }

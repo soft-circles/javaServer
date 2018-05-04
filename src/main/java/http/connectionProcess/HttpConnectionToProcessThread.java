@@ -4,7 +4,7 @@ public class HttpConnectionToProcessThread implements Runnable {
 
     private final HttpConnectionToProcess httpConnectionToProcess;
 
-    public HttpConnectionToProcessThread(HttpConnectionToProcess httpConnectionToProcess) {
+    HttpConnectionToProcessThread(HttpConnectionToProcess httpConnectionToProcess) {
         this.httpConnectionToProcess = httpConnectionToProcess;
     }
 

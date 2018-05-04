@@ -12,7 +12,7 @@ class ContentReaderTest {
     }
 
     @Test
-    void getFileType() {
+    void getFileTypeReturnsStringOfContentType() {
         assertEquals("image/jpeg", ContentReader.getFileType(jpeg()));
         assertEquals("image/png", ContentReader.getFileType(png()));
         assertEquals("image/gif", ContentReader.getFileType(gif()));

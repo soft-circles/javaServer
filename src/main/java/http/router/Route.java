@@ -1,6 +1,6 @@
 package http.router;
 
-import http.controllers.IController;
+import cob_spec.controllers.IController;
 import http.handlers.auth.IAuth;
 import http.method.HttpMethod;
 
@@ -14,27 +14,27 @@ public class Route implements IRoute {
     private String path;
     private IAuth auth = null;
 
-    public Route(String path, HttpMethod httpMethod, IController controller) {
+    Route(String path, HttpMethod httpMethod, IController controller) {
         this.path = path;
         this.httpMethods = new ArrayList<>();
         this.httpMethods.add(httpMethod);
         this.controller = controller;
     }
 
-    public Route(String path, List<HttpMethod> httpMethods, IController controller) {
+    Route(String path, List<HttpMethod> httpMethods, IController controller) {
        this.path = path;
        this.httpMethods = httpMethods;
        this.controller = controller;
     }
 
-    public Route(String path, List<HttpMethod> httpMethods, IController controller, IAuth auth) {
+    Route(String path, List<HttpMethod> httpMethods, IController controller, IAuth auth) {
         this.path = path;
         this.httpMethods = httpMethods;
         this.controller = controller;
         this.auth = auth;
     }
 
-    public Route(String path, HttpMethod method, IController controller, IAuth auth) {
+    Route(String path, HttpMethod method, IController controller, IAuth auth) {
         this.path = path;
         this.httpMethods = new ArrayList<>();
         this.httpMethods.add(method);
